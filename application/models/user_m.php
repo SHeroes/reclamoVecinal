@@ -32,27 +32,24 @@ class user_m extends CI_Model {
         // to CodeIgniter, others are added.  See CodeIgniter's documentation for details.
         $this->session->set_userdata( array(
                 'id'=>$this->details->id,
-                'name'=> $this->details->firstName . ' ' . $this->details->lastName,
+                'perfil_level'=>$this->details->perfil_level,
+                'name'=> $this->details->nombre . ' ' . $this->details->apellido,
                 'email'=>$this->details->email,
-                'avatar'=>$this->details->avatar,
-                'tagline'=>$this->details->tagline,
-                'isAdmin'=>$this->details->isAdmin,
-                'teamId'=>$this->details->teamId,
+                'password'=>$this->details->password,
+                
                 'isLoggedIn'=>true
             )
         );
+
+
     }
 
     function  create_new_user( $userData ) {
-      $data['firstName'] = $userData['firstName'];
-      $data['lastName'] = $userData['lastName'];
-      $data['teamId'] = (int) $userData['teamId'];
-      $data['isAdmin'] = (int) $userData['isAdmin'];
-      $data['avatar'] = $this->getAvatar();
+      $data['perfil_level'] = (int) $userData['perfil_level'];
+      $data['apellido'] = $userData['lastName'];
+      $data['nombre'] = $userData['firstName'];
       $data['email'] = $userData['email'];
-      $data['tagline'] = "Click here to edit tagline.";
       $data['password'] = sha1($userData['password1']);
-
       return $this->db->insert('user',$data);
     }
 

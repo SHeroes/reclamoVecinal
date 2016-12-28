@@ -21,6 +21,8 @@ $(function () {
       this.$postButton = $('#btnPost');
       this.$myMessages = $('#tblMyMessages tbody');
       this.$newUserButton = $('#btnModalSubmit');
+      this.$newSecretaryButton = $('#btnSubmitSecretary');
+      this.$newDireccionButton = $('#btnSubmitDireccion');
       this.$modalWindow = $('#myModal');
       this.$otherPostAvatars = $('.otherAvatar img');
       this.$tagline = $('#pTagline');
@@ -34,6 +36,8 @@ $(function () {
       this.$messageBox.on('input propertychange', this.updateNumChars);
       this.$postButton.on('click', this.postMessage);
       this.$newUserButton.on('click', this.addNewUser);
+      this.$newSecretaryButton.on('click', this.addNewSecretary);
+      this.$newDireccionButton.on('click', this.addNewDireccion);
       this.$tagline.on('blur',this.saveTagline);
     },
 
@@ -61,17 +65,16 @@ $(function () {
      */
     addNewUser : function (e) {
       var formData = {
-        firstName : $('#first_name').val(),
-        lastName  : $('#last_name').val(),
-        email     : $('#email').val(),
-        isAdmin   : $('#isAdmin').is(':checked'),
-        teamId    : $('#teamId').val(),
-        password1 : $('#password').val(),
-        password2 : $('#password2').val()
+        firstName   : $('#first_name').val(),
+        lastName    : $('#last_name').val(),
+        email       : $('#email').val(),
+        perfil_level: $('#teamId').val(),
+        password1   : $('#password').val(),
+        password2   : $('#password2').val()
       };
       // TODO: Client-side validation goes here
 
-      var postUrl = App.baseUrl + '/index.php/main/create_new_user';
+      var postUrl = App.baseUrl + '/index.php/main_admin/create_new_user';
 
       $.ajax({
         type: 'POST',
@@ -84,6 +87,46 @@ $(function () {
 
     },
 
+
+    addNewSecretary : function (e) {
+      var formData = {
+        secretaria   : $('#secretaria').val(),
+        id_secretario: $('#id_secretario').val()
+      };
+      // TODO: Client-side validation goes here
+
+      var postUrl = App.baseUrl + '/index.php/main_admin/create_new_secretary';
+
+      $.ajax({
+        type: 'POST',
+        url: postUrl,
+        dataType: 'text',
+        data: formData,
+        success: App.newUserCreated,
+        error: App.alertError
+      })
+
+    },
+
+    addNewDireccion : function (e) {
+      var formData = {
+        direccion   : $('#direccion').val(),
+        id_secretaria: $('#id_sec_rel').val()
+      };
+      // TODO: Client-side validation goes here
+
+      var postUrl = App.baseUrl + '/index.php/main_admin/create_new_direccion';
+
+      $.ajax({
+        type: 'POST',
+        url: postUrl,
+        dataType: 'text',
+        data: formData,
+        success: App.newUserCreated,
+        error: App.alertError
+      })
+
+    },
     /**
      * Handler for 'Post New Message' button click.
      * Sends POST data to the post_message method

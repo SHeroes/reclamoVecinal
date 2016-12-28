@@ -40,34 +40,19 @@ label.checkbox {
     margin-right: 6px;
 }
 
-.otherPost{
-    margin: 0px 0px 5px 0px;
-    padding: 4px;
-    display: block;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
+.title-site{
+    font-family: "PT Sans", Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    letter-spacing: 0px;
+    font-size: 23px;
+    background: url(/assets/img/headerBg1px1.png) ;
 }
 
-.otherAvatar, .otherPostBody {
-    margin-left: 10px;
+#title-cav{
+    background: url(/assets/img/logo1x.png) no-repeat;
+    padding: 22px 70px;
+    color: #FFF;
 }
-
-.otherAvatar {
-    width: 20%;
-    float: left;
-}
-
-.otherPostInfo {
-    width: 100%;
-
-}
-
-.otherPostDate {
-    font-size: 88%;
-}
-
-
 
 
 
