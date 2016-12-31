@@ -1,0 +1,29 @@
+Agustin de Andres<pepetesting@gmail.com>
+
+
+
+Hola, Daniel.
+
+Te paso el acceso :	200.61.170.208
+
+Tiene que configurarse vpn con l2tp e IPSEC:
+Usuario: daniel
+Passwrod: daniel16122016
+La clave IPSEC es: oneringtorulethemall
+
+Para coneccion ssh para paso de archivos y edicion de su web es:
+Usuario: adminweb
+Passwrod: d3j4m33ntr4r
+Y el directorio de trabajo para la web es /var/www/html
+La web accede a la 192.168.2.51, todo lo que es transerencia de arhivos con scp (winscp en windows)
+
+Para el phpmyadmin:
+192.168.2.51/phpmyadmin
+user: root
+pass: my852654
+
+Cualquier consulta me avisas.
+
+-- 
+Agustín de Andrés
+SysAdmin
