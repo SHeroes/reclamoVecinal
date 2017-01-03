@@ -6,10 +6,22 @@
         <p><input type="text" class="span4" name="last_name" id="last_name" placeholder="Apellido"></p>
         <p><input type="text" class="span4" name="email" id="email" placeholder="Email"></p>
         <p>
+        <select class="span4" name="miembro_sector" id="miembro_sector">
+        <option value="">Sector del que depende</option>
+             <?php
+              foreach( $array_sectores as $sector){
+                echo  '<option value="'.$sector->id_sector.'">'. $sector->denominacion.'</option>';
+              }
+              ?>
+        </select>
+        </p>
+
+
+        <p>
           <select class="span4" name="teamId" id="teamId">
             <option value="">Perfil</option>
             <option value="1">Secretario</option>
-            <option value="2">Usuario Direccion</option>
+            <option value="2">Usuario Oficina</option>
             <option value="3">Operador</option>
             <option value="4">Intendente</option>
           </select>

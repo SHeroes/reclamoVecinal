@@ -3,7 +3,6 @@ $(function () {
   var App = {
 
     //TODO: Find a better way to set these from config.php
-//    baseUrl : '/ci_sock/part_one/',
     baseUrl : '',
     maxCharacters: 320,
     maxPostsPerPage : 5,
@@ -11,46 +10,27 @@ $(function () {
     init: function () {
       this.setElements();
       this.bindEvents();
-      this.setupComponents();
     },
 
     // Cache all the jQuery selectors for easy reference.
     setElements: function () {
       this.$messageBox = $('#txtNewMessage');
       this.$numChars = $('#spanNumChars');
-      this.$postButton = $('#btnPost');
       this.$myMessages = $('#tblMyMessages tbody');
       this.$newUserButton = $('#btnModalSubmit');
-      this.$newSecretaryButton = $('#btnSubmitSecretary');
-      this.$newDireccionButton = $('#btnSubmitDireccion');
+      this.$newSectorButton = $('#btnSubmitSector');
+      this.$modSectorButton = $('#btnSubmitModifySector');
       this.$modalWindow = $('#myModal');
-      this.$otherPostAvatars = $('.otherAvatar img');
-      this.$tagline = $('#pTagline');
-      this.$taglineText = this.$tagline.html();
-      this.$totalMessageCount = $('.totalMessageCount');
-      this.$messageCount = $('.messageCount');
     },
 
     // Bind document events and assign event handlers.
     bindEvents: function () {
-      this.$messageBox.on('input propertychange', this.updateNumChars);
-      this.$postButton.on('click', this.postMessage);
       this.$newUserButton.on('click', this.addNewUser);
-      this.$newSecretaryButton.on('click', this.addNewSecretary);
-      this.$newDireccionButton.on('click', this.addNewDireccion);
-      this.$tagline.on('blur',this.saveTagline);
+      this.$newSectorButton.on('click', this.addNewSector);
+      this.$modSectorButton.on('click', this.modSector);
     },
 
-    // Initialize any extra UI components
-    setupComponents : function () {
-      // Set up the popovers when hovering over another user's avatar.
-      this.$otherPostAvatars.popover({
-        html:true,
-        placement:'left',
-        trigger: 'hover'
-      });
-    },
-
+  
     /* *************************************
      *             Event Handlers
      * ************************************* */
@@ -69,6 +49,7 @@ $(function () {
         lastName    : $('#last_name').val(),
         email       : $('#email').val(),
         perfil_level: $('#teamId').val(),
+        miembro_sector: $('#miembro_sector').val(),
         password1   : $('#password').val(),
         password2   : $('#password2').val()
       };
@@ -87,67 +68,46 @@ $(function () {
 
     },
 
-
-    addNewSecretary : function (e) {
+    addNewSector : function (e) {
       var formData = {
-        secretaria   : $('#secretaria').val(),
-        id_secretario: $('#id_secretario').val()
+        padre   : $('#new-sector #padre').val(),
+        denominacion: $('#new-sector #denominacion').val(),
+        tipo: $('#new-sector #tipo').val()
       };
       // TODO: Client-side validation goes here
-
-      var postUrl = App.baseUrl + '/index.php/main_admin/create_new_secretary';
+      var postUrl = App.baseUrl + '/index.php/main_admin/create_new_sector';
 
       $.ajax({
         type: 'POST',
         url: postUrl,
         dataType: 'text',
         data: formData,
-        success: App.newUserCreated,
+        success: App.sectorReload,
         error: App.alertError
       })
 
     },
 
-    addNewDireccion : function (e) {
+
+    modSector : function (e) {
       var formData = {
-        direccion   : $('#direccion').val(),
-        id_secretaria: $('#id_sec_rel').val()
+        id_sector: $('#mod-sector #id_sector').val(),
+        padre   : $('#mod-sector #padre').val(),
+        denominacion: $('#mod-sector #denominacion').val(),
+        tipo: $('#mod-sector #tipo').val()
       };
       // TODO: Client-side validation goes here
-
-      var postUrl = App.baseUrl + '/index.php/main_admin/create_new_direccion';
+      var postUrl = App.baseUrl + '/index.php/main_admin/update_sector';
 
       $.ajax({
         type: 'POST',
         url: postUrl,
         dataType: 'text',
         data: formData,
-        success: App.newUserCreated,
+        success: App.sectorReload,
         error: App.alertError
       })
 
-    },
-    /**
-     * Handler for 'Post New Message' button click.
-     * Sends POST data to the post_message method
-     * of the main controller
-     *
-     * @param e event
-     */
-    postMessage: function (e) {
-      var messageText = App.$messageBox.val();
-      var postUrl = App.baseUrl + '/index.php/main/post_message';
-
-      if (messageText.length) {
-        $.ajax({
-          type: "POST",
-          url: postUrl,
-          data: {message : messageText},
-          success: App.successfulPost,
-          error: App.alertError,
-          dataType: 'html'
-        });
-      }
     },
 
     /**
@@ -180,27 +140,6 @@ $(function () {
       }
     },
 
-    /**
-     * The user clicked the tagline area and changed some text.
-     * This will save the changed text to the server and update the
-     * cached tagline.
-     *
-     * @param e
-     */
-    saveTagline : function(e) {
-      var newText = $(this).html();
-      if( App.$taglineText !== newText ) {
-        var postUrl = App.baseUrl + '/index.php/main/update_tagline';
-        $.ajax({
-          type: "POST",
-          url: postUrl,
-          data: {message : newText},
-          success: function(res){App.$taglineText=newText;},
-          error: App.alertError,
-          dataType: 'html'
-        });
-      }
-    },
 
     /* *************************************
      *             AJAX Callbacks
@@ -242,6 +181,15 @@ $(function () {
     newUserCreated : function(response) {
       if ( response ) {
         App.$modalWindow.modal('hide');
+      }
+      // TODO: if response not true, show server validation errors
+    },
+
+        
+    sectorReload : function(response) {
+      if ( response ) {
+        //console.log(response);
+        window.location.reload(true);
       }
       // TODO: if response not true, show server validation errors
     },

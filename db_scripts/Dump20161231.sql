@@ -1,21 +1,10 @@
--- MySQL Workbench Forward Engineering
-
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
-
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
--- -----------------------------------------------------
--- Schema dbcav
--- -----------------------------------------------------
-
--- -----------------------------------------------------
--- Schema dbcav
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `dbcav` DEFAULT CHARACTER SET utf8 ;
-USE `dbcav` ;
+CREATE DATABASE  IF NOT EXISTS `dbcav` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `dbcav`;
+-- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
+--
+-- Host: localhost    Database: dbcav
+-- ------------------------------------------------------
+-- Server version	5.7.14
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -71,23 +60,6 @@ CREATE TABLE `ci_sessions` (
   PRIMARY KEY (`id`),
   KEY `ci_sessions_timestamp` (`timestamp`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `direcciones`
---
-
-DROP TABLE IF EXISTS `direcciones`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `direcciones` (
-  `id_direccion` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) DEFAULT NULL,
-  `id_secretaria` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id_direccion`),
-  KEY `id_dir_sec_idx` (`id_secretaria`),
-  CONSTRAINT `id_dir_sec` FOREIGN KEY (`id_secretaria`) REFERENCES `secretarias` (`id_secretaria`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -231,18 +203,23 @@ CREATE TABLE `reclamos` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `secretarias`
+-- Table structure for table `sectores`
 --
 
-DROP TABLE IF EXISTS `secretarias`;
+DROP TABLE IF EXISTS `sectores`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `secretarias` (
-  `id_secretaria` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) DEFAULT NULL,
-  `id_secretario` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id_secretaria`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+CREATE TABLE `sectores` (
+  `id_sector` int(11) NOT NULL AUTO_INCREMENT,
+  `id_padre` int(11) DEFAULT NULL,
+  `denominacion` varchar(45) DEFAULT NULL,
+  `tipo` varchar(25) DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `fecha_cierre` datetime DEFAULT NULL,
+  PRIMARY KEY (`id_sector`),
+  KEY `id_padre_sector_idx` (`id_padre`),
+  CONSTRAINT `id_padre_sector` FOREIGN KEY (`id_padre`) REFERENCES `sectores` (`id_sector`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -279,17 +256,19 @@ CREATE TABLE `user` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `usuariosxdireccion`
+-- Table structure for table `usuariosxsector`
 --
 
-DROP TABLE IF EXISTS `usuariosxdireccion`;
+DROP TABLE IF EXISTS `usuariosxsector`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `usuariosxdireccion` (
+CREATE TABLE `usuariosxsector` (
   `id_usuario` int(11) NOT NULL,
-  `id_direccion` int(11) NOT NULL,
-  PRIMARY KEY (`id_usuario`,`id_direccion`),
-  CONSTRAINT `id_integrante` FOREIGN KEY (`id_usuario`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  `id_sector` int(11) NOT NULL,
+  PRIMARY KEY (`id_usuario`,`id_sector`),
+  KEY `id_us_sector_idx` (`id_sector`),
+  CONSTRAINT `id_integrante` FOREIGN KEY (`id_usuario`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `id_us_sector` FOREIGN KEY (`id_sector`) REFERENCES `sectores` (`id_sector`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -320,4 +299,4 @@ CREATE TABLE `vecino` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-27 22:00:31
+-- Dump completed on 2016-12-31 18:54:53

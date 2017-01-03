@@ -50,7 +50,14 @@ class user_m extends CI_Model {
       $data['nombre'] = $userData['firstName'];
       $data['email'] = $userData['email'];
       $data['password'] = sha1($userData['password1']);
-      return $this->db->insert('user',$data);
+      $this->db->insert('user',$data);
+      $lastid = $this->db->insert_id();
+
+      $data2['id_usuario'] = $lastid;
+      $data2['id_sector'] = $userData['miembro_sector'];
+      $this->db->insert('usuariosxsector',$data2);
+
+      return $lastid;
     }
 
     public function update_tagline( $user_id, $tagline ) {

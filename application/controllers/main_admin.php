@@ -16,6 +16,10 @@ class main_admin extends CI_Controller{
    * application screen is set up.
    */
   function show_main() {
+    $this->load->model('sector_m');
+    $sectores = $this->sector_m->get_all_sectores();
+    $data['array_sectores'] = $sectores;
+
     $data['is_admin'] = false;
     $data['name'] = $this->session->name;
     $this->basic_level($this->session->userdata('perfil_level'));
@@ -59,10 +63,11 @@ class main_admin extends CI_Controller{
             break;
       }
   }
-  function show_secretaria() {
-    $this->load->model('secretary_m');
-    $secretarias = $this->secretary_m->get_all_secretaries();
-    $data['data_array'] = $secretarias;
+
+  function show_sector() {
+    $this->load->model('sector_m');
+    $sectores = $this->sector_m->get_all_sectores();
+    $data['array_sectores'] = $sectores;
     $data['is_admin'] = false;
     $data['name'] = $this->session->name;
     $this->basic_level($this->session->userdata('perfil_level'));
@@ -70,53 +75,36 @@ class main_admin extends CI_Controller{
     if ($this->session->userdata('perfil_level') == 0){
       $data['is_admin'] = true;
       $this->load->view('main_admin',$data);
-      $this->load->view('secretarias',$data);
+      $this->load->view('sectores',$data);
       $this->load->view('footer',$data);
     } else {
       $this->load->view('restricted',$data);
-    }    
-
+    }
   }
 
-  function show_direccion() {
-    $this->load->model('direccion_m');
-    $direcciones = $this->direccion_m->get_all_direcciones();
-    $data['data_array'] = $direcciones;
-    $data['is_admin'] = false;
-    $data['name'] = $this->session->name;
-    $this->basic_level($this->session->userdata('perfil_level'));
-    $data['perfil'] = $this->perfil;
-    if ($this->session->userdata('perfil_level') == 0){
-      $data['is_admin'] = true;
-      $this->load->view('main_admin',$data);
-      $this->load->view('direcciones',$data);
-      $this->load->view('footer',$data);
-    } else {
-      $this->load->view('restricted',$data);
-    }  
-  }
 
-  function  create_new_secretary() {
+  function  create_new_sector() {
     $userInfo = $this->input->post(null,true);
     if( count($userInfo) ) {
-      $this->load->model('secretary_m');
-      $saved = $this->secretary_m->create_new_secretary($userInfo);
+      $this->load->model('sector_m');
+      $saved = $this->sector_m->create_new_sector($userInfo);
     }
     if ( isset($saved) && $saved ) {
        echo "success";
     }
   }
 
-  function  create_new_direccion() {
-    $userInfo = $this->input->post(null,true);
-    if( count($userInfo) ) {
-      $this->load->model('direccion_m');
-      $saved = $this->direccion_m->create_new_direccion($userInfo);
+  function  update_sector() {
+    $info = $this->input->post(null,true);
+    if( count($info) ) {
+      $this->load->model('sector_m');
+      $saved = $this->sector_m->update_sector_id($info['id_sector'],$info);
     }
     if ( isset($saved) && $saved ) {
        echo "success";
     }
   }
+
 
   function create_new_user() {
     $userInfo = $this->input->post(null,true);
@@ -127,7 +115,7 @@ class main_admin extends CI_Controller{
     }
 
     if ( isset($saved) && $saved ) {
-       echo "success";
+       echo "success creating user with id:".$saved;
     }
   }
 }

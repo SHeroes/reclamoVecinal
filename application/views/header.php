@@ -15,6 +15,7 @@
   <meta name="viewport" content="width=device-width">
 
   <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap.min.css">
+  
   <style>
     body {
       padding-top: 60px;
@@ -23,7 +24,7 @@
   </style>
   <!--<link rel="stylesheet" href="<?php /*echo base_url();*/?>/assets/css/bootstrap-responsive.min.css">-->
   <link rel="stylesheet" href="<?php echo base_url();?>assets/css/main.css">
-
+  <script src="<?php echo base_url();?>assets/js/vendor/jquery-3.1.1.min"></script>
   <script src="<?php echo base_url();?>assets/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 
 </head>
