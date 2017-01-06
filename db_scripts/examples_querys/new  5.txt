@@ -1,0 +1,27 @@
+use dbcav;
+
+Select * 
+From  user 
+inner join usuariosxsector 
+	on user.id = usuariosxsector.id_usuario
+inner join  sectores 
+	on sectores.id_sector = usuariosxsector.id_sector
+	
+	
+	
+	
+example:
+
+$sql = "SELECT * FROM some_table WHERE id = ? AND status = ? AND author = ?";
+$this->db->query($sql, array(3, 'live', 'Rick'));
+The question marks in the query are automatically replaced with the values in the array in the second parameter of the query function.
+
+Binding also work with arrays, which will be transformed to IN sets:
+
+$sql = "SELECT * FROM some_table WHERE id IN ? AND status = ? AND author = ?";
+$this->db->query($sql, array(array(3, 6), 'live', 'Rick'));
+The resulting query will be:
+
+SELECT * FROM some_table WHERE id IN (3,6) AND status = 'live' AND author = 'Rick'	
+ 
+ 

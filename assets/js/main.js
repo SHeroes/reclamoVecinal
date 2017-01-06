@@ -17,17 +17,27 @@ $(function () {
       this.$messageBox = $('#txtNewMessage');
       this.$numChars = $('#spanNumChars');
       this.$myMessages = $('#tblMyMessages tbody');
-      this.$newUserButton = $('#btnModalSubmit');
+      this.$newUserButton = $('#btnCreateUser');
+      this.$modUserButton = $('#btnModifyUser');
+      this.$delUserButton = $('#btnDeleteUser');
+
       this.$newSectorButton = $('#btnSubmitSector');
       this.$modSectorButton = $('#btnSubmitModifySector');
+      this.$delSectorButton = $('#btnDeleteSector');
+
       this.$modalWindow = $('#myModal');
     },
 
     // Bind document events and assign event handlers.
     bindEvents: function () {
       this.$newUserButton.on('click', this.addNewUser);
+      this.$modUserButton.on('click', this.modUser);
+      this.$delUserButton.on('click', this.delUser);
+
       this.$newSectorButton.on('click', this.addNewSector);
       this.$modSectorButton.on('click', this.modSector);
+      this.$delSectorButton.on('click', this.delSector);
+
     },
 
   
@@ -45,13 +55,13 @@ $(function () {
      */
     addNewUser : function (e) {
       var formData = {
-        firstName   : $('#first_name').val(),
-        lastName    : $('#last_name').val(),
-        email       : $('#email').val(),
-        perfil_level: $('#teamId').val(),
-        miembro_sector: $('#miembro_sector').val(),
-        password1   : $('#password').val(),
-        password2   : $('#password2').val()
+        firstName   : $('#new-user #first_name').val(),
+        lastName    : $('#new-user #last_name').val(),
+        email       : $('#new-user #email').val(),
+        perfil_level: $('#new-user #teamId').val(),
+        miembro_sector: $('#new-user #miembro_sector').val(),
+        password1   : $('#new-user #password').val(),
+        password2   : $('#new-user #password2').val()
       };
       // TODO: Client-side validation goes here
 
@@ -64,6 +74,32 @@ $(function () {
         data: formData,
         success: App.newUserCreated,
         error: App.alertError
+      })
+
+    },
+
+    modUser : function (e) {
+      var formData = {
+        id: $('#mod-user #id_user').val(),
+        firstName   : $('#mod-user #first_name').val(),
+        lastName    : $('#mod-user #last_name').val(),
+        email       : $('#mod-user #email').val(),
+        perfil_level: $('#mod-user #teamId').val(),
+        miembro_sector: $('#mod-user #miembro_sector').val(),
+        password1   : $('#mod-user #password').val(),
+        password2   : $('#mod-user #password2').val()
+      };
+      // TODO: Client-side validation goes here
+
+      var postUrl = App.baseUrl + '/index.php/main_admin/update_user';
+
+      $.ajax({
+        type: 'POST',
+        url: postUrl,
+        dataType: 'text',
+        data: formData,
+        success: App.userModify,
+        error: App.userModify
       })
 
     },
@@ -181,6 +217,13 @@ $(function () {
     newUserCreated : function(response) {
       if ( response ) {
         App.$modalWindow.modal('hide');
+      }
+      // TODO: if response not true, show server validation errors
+    },
+
+    userModify : function(response) {
+      if ( response ) {
+        console.log(response);
       }
       // TODO: if response not true, show server validation errors
     },

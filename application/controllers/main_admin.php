@@ -16,9 +16,7 @@ class main_admin extends CI_Controller{
    * application screen is set up.
    */
   function show_main() {
-    $this->load->model('sector_m');
-    $sectores = $this->sector_m->get_all_sectores();
-    $data['array_sectores'] = $sectores;
+
 
     $data['is_admin'] = false;
     $data['name'] = $this->session->name;
@@ -29,6 +27,14 @@ class main_admin extends CI_Controller{
       case 0:
         $data['is_admin'] = true;
         //print_r($this->perfil);
+        $this->load->model('sector_m');
+        $sectores = $this->sector_m->get_all_sectores();
+        $data['array_sectores'] = $sectores;
+
+        $this->load->model('user_m');
+        $all_users = $this->user_m->get_all__users();
+        $data['all_users'] = $all_users;
+
         $this->load->view('main_admin',$data);
         $this->load->view('usuarios',$data);
         $this->load->view('footer',$data);
@@ -118,4 +124,16 @@ class main_admin extends CI_Controller{
        echo "success creating user with id:".$saved;
     }
   }
+
+  function  update_user() {
+    $info = $this->input->post(null,true);
+    if( count($info) ) {
+      $this->load->model('user_m');
+      $saved = $this->user_m->update_user_id($info['id'],$info);
+    }
+    if ( isset($saved) && $saved ) {
+       echo "success";
+    }
+  }
+
 }

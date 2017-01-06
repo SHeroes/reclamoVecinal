@@ -15,19 +15,9 @@ class sector_m extends CI_Model {
     }
 
     function get_all_sectores(){
-		$this->db->from('sectores');
-        $sectores = $this->db->get()->result();
-        return $sectores;
-    }
-
-    // Function To Fetch Selected Student Record
-    function show_sectores_id($data){
-    $this->db->select('*');
-    $this->db->from('students');
-    $this->db->where('student_id', $data);
-    $query = $this->db->get();
-    $result = $query->result();
-    return $result;
+		  $this->db->from('sectores');
+      $sectores = $this->db->get()->result();
+      return $sectores;
     }
 
 
