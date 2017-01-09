@@ -18,14 +18,14 @@
       <div class="col-sm-6" id="new-sector">
       <h3>Crear Sector Nuevo</h3>
         <!-- <p><input type="text" class="span4" name="padre" id="padre" placeholder="sector padre"></p> -->
-        <select class="span4" name="padre" id="padre">
+         <p><select class="span4" name="padre" id="padre">
         <option value="">Sector del que depende</option>
              <?php
               foreach( $array_sectores as $sector){
                 echo  '<option value="'.$sector->id_sector.'">'. $sector->denominacion.'</option>';
               }
               ?>
-        </select>
+        </select></p>
         <p><input type="text" class="span4" name="denominacion" id="denominacion" placeholder="denominacion"></p>
           <select class="span4" name="tipo" id="tipo" placeholder="Tipo de Sector">
             <option value="Oficina">Oficina</option>
@@ -33,7 +33,7 @@
             <option value="Secretaria">Secretaria</option> 
           </select>
         <p>  
-        <a href="#" id="btnSubmitSector" class="btn btn-primary">Create</a>
+        <p><a href="#" id="btnSubmitSector" class="btn btn-primary">Create</a></p>
       </p>
       </div>
       <div class="col-sm-6" id="mod-sector">
@@ -45,7 +45,16 @@
             }?>
         </select>
         <p><span>Ingresar los datos nuevos:</span><p>
-        <p><input type="text" class="span4" name="padre" id="padre" placeholder="sector padre"></p>
+
+        <p><select class="span4" name="padre" id="padre">
+        <option value="">Sector del que dependerá</option>
+             <?php
+              foreach( $array_sectores as $sector){
+                echo  '<option value="'.$sector->id_sector.'">'. $sector->denominacion.'</option>';
+              }
+              ?>
+        </select></p>
+
         <p><input type="text" class="span4" name="denominacion" id="denominacion" placeholder="denominacion"></p>
           <select class="span4" name="tipo" id="tipo" placeholder="Tipo de Sector">
              <option value="Oficina">Oficina</option>
@@ -53,7 +62,7 @@
             <option value="Secretaria">Secretaria</option> 
           </select>
         <p>  
-        <a href="#" id="btnSubmitModifySector" class="btn btn-primary">Modificar</a>
+        <p><a href="#" id="btnSubmitModifySector" class="btn btn-primary">Modificar</a></p>
       </p>
       </div>
     </div>
