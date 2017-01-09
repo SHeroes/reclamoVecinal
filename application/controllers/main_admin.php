@@ -88,7 +88,6 @@ class main_admin extends CI_Controller{
     }
   }
 
-
   function  create_new_sector() {
     $userInfo = $this->input->post(null,true);
     if( count($userInfo) ) {
@@ -133,6 +132,58 @@ class main_admin extends CI_Controller{
     }
     if ( isset($saved) && $saved ) {
        echo "success";
+    }
+  }
+
+  function show_calendar() {
+    
+
+
+    $data['name'] = $this->session->name;
+    $this->basic_level($this->session->userdata('perfil_level'));
+    $data['perfil'] = $this->perfil;
+    if ($this->session->userdata('perfil_level') == 0){
+
+      $this->load->model('calendar_m');
+      $fechas = $this->calendar_m->get_holy_dates();
+      $data['array_fechas'] = $fechas;
+
+      $data['is_admin'] = true;
+      
+      
+      //$feriados = $this->sector_m->get_all_dates();
+
+      $this->load->view('main_admin',$data);
+      $this->load->view('calendar',$data);     
+      $this->load->view('footer',$data);
+      
+  
+    } else {
+      $this->load->view('restricted',$data);
+    }
+  }
+
+  function  insert_date() {
+    $info = $this->input->post(null,true);
+    if( count($info) ) {
+      $this->load->model('calendar_m');
+      $saved = $this->calendar_m->insert_date($info['datepicker']);
+    }
+    if ( isset($saved) && $saved ) {
+       echo "feriado agregado exitosamente";
+       redirect('main_admin/show_calendar');
+    }
+  }
+
+  function  delete_date() {
+    $info = $this->input->post(null,true);
+    if( count($info) ) {
+      $this->load->model('calendar_m');
+      $saved = $this->calendar_m->delete_date($info['datepicker2']);
+    }
+    if ( isset($saved) && $saved ) {
+       echo "feriado eliminado exitosamente";
+        redirect('main_admin/show_calendar');
     }
   }
 

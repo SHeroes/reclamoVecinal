@@ -1,5 +1,5 @@
 $( document ).ready(function() {
-    console.log( "ready!" );
-    	$('li.usuarios').removeClass('active');
+    $('li.usuarios').removeClass('active');
+    $('li.calendario').removeClass('active');
 	$('li.sectores').addClass('active');
 });
