@@ -41,14 +41,17 @@ ORDER BY fecha ;
 SET lc_time_names = 'en_US';
  */
  
+  
 /*		MARCA	*/
-
-ALTER TABLE `dbcav`.`reclamos` 
+ 
+ ALTER TABLE `dbcav`.`reclamos` 
 ADD COLUMN `descripcion` TEXT NULL AFTER `estado`;
+
 
 
 ALTER TABLE `dbcav`.`tiporeclamo` 
 ADD COLUMN `descripcion` TEXT NULL AFTER `id_responsable`,
-ADD COLUMN `titulo` VARCHAR(45) NOT NULL AFTER `descripcion`;
-ADD COLUMN `estado_activo` BIT NOT NULL DEFAULT TRUE ;
+ADD COLUMN `titulo` VARCHAR(45) NOT NULL AFTER `descripcion`,
+ADD COLUMN `estado_activo` BIT NOT NULL  DEFAULT TRUE AFTER `titulo` ;
 
+/*		MARCA	*/

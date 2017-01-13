@@ -1,7 +1,7 @@
 <?php
 
 
-class Reclamo_Tipo_m extends CI_Model {
+class Reclamo_tipo_m extends CI_Model {
 
     function get_all_tipo_reclamos(){
       $this->db->from('tiporeclamo');
