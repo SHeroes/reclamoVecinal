@@ -1,7 +1,7 @@
 <?php
 
 
-class sector_m extends CI_Model {
+class Sector_m extends CI_Model {
 
     function  create_new_sector( $sectorData ) {
       $sectorData['padre'] == '' ? $data['id_padre'] = null : $data['id_padre'] = $sectorData['padre'];

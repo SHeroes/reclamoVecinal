@@ -1,4 +1,4 @@
-  <?php echo '<script src="'. base_url() .'assets/js/show_calendar.js"></script>'; ?>  
+ 
   <div class="container">
       <h1> Feriados del Año en curso en Adelante </h1>
       <h4>Todos los Sabados y Domingo ya se consideran no laborales</h4>
@@ -44,20 +44,4 @@
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script>
-  $( function() {
-    $( "#datepicker" ).datepicker({
-      dateFormat: "yy-mm-dd",
-      dayNamesMin: [ "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa" ],
-      monthNames: [ "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Augosto", "Setiembre", "Octubre", "Noviebre", "Diciembre" ],
-      dayNames: [ "Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado" ]
-    });
-    $( "#datepicker2" ).datepicker({
-      dateFormat: "yy-mm-dd",
-      dayNamesMin: [ "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa" ],
-      monthNames: [ "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Augosto", "Setiembre", "Octubre", "Noviebre", "Diciembre" ],
-      dayNames: [ "Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado" ]
-    });
-  } );
-
-  </script>
+  <?php echo '<script src="'. base_url() .'assets/js/show_calendar.js"></script>'; ?> 

@@ -1,7 +1,7 @@
 <?php
 
 
-class secretary_m extends CI_Model {
+class Secretary_m extends CI_Model {
 
     function  create_new_secretary( $secretaryData ) {
       $data['nombre'] = $secretaryData['secretaria'];

@@ -1,7 +1,7 @@
 <?php
 
 
-class user_m extends CI_Model {
+class User_m extends CI_Model {
 
     var $details;
 

@@ -12,6 +12,11 @@ $(function () {
       this.bindEvents();
     },
 
+    styles: function () {
+      this.navBarStyle();
+    },
+
+
     // Cache all the jQuery selectors for easy reference.
     setElements: function () {
       this.$messageBox = $('#txtNewMessage');
@@ -188,6 +193,8 @@ $(function () {
      *
      * @param result An HTML <tr> string with the new message
      */
+
+     /*
     successfulPost : function( result ) {
       var messageRows = App.$myMessages.children();
 
@@ -209,6 +216,7 @@ $(function () {
 
       // Send socket.io notification
     },
+    */
 
     /**
      * A new user has been created, and the server has responded (or errored)

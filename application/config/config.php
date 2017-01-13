@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-//$config['base_url']	= 'http://localhost/ci_sock/part_one/';
+
 $config['base_url']	= 'http://cav.gob/';
 
 /*

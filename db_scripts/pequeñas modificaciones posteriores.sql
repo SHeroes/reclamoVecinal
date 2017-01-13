@@ -31,8 +31,7 @@ END;
 |
 DELIMITER ; 
 
-/*	lleno los finde semana 2017 */
-CALL llenarFeriados('2017-01-01','2017-12-31');
+
 
 /* 	
 SET lc_time_names = 'es_ES';
@@ -41,8 +40,15 @@ WHERE dayname(fecha) != 'Sabado' AND dayname(fecha) != 'Domingo' and year(fecha)
 ORDER BY fecha ;
 SET lc_time_names = 'en_US';
  */
+ 
+/*		MARCA	*/
 
-/*		inserto solo dos feriados de prueba los de carnaval		*/
-INSERT INTO feriados (fecha) VALUES ('2017-02-27');
-INSERT INTO feriados (fecha) VALUES ('2017-02-28');
+ALTER TABLE `dbcav`.`reclamos` 
+ADD COLUMN `descripcion` TEXT NULL AFTER `estado`;
+
+
+ALTER TABLE `dbcav`.`tiporeclamo` 
+ADD COLUMN `descripcion` TEXT NULL AFTER `id_responsable`,
+ADD COLUMN `titulo` VARCHAR(45) NOT NULL AFTER `descripcion`;
+ADD COLUMN `estado_activo` BIT NOT NULL DEFAULT TRUE ;
 

@@ -1,4 +1,4 @@
-    <?php echo '<script src="'. base_url() .'assets/js/show_sector.js"></script>'; ?>
+    <?php echo '<script src="'. base_url() .'assets/js/show_sectors.js"></script>'; ?>
     <div class="container">
       <h1> Sectores Existentes</h1>
       <?php

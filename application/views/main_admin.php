@@ -8,14 +8,17 @@
           <div class="collapse navbar-collapse">
                 <a class="navbar-brand" href="#" name="top">Bienvenido <?php echo $name; ?> perfil: <?php echo $perfil;?></a>
                 <ul class="nav navbar-nav">
-                  <li class="active usuarios">
-                    <a href="show_main"><span class="glyphicon glyphicon-home"> Usuarios </span></a>
+                  <li class="usuarios">
+                    <a href="show_main"><i class="glyphicon glyphicon-home"></i> Usuarios </a>
                     </li>
                   <li class="sectores">
                     <a href="show_sector"><i class="glyphicon glyphicon-th-list"></i> Sectores </a>
                   </li>
                   <li class="calendario">
                     <a href="show_calendar"><i class="glyphicon glyphicon-th-list"></i> Calendario </a>
+                  </li>
+                  <li class="catalogo-reclamos">
+                    <a href="show_reclamo_tipo"><i class="glyphicon glyphicon-th-list"></i> Catálogo Reclamos </a>
                   </li>
                   <li class="dropdown hidden">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>

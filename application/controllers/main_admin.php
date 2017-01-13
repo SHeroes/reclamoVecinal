@@ -1,6 +1,6 @@
 <?php
 
-class main_admin extends CI_Controller{
+class Main_admin extends CI_Controller{
   var $perfil = '';
   public function __construct()
   {
@@ -59,7 +59,7 @@ class main_admin extends CI_Controller{
             $this->perfil = 'Secretario';
             break;
         case 2:
-            $this->perfil = 'Direccion';
+            $this->perfil = 'Oficina';
             break;
         case 3: 
             $this->perfil = 'Operador';
@@ -184,6 +184,72 @@ class main_admin extends CI_Controller{
     if ( isset($saved) && $saved ) {
        echo "feriado eliminado exitosamente";
         redirect('main_admin/show_calendar');
+    }
+  }
+
+  function show_reclamo_tipo() {
+    $data['name'] = $this->session->name;
+    $this->basic_level($this->session->userdata('perfil_level'));
+    $data['perfil'] = $this->perfil;
+    if ($this->session->userdata('perfil_level') == 0){
+
+      $this->load->model('reclamo_tipo_m');
+
+
+      $tipos_reclamos = $this->reclamo_tipo_m->get_all_tipo_reclamos();
+      $data['tipos_reclamos'] = $tipos_reclamos;
+
+      $responsables = $this->reclamo_tipo_m->get_responsables();
+      $data['array_responsables'] = $responsables;      
+
+      $data['is_admin'] = true;
+      
+
+      $this->load->view('main_admin',$data);
+      $this->load->view('reclamos_catalogo',$data);     
+      $this->load->view('footer',$data);
+      
+  
+    } else {
+      $this->load->view('restricted',$data);
+    }
+  }
+
+
+  function  insertar_tipo_reclamo() {
+      $info = $this->input->post(null,true);
+      if( count($info) ) {
+        $this->load->model('reclamo_tipo_m');
+        $saved = $this->reclamo_tipo_m->insert_tipo_reclamo($info);
+      }
+      if ( isset($saved) && $saved ) {
+         echo "reclamo agregado exitosamente";
+         redirect('main_admin/show_reclamo_tipo');
+      }
+    }
+
+  function  modificar_tipo_reclamo() {
+    $info = $this->input->post(null,true);
+    if( count($info) ) {
+      $this->load->model('reclamo_tipo_m');
+      $saved = $this->reclamo_tipo_m->update_tipo_reclamo($info);
+    }
+    if ( isset($saved) && $saved ) {
+       echo "reclamo modificado exitosamente";
+       redirect('main_admin/show_reclamo_tipo');
+    }
+  }
+
+  
+  function  desactivar_tipo_reclamo() {
+    $info = $this->input->post(null,true);
+    if( count($info) ) {
+      $this->load->model('reclamo_tipo_m');
+      $saved = $this->reclamo_tipo_m->disable_tipo_reclamo($info);
+    }
+    if ( isset($saved) && $saved ) {
+       echo "reclamo deshabilitado exitosamente";
+        redirect('main_admin/show_reclamo_tipo');
     }
   }
 

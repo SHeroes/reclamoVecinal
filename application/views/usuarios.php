@@ -1,3 +1,4 @@
+    <?php echo '<script src="'. base_url() .'assets/js/show_users.js"></script>'; ?>
   <div class="container">
       <h1> Usuarios Existentes</h1>
       <?php
