@@ -1,7 +1,13 @@
 <?php
 
 class Main_admin extends CI_Controller{
-  var $perfil = '';
+  var $data = array(
+    'perfil' => '' ,
+    'perfil_lvl' => 9 ,
+    'is_admin' => false,
+    'name' => ''
+   );
+
   public function __construct()
   {
     parent::__construct();
@@ -10,85 +16,94 @@ class Main_admin extends CI_Controller{
     }   
   }
 
-  /**
-   * This is the controller method that drives the application.
-   * After a user logs in, show_main() is called and the main
-   * application screen is set up.
-   */
-  function show_main() {
+  public function basic_level(){
+      $this->data['name'] = $this->session->name;
+      $this->data['perfil_lvl'] = $this->session->userdata('perfil_level');
+      switch ($this->data['perfil_lvl']){
+        case 0:
+            $this->data['perfil'] = 'Administrador';
+            $this->data['is_admin'] = true;
+            break;
+        case 1: 
+            $this->data['perfil'] = 'Secretario';
+            break;
+        case 2:
+            $this->data['perfil'] = 'Oficina';
+            break;
+        case 3: 
+            $this->data['perfil'] = 'Operador';
+            redirect('/main_operator/show_main');
+            break;
+        case 4: 
+            $this->data['perfil'] = 'Intendente';  
+            break;
+      }
+      return $this->data['perfil_lvl'];
+  }
 
+  function show_main() {    
+    if($this->basic_level() != 0) {
+      $this->load->view('restricted',$this->data);
+      return ;
+    }
+    $this->load->model('sector_m');
+    $sectores = $this->sector_m->get_all_sectores();
+    $this->data['array_sectores'] = $sectores;
 
-    $data['is_admin'] = false;
-    $data['name'] = $this->session->name;
-    $this->basic_level($this->session->userdata('perfil_level'));
-    $data['perfil'] = $this->perfil;
+    $this->load->model('user_m');
+    $all_users = $this->user_m->get_all__users();
+    $this->data['all_users'] = $all_users;
 
+    $this->load->view('main_admin',$this->data);
+    $this->load->view('usuarios',$this->data);
+    $this->load->view('footer',$this->data);
+/*
     switch ($this->session->userdata('perfil_level')){
       case 0:
-        $data['is_admin'] = true;
+        data['is_admin'] = true;
         //print_r($this->perfil);
         $this->load->model('sector_m');
         $sectores = $this->sector_m->get_all_sectores();
-        $data['array_sectores'] = $sectores;
+        data['array_sectores'] = $sectores;
 
         $this->load->model('user_m');
         $all_users = $this->user_m->get_all__users();
-        $data['all_users'] = $all_users;
+        data['all_users'] = $all_users;
 
-        $this->load->view('main_admin',$data);
-        $this->load->view('usuarios',$data);
-        $this->load->view('footer',$data);
+        $this->load->view('main_admin',data);
+        $this->load->view('usuarios',data);
+        $this->load->view('footer',data);
       break;
+      case 2: 
+        $this->load->view('main_oficina',data);
+        //$this->load->view('reclamos',data);
+        $this->load->view('footer',data);
       case 3:
-        $this->load->view('main_operator',$data);
-        //$this->load->view('reclamos',$data);
-        $this->load->view('footer',$data);
+        $this->load->view('main_operator',data);
+        //$this->load->view('reclamos',data);
+        $this->load->view('footer',data);
       break;
       default:
-        $this->load->view('restricted',$data);
+        $this->load->view('restricted',data);
       break;
     }  
-  }
-
-  private function basic_level($level){
-      switch ($level){
-        case 0:
-            $this->perfil = 'Administrador';
-            break;
-        case 1: 
-            $this->perfil = 'Secretario';
-            break;
-        case 2:
-            $this->perfil = 'Oficina';
-            break;
-        case 3: 
-            $this->perfil = 'Operador';
-            break;
-        case 4: 
-            $this->perfil = 'Intendente';  
-            break;
-      }
+    */
   }
 
   function show_sector() {
+    if($this->basic_level() != 0) {
+      $this->load->view('restricted',$this->data);
+      return ;
+    }
     $this->load->model('sector_m');
     $sectores = $this->sector_m->get_all_sectores();
-    $data['array_sectores'] = $sectores;
-    $data['is_admin'] = false;
-    $data['name'] = $this->session->name;
-    $this->basic_level($this->session->userdata('perfil_level'));
-    $data['perfil'] = $this->perfil;
-    if ($this->session->userdata('perfil_level') == 0){
-      $data['is_admin'] = true;
-      $this->load->view('main_admin',$data);
-      $this->load->view('sectores',$data);
-      $this->load->view('footer',$data);
-    } else {
-      $this->load->view('restricted',$data);
-    }
+    $this->data['array_sectores'] = $sectores;
+    $this->load->view('main_admin',$this->data);
+    $this->load->view('sectores',$this->data);
+    $this->load->view('footer',$this->data);
   }
 
-  function  create_new_sector() {
+  function create_new_sector() {
     $userInfo = $this->input->post(null,true);
     if( count($userInfo) ) {
       $this->load->model('sector_m');
@@ -99,7 +114,7 @@ class Main_admin extends CI_Controller{
     }
   }
 
-  function  update_sector() {
+  function update_sector() {
     $info = $this->input->post(null,true);
     if( count($info) ) {
       $this->load->model('sector_m');
@@ -124,7 +139,7 @@ class Main_admin extends CI_Controller{
     }
   }
 
-  function  update_user() {
+  function update_user() {
     $info = $this->input->post(null,true);
     if( count($info) ) {
       $this->load->model('user_m');
@@ -136,34 +151,20 @@ class Main_admin extends CI_Controller{
   }
 
   function show_calendar() {
-    
-
-
-    $data['name'] = $this->session->name;
-    $this->basic_level($this->session->userdata('perfil_level'));
-    $data['perfil'] = $this->perfil;
-    if ($this->session->userdata('perfil_level') == 0){
-
-      $this->load->model('calendar_m');
-      $fechas = $this->calendar_m->get_holy_dates();
-      $data['array_fechas'] = $fechas;
-
-      $data['is_admin'] = true;
-      
-      
-      //$feriados = $this->sector_m->get_all_dates();
-
-      $this->load->view('main_admin',$data);
-      $this->load->view('calendar',$data);     
-      $this->load->view('footer',$data);
-      
-  
-    } else {
-      $this->load->view('restricted',$data);
+    if($this->basic_level() != 0) {
+      $this->load->view('restricted',$this->data);
+      return ;
     }
+    $this->load->model('calendar_m');
+    $fechas = $this->calendar_m->get_holy_dates();
+    $this->data['array_fechas'] = $fechas;
+
+    $this->load->view('main_admin',$this->data);
+    $this->load->view('calendar',$this->data);     
+    $this->load->view('footer',$this->data);
   }
 
-  function  insert_date() {
+  function insert_date() {
     $info = $this->input->post(null,true);
     if( count($info) ) {
       $this->load->model('calendar_m');
@@ -175,7 +176,7 @@ class Main_admin extends CI_Controller{
     }
   }
 
-  function  delete_date() {
+  function delete_date() {
     $info = $this->input->post(null,true);
     if( count($info) ) {
       $this->load->model('calendar_m');
@@ -188,35 +189,22 @@ class Main_admin extends CI_Controller{
   }
 
   function show_reclamo_tipo() {
-    $data['name'] = $this->session->name;
-    $this->basic_level($this->session->userdata('perfil_level'));
-    $data['perfil'] = $this->perfil;
-    if ($this->session->userdata('perfil_level') == 0){
-
-      $this->load->model('reclamo_tipo_m');
-
-
-      $tipos_reclamos = $this->reclamo_tipo_m->get_all_tipo_reclamos();
-      $data['tipos_reclamos'] = $tipos_reclamos;
-
-      $responsables = $this->reclamo_tipo_m->get_responsables();
-      $data['array_responsables'] = $responsables;      
-
-      $data['is_admin'] = true;
-      
-
-      $this->load->view('main_admin',$data);
-      $this->load->view('reclamos_catalogo',$data);     
-      $this->load->view('footer',$data);
-      
-  
-    } else {
-      $this->load->view('restricted',$data);
+    if($this->basic_level() != 0) {
+      $this->load->view('restricted',$this->data);
+      return ;
     }
+    $this->load->model('reclamo_tipo_m');
+    $tipos_reclamos = $this->reclamo_tipo_m->get_all_tipo_reclamos();
+    $this->data['tipos_reclamos'] = $tipos_reclamos;
+    $responsables = $this->reclamo_tipo_m->get_responsables();
+    $this->data['array_responsables'] = $responsables;      
+
+    $this->load->view('main_admin',$this->data);
+    $this->load->view('reclamos_catalogo',$this->data);     
+    $this->load->view('footer',$this->data);
   }
 
-
-  function  insertar_tipo_reclamo() {
+  function insertar_tipo_reclamo() {
       $info = $this->input->post(null,true);
       if( count($info) ) {
         $this->load->model('reclamo_tipo_m');
@@ -226,9 +214,9 @@ class Main_admin extends CI_Controller{
          echo "reclamo agregado exitosamente";
          redirect('main_admin/show_reclamo_tipo');
       }
-    }
+  }
 
-  function  modificar_tipo_reclamo() {
+  function modificar_tipo_reclamo() {
     $info = $this->input->post(null,true);
     if( count($info) ) {
       $this->load->model('reclamo_tipo_m');
@@ -239,9 +227,8 @@ class Main_admin extends CI_Controller{
        redirect('main_admin/show_reclamo_tipo');
     }
   }
-
   
-  function  desactivar_tipo_reclamo() {
+  function desactivar_tipo_reclamo() {
     $info = $this->input->post(null,true);
     if( count($info) ) {
       $this->load->model('reclamo_tipo_m');

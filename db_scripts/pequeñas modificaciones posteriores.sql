@@ -48,10 +48,29 @@ SET lc_time_names = 'en_US';
 ADD COLUMN `descripcion` TEXT NULL AFTER `estado`;
 
 
-
 ALTER TABLE `dbcav`.`tiporeclamo` 
 ADD COLUMN `descripcion` TEXT NULL AFTER `id_responsable`,
 ADD COLUMN `titulo` VARCHAR(45) NOT NULL AFTER `descripcion`,
 ADD COLUMN `estado_activo` BIT NOT NULL  DEFAULT TRUE AFTER `titulo` ;
 
-/*		MARCA	*/
+/*		MARCA	13/01/17	*/
+
+ALTER TABLE `dbcav`.`domicilio` 
+ADD COLUMN `dpto` INT NOT NULL AFTER `id_barrio`,
+ADD COLUMN `piso` INT NOT NULL AFTER `dpto`;
+
+ALTER TABLE `dbcav`.`domicilio` 
+CHANGE COLUMN `entrecalles` `entrecalle1` TINYTEXT NULL DEFAULT NULL ,
+ADD COLUMN `entrecalle2` TINYTEXT NULL DEFAULT NULL AFTER `entrecalle1`;
+
+ALTER TABLE `dbcav`.`domicilio` 
+CHANGE COLUMN `entrecalle1` `entrecalle1_id` INT(11) NULL DEFAULT NULL ,
+CHANGE COLUMN `entrecalle2` `entrecalle2_id` INT(11) NULL DEFAULT NULL ;
+
+
+ALTER TABLE `dbcav`.`vecino` 
+CHANGE COLUMN `tel` `tel_fijo` VARCHAR(20) NULL DEFAULT NULL ,
+CHANGE COLUMN `cel` `tel_movil` VARCHAR(20) NULL DEFAULT NULL ;
+
+
+

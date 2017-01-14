@@ -4,7 +4,20 @@ class Login extends CI_Controller {
 
     function index() {
         if( $this->session->userdata('isLoggedIn') ) {
-            redirect('/main_admin/show_main');
+           switch ($this->session->userdata('perfil_level')){
+                case 0:
+                redirect('/main_admin/show_main');
+                break;
+                case 2:
+                redirect('/main_officer/show_main');
+                break;
+                case 3:
+                redirect('/main_operator/show_main');
+                break;
+                default:
+                $this->load->view('restricted',$data);
+                break;
+            }  
         } else {
             $this->show_login(false);
         }
@@ -22,7 +35,6 @@ class Login extends CI_Controller {
         if( $email && $pass && $this->user_m->validate_user($email,$pass)) {
             // If the user is valid, redirect to the main view
             
-            //print_r($this->user_m->details);
             redirect('/main_admin/show_main');
 
         } else {
