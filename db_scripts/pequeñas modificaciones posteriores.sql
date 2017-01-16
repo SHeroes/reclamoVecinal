@@ -72,5 +72,19 @@ ALTER TABLE `dbcav`.`vecino`
 CHANGE COLUMN `tel` `tel_fijo` VARCHAR(20) NULL DEFAULT NULL ,
 CHANGE COLUMN `cel` `tel_movil` VARCHAR(20) NULL DEFAULT NULL ;
 
-
+ALTER TABLE `dbcav`.`domicilio` 
+DROP FOREIGN KEY `id_calle`;
+ALTER TABLE `dbcav`.`domicilio` 
+CHANGE COLUMN `id_calle` `id_calle` INT(11) NOT NULL ,
+CHANGE COLUMN `altura` `altura` INT(11) NOT NULL ,
+CHANGE COLUMN `entrecalle1_id` `entrecalle1_id` INT(11) NOT NULL ,
+CHANGE COLUMN `entrecalle2_id` `entrecalle2_id` INT(11) NOT NULL ,
+CHANGE COLUMN `dpto` `dpto` INT(11) NULL ,
+CHANGE COLUMN `piso` `piso` INT(11) NULL ;
+ALTER TABLE `dbcav`.`domicilio` 
+ADD CONSTRAINT `id_calle`
+  FOREIGN KEY (`id_calle`)
+  REFERENCES `dbcav`.`calles` (`id_calle`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
 

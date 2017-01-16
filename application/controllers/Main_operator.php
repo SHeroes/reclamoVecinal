@@ -69,12 +69,32 @@ si se post algo como filtro lo uso, sino no muestro ninguno
     $this->load->model('vecino_m');
 */
 
-   	$this->data['vecinos_filtrados'] = $this->vecino_m->get_vecino_by_DNI();
+  // 	$this->data['vecinos_filtrados'] = $this->vecino_m->get_vecino_by_DNI();
+
 
     $this->load->view('main_operator',$this->data);
     $this->load->view('vecinos',$this->data);
     $this->load->view('footer',$this->data);
 	}
 
+  function insert_vecino() {
+    $info = $this->input->post(null,true);
+    if( count($info) ) {
+      $this->load->model('vecino_m');
+      $saved = $this->vecino_m->create_vecino($info);
+    }
+    if ( isset($saved) && $saved ) {
+       echo "vecino agregado exitosamente";
+       redirect('main_operator/show_vecinos');
+    }
+  }
+
+  function search_calle(){
+    $this->load->model('domicilio_m');
+    $search =  $this->input->post('searchCalle');    
+    $query = $this->domicilio_m->get_calle($search);
+    echo json_encode ($query);
+    
+  }
 
 }
