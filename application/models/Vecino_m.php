@@ -53,6 +53,7 @@ class Vecino_m extends CI_Model {
   function create_vecino($userData){
     $data['nombre'] = $userData['nombre'];
     $data['apellido'] = $userData['apellido'];
+    $data['DNI'] = $userData['dni'];
     $data['mail'] = $userData['mail'];
     $data['tel_fijo'] = $userData['tel_fijo'];
     $data['tel_movil'] = $userData['tel_movil'];
@@ -61,10 +62,10 @@ class Vecino_m extends CI_Model {
 
     // create_domicilio //
     if ($userData['id_domicilio'] == null){ // nuevo vecino con un domicilio que ya existe //
-      $data2['id_calle'] =    (int) $userData['id_calle'];
+      $data2['id_calle'] =    (int) $userData['calle_id'];
       $data2['altura'] =      (int) $userData['altura'];
-      $data2['entrecalle1_id'] = (int) $userData['entrecalle1'];
-      $data2['entrecalle2_id'] = (int) $userData['entrecalle2'];
+      $data2['entrecalle1_id'] = (int) $userData['entrecalle1_id'];
+      $data2['entrecalle2_id'] = (int) $userData['entrecalle2_id'];
       $data2['id_barrio'] =   (int) $userData['id_barrio'];
       $data2['dpto'] = (int) $userData['departamento'];
       $data2['piso'] =        (int) $userData['piso']; 

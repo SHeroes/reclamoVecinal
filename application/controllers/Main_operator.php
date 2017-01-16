@@ -6,7 +6,8 @@ class Main_operator extends CI_Controller{
     'perfil' => '' ,
     'perfil_lvl' => 9 ,
     'is_admin' => false,
-    'name' => ''
+    'name' => '',
+    'all_domicilios' => '',
    );
 
 	public function __construct(){
@@ -71,9 +72,13 @@ si se post algo como filtro lo uso, sino no muestro ninguno
 
   // 	$this->data['vecinos_filtrados'] = $this->vecino_m->get_vecino_by_DNI();
 
+    $this->load->model('domicilio_m');
+    
+    $new_data['all_domicilios'] = $this->domicilio_m->get_all_domicilios();
+    $new_data['all_barrios'] = $this->domicilio_m->get_all_barrios();
 
     $this->load->view('main_operator',$this->data);
-    $this->load->view('vecinos',$this->data);
+    $this->load->view('vecinos',$new_data);
     $this->load->view('footer',$this->data);
 	}
 
