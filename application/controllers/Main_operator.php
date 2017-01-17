@@ -6,8 +6,7 @@ class Main_operator extends CI_Controller{
     'perfil' => '' ,
     'perfil_lvl' => 9 ,
     'is_admin' => false,
-    'name' => '',
-    'all_domicilios' => '',
+    'name' => ''
    );
 
 	public function __construct(){
@@ -59,20 +58,25 @@ class Main_operator extends CI_Controller{
       $this->load->view('restricted',$this->data);
       return ;
     }
-/*
-si se post algo como filtro lo uso, sino no muestro ninguno
-
-		$userInfo = $this->input->post(null,true);
-		if( count($userInfo) ) {
-      $this->load->model('sector_m');
-      $saved = $this->sector_m->create_new_sector($userInfo);
-    }
-    $this->load->model('vecino_m');
-*/
-
-  // 	$this->data['vecinos_filtrados'] = $this->vecino_m->get_vecino_by_DNI();
-
     $this->load->model('domicilio_m');
+    $this->load->model('vecino_m');
+    
+    $new_data['vecinos_filtrados'] = '';
+    //si se post algo como filtro lo uso, sino no muestro ninguno
+    $vecino_filter = $this->input->post(null,true);
+    if( count($vecino_filter) ) {
+      if (isset($vecino_filter['DNI_filter'])){
+        ///print_r("buscando por DNI ...");
+        $new_data['vecinos_filtrados'] = $this->vecino_m->get_vecinos_by_DNI($vecino_filter['DNI_filter']);
+        //print_r($new_data['vecinos_filtrados']);
+      }
+      if (isset($vecino_filter['Apellido_filter'])){
+        //print_r("buscando por Apellido_filter .");
+        $new_data['vecinos_filtrados'] = $this->vecino_m->get_vecinos_by_Apellido($vecino_filter['Apellido_filter']);
+      }
+    }
+
+
     
     $new_data['all_domicilios'] = $this->domicilio_m->get_all_domicilios();
     $new_data['all_barrios'] = $this->domicilio_m->get_all_barrios();

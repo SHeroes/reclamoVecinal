@@ -2,54 +2,28 @@
 
 
 class Vecino_m extends CI_Model {
-  /*
-    function  create_new_user( $userData ) {
-      $data['perfil_level'] = (int) $userData['perfil_level'];
-      $data['apellido'] = $userData['lastName'];
-      $data['nombre'] = $userData['firstName'];
-      $data['email'] = $userData['email'];
-      $data['password'] = sha1($userData['password1']);
-      $this->db->insert('user',$data);
-      $lastid = $this->db->insert_id();
 
-      $data2['id_usuario'] = $lastid;
-      $data2['id_sector'] = $userData['miembro_sector'];
-      $this->db->insert('usuariosxsector',$data2);
-
-      return $lastid;
-    }
-
-    function update_user_id($id,$userData){
-
-      $data2['id_usuario'] = $id;
-      $data2['id_sector'] = $userData['miembro_sector'];
-      $this->db->where('id_usuario', $id);
-      $this->db->update('usuariosxsector',$data2);
-
-      $data['id'] = $id;
-      $data['perfil_level'] = (int) $userData['perfil_level'];
-      $data['apellido'] = $userData['lastName'];
-      $data['nombre'] = $userData['firstName'];
-      $data['email'] = $userData['email'];
-      $data['password'] = sha1($userData['password1']);
-
-      $this->db->where('id', $id);
-      $this->db->update('user', $data);
-      return $id;
-    }
-*/
-    /*
-  function get_vecino_by_DNI{
-
-    return $vecinos_filtrados;
+  function get_vecinos_by_DNI($DNI){
+    $DNI_ = "'" . $DNI . "'";
+    $where_str = 'domicilio.id_calle = calles.id_calle and DNI ='.$DNI_;
+    $this->db->select('id_vecino, Nombre, Apellido, DNI, mail, tel_fijo, tel_movil, id_domicilio, calle ,altura')
+              ->from('vecino, domicilio, calles')
+              ->where($where_str);
+    $vecino = $this->db->get()->result();
+    return $vecino;
   }
 
-  function get_all_vecinos(){
-    $this->db->from('vecinos');
-    $users = $this->db->get()->result();
-    return $users;  
+  function get_vecinos_by_Apellido($Apellido){
+    $Apellido_ = "'" . $Apellido . "'";
+    $where_str = 'domicilio.id_calle = calles.id_calle and vecino.Apellido ='.$Apellido_;
+    $this->db->select('id_vecino, Nombre, Apellido, DNI, mail, tel_fijo, tel_movil, id_domicilio, calle ,altura')
+              ->from('vecino, domicilio, calles')
+              ->where($where_str);
+              //->limit(1);
+    $vecino = $this->db->get()->result();
+    return $vecino;
   }
-*/
+
   function create_vecino($userData){
     $data['nombre'] = $userData['nombre'];
     $data['apellido'] = $userData['apellido'];
@@ -61,7 +35,7 @@ class Vecino_m extends CI_Model {
     $idVecinoAgregado = $this->db->insert_id();
 
     // create_domicilio //
-    if ($userData['id_domicilio'] == null){ // nuevo vecino con un domicilio que ya existe //
+    if ($userData['id_domicilio'] == null){ 
       $data2['id_calle'] =    (int) $userData['calle_id'];
       $data2['altura'] =      (int) $userData['altura'];
       $data2['entrecalle1_id'] = (int) $userData['entrecalle1_id'];
@@ -72,6 +46,7 @@ class Vecino_m extends CI_Model {
       $this->db->insert('domicilio',$data2);
       $idDomicilioAgregado = $this->db->insert_id();
     } else {
+      // nuevo vecino con un domicilio que ya existe //
       $idDomicilioAgregado = (int) $userData['id_domicilio'];
     }
 
@@ -82,9 +57,7 @@ class Vecino_m extends CI_Model {
 
     $this->db->insert('domiciliosxvecinos',$data3);
 
-    return ;
+    return $idVecinoAgregado;
   }
-
-
 
 }

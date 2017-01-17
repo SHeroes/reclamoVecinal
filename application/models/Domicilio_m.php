@@ -17,19 +17,21 @@ class Domicilio_m extends CI_Model {
 		return $query->result();
 	}
 
-	/*
-	 $this->db->select('t1.field, t2.field2')
-	          ->from('table1 AS t1, table2 AS t2')
-	          ->where('t1.id = t2.table1_id')
-	          ->where('t1.user_id', $user_id);
-	*/
-
 	function get_all_domicilios(){
 		$this->db->select('id_domicilio, calle, altura' )
 							->from('domicilio, calles')
 							->where('domicilio.id_calle = calles.id_calle');
 	  $domicilios = $this->db->get()->result();
 	  return $domicilios; 
+	}
+
+	function get_domicilio_by_id($id){
+		$where_str = 'domicilio.id_calle = calles.id_calle and id_domicilio='.$id ;
+		$this->db->select('id_domicilio, calle, altura' )
+					->from('domicilio, calles')
+					->where($where_str);
+	  $domicilio = $this->db->get()->result();
+	  return $domicilio; 
 	}
 
 	function get_all_barrios(){

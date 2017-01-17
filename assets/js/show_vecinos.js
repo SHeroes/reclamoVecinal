@@ -1,14 +1,11 @@
 
 var elemento;
-//$("#calle").parents("p").next()
 
  $(document).ready(function(){
     
    $(".calle").keyup(function(){
     elemento = $(this);
-    //console.log(elm.val());
     if(elemento.val().length>3){
-      //console.log("es:" + $("#calle").val());
       var dataToSearch = {
           searchCalle: elemento.val()
         };
@@ -17,7 +14,7 @@ var elemento;
      url: "/index.php/main_operator/search_calle",
      cache: false,    
      data: dataToSearch,
-     success: calle_encontrada2,
+     success: calle_encontrada,
      error: function(){      
       alert('Error while request..');
      }
@@ -27,28 +24,8 @@ var elemento;
   });
 
   function calle_encontrada(response){
-      $('#finalResult').html("");
-      var obj = JSON.parse(response);
-      if(obj.length>0){
-       try{
-        var items=[];  
-        $.each(obj, function(i,val){           
-            items.push($('<li/>').text(val.id_calle + " " + val.calle));
-        }); 
-        $('#finalResult').append.apply($('#finalResult'), items);
-       }catch(e) {  
-        alert('Exception while request..');
-       }  
-      }else{
-       $('#finalResult').html($('<li/>').text("No Data Found"));   
-      }  
-  };
-
-
-  function calle_encontrada2(response){
       var resultDOM = elemento.parents("p").next();
-      resultDOM.html("");   //$('.input-search-result').html("");
-      //console.log(resultDOM);
+      resultDOM.html("");   
       var obj = JSON.parse(response);
       if(obj.length>0){
        try{
@@ -71,8 +48,6 @@ var elemento;
     $('div.result').click(function(){
       var elementoClickeado = $($(this));
       var val = elementoClickeado.attr("value");
-
-      //$('#calle').next().val(81)
       // USO EL elemento QUE ES GLOBAL, AL QUE LE DI EL CLICK
       hiddenElement = $(elemento.next());
       hiddenElement.attr("value", val);
@@ -80,14 +55,19 @@ var elemento;
       elemento.val(elementoClickeado.html());
       //alert(elemento.val());
       resultDOM.hide();
-      //console.log(hiddenElement.attr("value"));
     });
   };
 
+  var DOM_elem_Required = $("#id_domicilio").parents("div.domicilio-data").children("p").children(".required");
   $("#id_domicilio").change(function(){
-  if($("#id_domicilio").val() != ""){
-    console.log("quitar el Required del formulario");
-
+    if($("#id_domicilio").val() != ""){
+      DOM_elem_Required.each(function( index ) {
+        $(this).prop('required',false);
+      });
+    } else{
+      DOM_elem_Required.each(function( index ) {
+        $(this).prop('required',true);
+      });
     }
   });
 
