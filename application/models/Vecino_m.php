@@ -13,6 +13,12 @@ class Vecino_m extends CI_Model {
     return $vecino;
   }
 
+  function get_all_vecinos(){
+    $this->db->from('vecino');
+    $vecinos = $this->db->get()->result();
+    return $vecinos;
+  }
+
   function get_vecinos_by_Apellido($Apellido){
     $Apellido_ = "'" . $Apellido . "'";
     $where_str = 'domicilio.id_calle = calles.id_calle and vecino.Apellido ='.$Apellido_;

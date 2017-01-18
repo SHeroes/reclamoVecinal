@@ -48,7 +48,7 @@ class Main_operator extends CI_Controller{
     }
     $this->load->model('sector_m');
     $this->load->model('domicilio_m');
-    
+    $this->load->model('vecino_m');
     //$new_data['last_10_days_reclamos'] = '';
 
     $new_data['secretarias'] = $this->sector_m->get_all_sector_by_type('Secretaria');
@@ -65,10 +65,9 @@ class Main_operator extends CI_Controller{
         $this->load->model('reclamo_tipo_m');
         $new_data['tipo_reclamos_filtrados'] = $this->reclamo_tipo_m->get_all_tipo_reclamos_by_sector($tipo_reclamos_filter['oficina_filter']);
         
-        //print_r("Oficina Filter");
-        //print_r($new_data['tipo_reclamos_filtrados']);
-        
-        //$new_data['vecinos_filtrados'] = $this->vecino_m->get_vecinos_by_Apellido($tipo_reclamos_filter['Apellido_filter']);
+        $new_data['id_actual_user'] = $this->session->userdata('id');
+        $new_data['vecinos'] = $this->vecino_m->get_all_vecinos();
+        $new_data['all_domicilios_reclamo'] = $this->domicilio_m->get_all_domicilios_reclamo();
       }
     } else { //NO HAY FILTRADOS TODAVIA
 
@@ -108,6 +107,18 @@ class Main_operator extends CI_Controller{
     $this->load->view('vecinos',$new_data);
     $this->load->view('footer',$this->data);
 	}
+
+  function insert_reclamo(){
+    $info = $this->input->post(null,true);
+    if( count($info) ) {
+      $this->load->model('reclamo_m');
+      $saved = $this->reclamo_m->create_reclamo($info);
+    }
+    if ( isset($saved) && $saved ) {
+       echo "reclamo agregado exitosamente";
+       redirect('main_operator/show_vecinos');
+    }
+  }
 
   function insert_vecino() {
     $info = $this->input->post(null,true);

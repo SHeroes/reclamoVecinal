@@ -39,12 +39,7 @@
 
 
 
-  <input hidden type="text" class="span4" name="tipo_reclamo" value="" id="tipo_reclamo">
-    
-  
-  <?php 
-   
-    if(isset($tipo_reclamos_filtrados)){
+  <?php if(isset($tipo_reclamos_filtrados)){
       echo '<table class="table"><thead class="thead-inverse">        <tr>
       <th>Titulo</th><th>Descripcion</th><th>Tiempo respuesta hs</th><th>Dependencia</th></tr>        </thead><tbody>';
        foreach( $tipo_reclamos_filtrados as $reclamo){
@@ -54,42 +49,30 @@
               '<td>'.$reclamo->denominacion.'</td>';
       }    
       echo '  </tbody></table>'; 
-    }
+    } ?>
 
-    
 
-    
- ?>
-  </br>
-    
-
-<?php /*
-    Domicilio del Reclamo: Calle _____________________ Altura: _________________________
-Columna: _________________________________ “este dato se pide si se refiere a una luminaria”
-Días y horarios en que puede ser molestado Dias:_________________  Horario:_____________
-A                  :Teléfono Fijo SI/NO                 :Teléfono Móvil SI/NO              : Domicilio: SI/NO
-Se debe poder seleccionar más de una opción.
-
-Comentarios: adicionales:___________________________________
-*/ ?>
-  <div class="col-sm-6" id="domicilio-reclamo-data">
-  <h3>Domicilio de Reclamo</h3>
-    <form action="" method="POST">
+  <form class="reclamo-form" action="insert_reclamo/" method="POST">
+    <div class="col-sm-6" id="domicilio-reclamo-data">
+      <h3>Domicilio de Reclamo</h3>
       <p><select type="text" class="span4" name="id_domicilio" id="id_domicilio" placeholder="id_domicilio">
         <option value="">Si el domicilio de Reclamo ya existe... Elegirlo</option>
           <?php foreach( $all_domicilios_reclamo as $domicilio_rec){
-          echo  '<option value="'. $domicilio_rec->id_domicilio .'">'. $domicilio_rec->calle .'  ' .  $domicilio_rec->altura . '</option>';
+          echo  '<option value="'. $domicilio_rec->id_domicilio .'">'. $domicilio_rec->calle .' Desde:  ' .  $domicilio_rec->altura_inicio .' Hasta: ' .  $domicilio_rec->altura_fin . '</option>';
           }?>
           </select>
       </p>
 
-      <p><input type="text" class="span4 calle" name="calle" id="calle" placeholder="calle" autocomplete="off" required>
+
+
+      <p><input type="text" class="span4 calle required" name="calle" id="calle" placeholder="calle" autocomplete="off" required>
           <input type="text" hidden class="hidden_id" name="calle_id" value="">
       </p>
       <div class="calle input-search-result" ></div>
       
 
-      <p><input type="text" class="span4 required" name="altura" id="altura" placeholder="altura" required></p>
+      <p><input type="text" class="span4 required" name="altura_inicio" id="altura_inicio" placeholder="altura_inicio" required></p>
+      <p><input type="text" class="span4 required" name="altura_fin" id="altura_fin" placeholder="altura_fin" required></p>
       <p><input type="text" class="span4 calle required" name="entrecalle1" id="entrecalle1" placeholder="entrecalle1" autocomplete="off" required>
           <input type="text" hidden class="hidden_id" name="entrecalle1_id" value="">
       </p>
@@ -109,20 +92,44 @@ Comentarios: adicionales:___________________________________
         ?>
         </select></p>
       <p><input type="text" class="span4" name="columna_electrica" id="columna_electrica" placeholder="columna" >“este dato se pide si se refiere a una luminaria”</p>
-      <p><textarea type="text" class="span4" name="molestar_dia_hs" id="molestar_dia_hs" placeholder="" >Días y horarios en que puede ser molestado </p>
-      <p><input type="checkbox" name="molestar_al_tel_fijo" value="false">molestar_al_tel_fijo</p>
-      <p><input type="checkbox" name="molestar_al_tel_mov" value="false">molestar_al_tel_mov</p>
-      <p><input type="checkbox" name="molestar_al_domicilio" value="false">molestar_al_domicilio</p>
-      <p><textarea type="text" name="comentarios" placeholder="comentarios"></p>
+    </div>
+    <div class="col-sm-6" id="reclamo-data">
+      <h3>Datos para Reclamo</h3>
+      Vecino que realiza el Reclamo
+      <?php if(isset($vecinos[0])) {
+        echo '<p><select name="id_vecino">';
+        echo '<h1>Seleccionar Vecino</h1>';
+            foreach( $vecinos as $vecino){
+              echo  '<option value="'.$vecino->id_vecino.'">DNI: '.$vecino->DNI.'  '.$vecino->Apellido.' '.$vecino->Nombre.'</option>';
+            }
+        echo '</select></p>';
+      } ?>
+      <p><textarea rows="2" cols="50" type="text" class="span4" name="molestar_dia_hs" id="molestar_dia_hs" placeholder="Días y horarios en que puede ser molestado " ></textarea></p>
+      <p><input type="checkbox" name="molestar_al_tel_fijo" value="true" >Se lo puede molestar al tel. fijo</p>
+      <p><input type="checkbox" name="molestar_al_tel_mov" value="true" >Se lo puede molestar al tel. movil</p>
+      <p><input type="checkbox" name="molestar_al_dom" value="true" >Se lo puede molestar al domicilio</p>
+      <p><textarea rows="6" cols="50" type="text" name="comentarios" placeholder="comentarios"></textarea></p>
 
-    </form>
-    <p><a><input type="submit" class="btn btn-primary" value="Registrar"></a></p>
+      <input hidden type="text" class="span4" name="id_tipo_reclamo" value="" id="tipo_reclamo">
 
-  </div>
+      <input hidden type="text" class="span4" name="id_operador" id="id_operador" value="<?php echo $id_actual_user; ?>" >
+      
+      <!-- <input hidden type="text" class="span4" name="" id="" > -->
+
+      <p><a><input type="submit" class="btn btn-primary" value="Registrar Reclamo"></a></p>
+    </div>
+
+  </form>
+
+
+
+
+
+
 </div>
 
 <style>
-#domicilio-reclamo-data{
+.reclamo-form{
  display: none; 
 }
 .input-search-result{

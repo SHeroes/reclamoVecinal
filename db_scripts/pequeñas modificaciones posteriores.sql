@@ -116,3 +116,59 @@ ADD CONSTRAINT `id_tipo_reclamo`
   REFERENCES `dbcav`.`tiporeclamo` (`id_tipo_reclamo`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
+  
+ ALTER TABLE `dbcav`.`reclamos` 
+CHANGE COLUMN `estado` `estado` VARCHAR(20) NOT NULL ,
+CHANGE COLUMN `molestar_al_tel_fijo` `molestar_al_tel_fijo` BIT(1) NULL ,
+CHANGE COLUMN `molestar_al_tel_mov` `molestar_al_tel_mov` BIT(1) NULL ,
+CHANGE COLUMN `molestar_al_domicilio` `molestar_al_domicilio` BIT(1) NULL ,
+ADD COLUMN `codigo_reclamo` VARCHAR(13) NOT NULL AFTER `comentarios`,
+ADD COLUMN `fecha_alta_reclamo` DATETIME NOT NULL AFTER `codigo_reclamo`;
+
+ALTER TABLE `dbcav`.`domicilio_reclamo` 
+CHANGE COLUMN `entrecalles` `entrecalle1_id` INT(11) NOT NULL ,
+CHANGE COLUMN `barrio` `id_barrio` INT(11) NOT NULL ,
+ADD COLUMN `entrecalle2_id` INT(11) NOT NULL AFTER `entrecalle1_id`,
+ADD INDEX `id_dom_rec_calle1_idx` (`entrecalle1_id` ASC);
+ALTER TABLE `dbcav`.`domicilio_reclamo` 
+ADD CONSTRAINT `id_dom_rec_calle1`
+  FOREIGN KEY (`entrecalle1_id`)
+  REFERENCES `dbcav`.`calles` (`id_calle`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+  ALTER TABLE `dbcav`.`domicilio_reclamo` 
+ADD INDEX `id_dom_rec_calle2_idx` (`entrecalle2_id` ASC);
+ALTER TABLE `dbcav`.`domicilio_reclamo` 
+ADD CONSTRAINT `id_dom_rec_calle2`
+  FOREIGN KEY (`entrecalle2_id`)
+  REFERENCES `dbcav`.`calles` (`id_calle`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+  ALTER TABLE `dbcav`.`domicilio_reclamo` 
+ADD INDEX `id_dom_rec_barrio_idx` (`id_barrio` ASC);
+ALTER TABLE `dbcav`.`domicilio_reclamo` 
+ADD CONSTRAINT `id_dom_rec_barrio`
+  FOREIGN KEY (`id_barrio`)
+  REFERENCES `dbcav`.`barrios` (`id_barrio`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+  ALTER TABLE `dbcav`.`reclamos` 
+DROP COLUMN `descripcion`;
+
+ALTER TABLE `dbcav`.`reclamos` 
+DROP COLUMN `datestamp_ini`,
+CHANGE COLUMN `fecha_alta_reclamo` `fecha_alta_reclamo` DATETIME NOT NULL AFTER `fecha_modif_reclamo`,
+CHANGE COLUMN `datestamp_lastchange` `fecha_modif_reclamo` DATETIME NULL DEFAULT NULL ;
+
+ALTER TABLE `dbcav`.`reclamos` 
+ADD COLUMN `id_dom_reclamo` INT(11) NOT NULL AFTER `id_operador`,
+ADD INDEX `id_dom_reclamo_idx` (`id_dom_reclamo` ASC);
+ALTER TABLE `dbcav`.`reclamos` 
+ADD CONSTRAINT `id_dom_reclamo`
+  FOREIGN KEY (`id_dom_reclamo`)
+  REFERENCES `dbcav`.`domicilio_reclamo` (`id_domicilio`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;

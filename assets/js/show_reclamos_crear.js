@@ -57,7 +57,8 @@
     });
   };
 
-  var DOM_elem_Required = $("#id_domicilio").parents("div.domicilio-data").children("p").children(".required");
+
+  var DOM_elem_Required = $("#id_domicilio").parents("#domicilio-reclamo-data").children("p").children(".required");
   $("#id_domicilio").change(function(){
     if($("#id_domicilio").val() != ""){
       DOM_elem_Required.each(function( index ) {
@@ -75,10 +76,8 @@
       var val = elementoClickeado.attr("value");
       hiddenElement = $('#tipo_reclamo');
       hiddenElement.attr("value", val);
-      $("#domicilio-reclamo-data").show();
-      alert("Se seleccionó el tipo de reclamo: " + elementoClickeado.html());
-
-
+      $(".reclamo-form").show();
+      //alert("Se seleccionó el tipo de reclamo: " + elementoClickeado.html());
   });
 
 });
