@@ -42,18 +42,46 @@ class Main_operator extends CI_Controller{
   }
 
 	function show_main() {
-	    if($this->basic_level() != 3) {
-	      $this->load->view('restricted',$this->data);
-	      return ;
-	    }
+    if($this->basic_level() != 3) {
+      $this->load->view('restricted',$this->data);
+      return ;
+    }
+    $this->load->model('sector_m');
+    $this->load->model('domicilio_m');
+    
+    //$new_data['last_10_days_reclamos'] = '';
 
-	    $this->load->view('main_operator',$this->data);
-	    //$this->load->view('reclamos',$data);
-	    $this->load->view('footer',$this->data);
+    $new_data['secretarias'] = $this->sector_m->get_all_sector_by_type('Secretaria');
+    $new_data['oficinas'] = $this->sector_m->get_all_sector_by_type('Oficina');
+
+    $tipo_reclamos_filter = $this->input->post(null,true);
+    if( count($tipo_reclamos_filter) ) {
+      if (isset($tipo_reclamos_filter['secretaria_filter'])){
+        $new_data['secretaria_selected'] = $tipo_reclamos_filter['secretaria_filter'];
+        $new_data['oficinas_filtradas'] = $this->sector_m->get_all_sector_by_father_id($new_data['secretaria_selected']);
+        //print_r($new_data['oficinas_filtradas']);
+      }
+      if (isset($tipo_reclamos_filter['oficina_filter'])){
+        $this->load->model('reclamo_tipo_m');
+        $new_data['tipo_reclamos_filtrados'] = $this->reclamo_tipo_m->get_all_tipo_reclamos_by_sector($tipo_reclamos_filter['oficina_filter']);
+        
+        //print_r("Oficina Filter");
+        //print_r($new_data['tipo_reclamos_filtrados']);
+        
+        //$new_data['vecinos_filtrados'] = $this->vecino_m->get_vecinos_by_Apellido($tipo_reclamos_filter['Apellido_filter']);
+      }
+    } else { //NO HAY FILTRADOS TODAVIA
+
+    }
+
+    $new_data['all_barrios'] = $this->domicilio_m->get_all_barrios();
+
+    $this->load->view('main_operator',$this->data);
+    $this->load->view('reclamos',$new_data);
+    $this->load->view('footer',$this->data);
 	}
 
 	function show_vecinos() {
-
     if($this->basic_level() != 3) {
       $this->load->view('restricted',$this->data);
       return ;
@@ -66,18 +94,13 @@ class Main_operator extends CI_Controller{
     $vecino_filter = $this->input->post(null,true);
     if( count($vecino_filter) ) {
       if (isset($vecino_filter['DNI_filter'])){
-        ///print_r("buscando por DNI ...");
         $new_data['vecinos_filtrados'] = $this->vecino_m->get_vecinos_by_DNI($vecino_filter['DNI_filter']);
-        //print_r($new_data['vecinos_filtrados']);
       }
       if (isset($vecino_filter['Apellido_filter'])){
-        //print_r("buscando por Apellido_filter .");
         $new_data['vecinos_filtrados'] = $this->vecino_m->get_vecinos_by_Apellido($vecino_filter['Apellido_filter']);
       }
     }
 
-
-    
     $new_data['all_domicilios'] = $this->domicilio_m->get_all_domicilios();
     $new_data['all_barrios'] = $this->domicilio_m->get_all_barrios();
 
@@ -103,7 +126,17 @@ class Main_operator extends CI_Controller{
     $search =  $this->input->post('searchCalle');    
     $query = $this->domicilio_m->get_calle($search);
     echo json_encode ($query);
-    
   }
+
+/*
+TODO NO se si me conviene hacerlo recargando la pagina o no... creo que si q es mas facil
+
+  function search_sector(){
+    $this->load->model('sector_m');
+    $search =  $this->input->post('searchCalle');    
+    $query = $this->domicilio_m->get_calle($search);
+    echo json_encode ($query);
+  }
+*/
 
 }

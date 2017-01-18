@@ -9,14 +9,17 @@
                   Bienvenido <?php echo $name; ?> perfil: <?php echo $perfil;?>
                 </a>
                 <ul class="nav navbar-nav">
-                  <li class="reclamos">
-                    <a href="show_main"><i class="glyphicon glyphicon-home"></i> Reclamos </a>
+                  <li class="tomar_reclamos">
+                    <a href="show_main"><i class="glyphicon glyphicon-home"></i> Tomar reclamos </a>
                     </li>
                   <li class="vecinos">
                     <a href="show_vecinos"><i class="glyphicon glyphicon-th-list"></i> Vecinos </a>
                   </li>
                   <li class="domicilios">
                     <a href="show_domicilios"><i class="glyphicon glyphicon-th-list"></i> Domicilios </a>
+                  </li>
+                  <li class="domicilios">
+                    <a href="show_domicilios"><i class="glyphicon glyphicon-th-list"></i> Ver reclamos </a>
                   </li>
                   <li>
                     <div class="btn-group pull-right">

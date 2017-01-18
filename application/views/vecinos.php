@@ -52,19 +52,19 @@
       <p><input type="text" class="span4 calle" name="calle" id="calle" placeholder="calle" autocomplete="off" required>
           <input type="text" hidden class="hidden_id" name="calle_id" value="">
       </p>
-      <div class="calle input-search-result" style="display: none;" ></div>
+      <div class="calle input-search-result"></div>
       
 
       <p><input type="text" class="span4 required" name="altura" id="altura" placeholder="altura" required></p>
-      <p><input type="text" class="span4 calle required" name="entrecalle1" id="entrecalle1" placeholder="entrecalle1" required>
+      <p><input type="text" class="span4 calle required" name="entrecalle1" id="entrecalle1" autocomplete="off" placeholder="entrecalle1" required>
           <input type="text" hidden class="hidden_id" name="entrecalle1_id" value="">
       </p>
-      <div class="calle input-search-result" style="display: none;" ></div>
+      <div class="calle input-search-result" ></div>
       
       <p><input type="text" class="span4 calle required" name="entrecalle2" id="entrecalle2" placeholder="entrecalle2" autocomplete="off" required>
          <input type="text" hidden class="hidden_id" name="entrecalle2_id" value="">
       </p>
-      <div class="calle input-search-result" style="display: none;" ></div>
+      <div class="calle input-search-result" ></div>
 
       <p><select type="text" class="span4 required" name="id_barrio" id="id_barrio" placeholder="id_barrio" autocomplete="off" required></p>
         <?php foreach( $all_barrios as $barrio){
@@ -83,3 +83,10 @@
 <?php echo '<script src="'. base_url() .'assets/js/plugin/json2.js"></script>'; ?>
 <?php echo '<script src="'. base_url() .'assets/js/show_vecinos.js"></script>'; ?>
 
+<style>
+.input-search-result{
+  cursor: pointer;
+  display: none;
+}
+
+</style>

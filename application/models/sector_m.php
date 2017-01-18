@@ -20,8 +20,20 @@ class Sector_m extends CI_Model {
       return $sectores;
     }
 
+    function get_all_sector_by_type($typeSector){
+      $this->db->from('sectores')
+            ->where("tipo = '". $typeSector ."'");
+      $sectores = $this->db->get()->result();
+      return $sectores;
+    }
 
-    // Update Query For Selected Student
+    function get_all_sector_by_father_id($idPadre){
+      $this->db->from('sectores')
+            ->where("id_padre = '". $idPadre ."'");
+      $sectores = $this->db->get()->result();
+      return $sectores;
+    }
+
     function update_sector_id($id,$sectorData){
       $sectorData['padre'] == '' ? $data['id_padre'] = null : $data['id_padre'] = $sectorData['padre'];
       $data['denominacion'] = $sectorData['denominacion'];

@@ -90,3 +90,29 @@ ADD CONSTRAINT `id_calle`
 
 ALTER TABLE `dbcav`.`vecino` 
 ADD COLUMN `DNI` INT(20) NOT NULL AFTER `Apellido`;
+
+ALTER TABLE `dbcav`.`domicilio_reclamo` 
+ADD COLUMN `columna_electrica` VARCHAR(20) NULL AFTER `barrio`;
+
+ALTER TABLE `dbcav`.`reclamos` 
+ADD COLUMN `molestar_dia_hs` TINYTEXT NULL AFTER `id_lastchanger`,
+ADD COLUMN `molestar_al_tel_fijo` BIT NULL AFTER `molestar_dia_hs`,
+ADD COLUMN `molestar_al_tel_mov` BIT NULL AFTER `molestar_al_tel_fijo`,
+ADD COLUMN `molestar_al_domicilio` BIT NULL AFTER `molestar_al_tel_mov`,
+ADD COLUMN `comentarios` TEXT NULL AFTER `molestar_al_domicilio`;
+
+
+ALTER TABLE `dbcav`.`reclamos` 
+DROP FOREIGN KEY `id_resp_id_us`;
+ALTER TABLE `dbcav`.`reclamos` 
+DROP COLUMN `id_responsable`,
+DROP INDEX `id_resp_id_us_idx` ;
+
+ALTER TABLE `dbcav`.`reclamos` 
+ADD INDEX `id_tipo_reclamo_idx` (`id_tipo_reclamo` ASC);
+ALTER TABLE `dbcav`.`reclamos` 
+ADD CONSTRAINT `id_tipo_reclamo`
+  FOREIGN KEY (`id_tipo_reclamo`)
+  REFERENCES `dbcav`.`tiporeclamo` (`id_tipo_reclamo`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
