@@ -172,3 +172,6 @@ ADD CONSTRAINT `id_dom_reclamo`
   REFERENCES `dbcav`.`domicilio_reclamo` (`id_domicilio`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
+
+  
+  /*		MARCA	18/01/17	*/

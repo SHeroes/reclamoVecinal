@@ -54,26 +54,46 @@ class Main_operator extends CI_Controller{
     $new_data['secretarias'] = $this->sector_m->get_all_sector_by_type('Secretaria');
     $new_data['oficinas'] = $this->sector_m->get_all_sector_by_type('Oficina');
 
-    $tipo_reclamos_filter = $this->input->post(null,true);
-    if( count($tipo_reclamos_filter) ) {
-      if (isset($tipo_reclamos_filter['secretaria_filter'])){
-        $new_data['secretaria_selected'] = $tipo_reclamos_filter['secretaria_filter'];
-        $new_data['oficinas_filtradas'] = $this->sector_m->get_all_sector_by_father_id($new_data['secretaria_selected']);
-        //print_r($new_data['oficinas_filtradas']);
+    $this->load->model('vecino_m');
+    
+    $new_data['vecinos_filtrados'] = '';
+    $new_data['id_vecino'] = '';
+    $new_data['name_vecino'] = '';
+    //si se post algo como filtro lo uso, sino no muestro ninguno
+    $post = $this->input->post(null,true);
+    if( count($post) ) {
+
+      if (isset($post['id_vecino'])){
+          $new_data['id_vecino'] = $post['id_vecino'];
+          $new_data['name_vecino'] = $post['name_vecino'];
+          if (isset($post['secretaria_filter'])){
+            $new_data['secretaria_selected'] = $post['secretaria_filter'];
+            $new_data['oficinas_filtradas'] = $this->sector_m->get_all_sector_by_father_id($new_data['secretaria_selected']);
+            //print_r($new_data['oficinas_filtradas']);
+          }
+          if (isset($post['oficina_filter'])){
+            $this->load->model('reclamo_tipo_m');
+            $new_data['tipo_reclamos_filtrados'] = $this->reclamo_tipo_m->get_all_tipo_reclamos_by_sector($post['oficina_filter']);
+            
+            $new_data['id_actual_user'] = $this->session->userdata('id');
+            $new_data['vecinos'] = $this->vecino_m->get_all_vecinos();
+            $new_data['all_domicilios_reclamo'] = $this->domicilio_m->get_all_domicilios_reclamo();
+            $new_data['all_barrios'] = $this->domicilio_m->get_all_barrios();
+          }
+      } else {
+          if (isset($post['DNI_filter'])){
+            $new_data['vecinos_filtrados'] = $this->vecino_m->get_vecinos_by_DNI($post['DNI_filter']);
+          }
+          if (isset($post['Apellido_filter'])){
+            $new_data['vecinos_filtrados'] = $this->vecino_m->get_vecinos_by_Apellido($post['Apellido_filter']);
+          }
       }
-      if (isset($tipo_reclamos_filter['oficina_filter'])){
-        $this->load->model('reclamo_tipo_m');
-        $new_data['tipo_reclamos_filtrados'] = $this->reclamo_tipo_m->get_all_tipo_reclamos_by_sector($tipo_reclamos_filter['oficina_filter']);
-        
-        $new_data['id_actual_user'] = $this->session->userdata('id');
-        $new_data['vecinos'] = $this->vecino_m->get_all_vecinos();
-        $new_data['all_domicilios_reclamo'] = $this->domicilio_m->get_all_domicilios_reclamo();
-      }
+
     } else { //NO HAY FILTRADOS TODAVIA
 
     }
 
-    $new_data['all_barrios'] = $this->domicilio_m->get_all_barrios();
+    
 
     $this->load->view('main_operator',$this->data);
     $this->load->view('reclamos',$new_data);

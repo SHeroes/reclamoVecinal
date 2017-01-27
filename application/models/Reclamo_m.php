@@ -3,18 +3,8 @@
 
 class Reclamo_m extends CI_Model {
 
-  function qty_reclamos_current_year(){
-    $currentYear =  date('Y');
-    $where_cond= "YEAR(fecha_creacion) ='" . $currentYear ."'";
-    $this->db->select('count (*)')->from('reclamos')->where($where_cond);
-    $anios = $this->db->get()->result();
-    return (int)$anios;
-  }
-
   function create_reclamo($userData){
     // create_domicilio_reclamo //
-
-
     if ($userData['id_domicilio'] == null){ 
       $data2['id_calle'] =    (int) $userData['calle_id'];
       $data2['altura_inicio'] =      (int) $userData['altura_inicio'];
@@ -31,7 +21,6 @@ class Reclamo_m extends CI_Model {
       // nuevo vecino con un domicilio que ya existe //
       $idDomicilioReclamoAgregado = (int) $userData['id_domicilio'];
     }
-
     // create_reclamo //
 
     $data3['id_vecino'] = $userData['id_vecino'];
@@ -41,18 +30,11 @@ class Reclamo_m extends CI_Model {
     $data3['estado'] = 'Iniciado';    
     $data3['fecha_alta_reclamo'] = date('Y-m-d H:i:s',time());
     $data3['id_lastchanger'] = $userData['id_operador']; 
-
     isset($userData['molestar_dia_hs']) ?       $data3['molestar_dia_hs'] = true :       $data3['molestar_dia_hs'] = false;
     isset($userData['molestar_al_tel_fijo']) ?  $data3['molestar_al_tel_fijo'] = true :  $data3['molestar_al_tel_fijo'] = false;
     isset($userData['molestar_al_tel_mov']) ?   $data3['molestar_al_tel_mov'] = true :   $data3['molestar_al_tel_mov'] = false;
     isset($userData['molestar_al_dom']) ?       $data3['molestar_al_domicilio'] = true : $data3['molestar_al_domicilio'] = false;
-     
     $data3['comentarios'] = $userData['comentarios'];
-
-    //$currentYear =  date('Y');
-    
-
-    //$cantidad_reclamos_delAnio = $this->qty_reclamos_current_year();
 
     $currentYear =  date('Y');
     $where_cond = "YEAR(fecha_alta_reclamo) =" . $currentYear;

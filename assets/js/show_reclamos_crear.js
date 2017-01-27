@@ -1,6 +1,43 @@
 
  $(document).ready(function(){
    
+   if($(".vecinos_filtrados").length > 0){
+    //alert("asdasd");
+    $(".vecinos_filtrados").click(function() {
+        var row = $(this);
+        var value = row.children("th").attr("id-value");
+        var seleccion = $(row.children("td"));
+        var Apellido = $(seleccion.get(0));
+        var Nombre = $(seleccion.get(1));
+
+        alert("El vecino seleccionado es:  " + Apellido.html() + ", " + Nombre.html());
+
+
+        $(".buscar_vecinos").hide();
+
+        //$(".filtro-secretaria").show();
+
+
+        //$(".id_vecino").val(value);
+
+        $(".id_vecino").each(function( index , item){
+          elem = $(item);
+          elem.attr("value",value);
+        });
+
+        $(".name_vecino").each(function( index , item){
+          elem = $(item);
+          elem.attr("value", Apellido.html() + ", " + Nombre.html());
+        });
+
+        $(".buscar_vecinos").hide();
+        $(".filtro-secretaria").show();
+        console.log($(".filtro-secretaria"));
+        //console.log("con valor:" , value);
+        //$(".filtro-secretaria").show();
+    }); 
+
+   };
    
    $(".calle").keyup(function(){
     elemento = $(this);

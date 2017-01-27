@@ -15,11 +15,11 @@
                   <li class="vecinos">
                     <a href="show_vecinos"><i class="glyphicon glyphicon-th-list"></i> Vecinos </a>
                   </li>
-                  <li class="domicilios">
+                  <!-- <li class="domicilios">
                     <a href="show_domicilios"><i class="glyphicon glyphicon-th-list"></i> Domicilios </a>
-                  </li>
+                  </li> -->
                   <li class="domicilios">
-                    <a href="show_domicilios"><i class="glyphicon glyphicon-th-list"></i> Ver reclamos </a>
+                    <a href="show_reclamos_table"><i class="glyphicon glyphicon-th-list"></i> Ver reclamos ( en construccion ) </a>
                   </li>
                   <li>
                     <div class="btn-group pull-right">
