@@ -59,6 +59,11 @@ class Main_operator extends CI_Controller{
     $new_data['vecinos_filtrados'] = '';
     $new_data['id_vecino'] = '';
     $new_data['name_vecino'] = '';
+
+
+    $new_data['all_domicilios_reclamo'] = $this->domicilio_m->get_all_domicilios_reclamo();
+    $new_data['all_barrios'] = $this->domicilio_m->get_all_barrios();
+
     //si se post algo como filtro lo uso, sino no muestro ninguno
     $post = $this->input->post(null,true);
     if( count($post) ) {
@@ -77,8 +82,7 @@ class Main_operator extends CI_Controller{
             
             $new_data['id_actual_user'] = $this->session->userdata('id');
             $new_data['vecinos'] = $this->vecino_m->get_all_vecinos();
-            $new_data['all_domicilios_reclamo'] = $this->domicilio_m->get_all_domicilios_reclamo();
-            $new_data['all_barrios'] = $this->domicilio_m->get_all_barrios();
+
           }
       } else {
           if (isset($post['DNI_filter'])){
@@ -86,6 +90,11 @@ class Main_operator extends CI_Controller{
           }
           if (isset($post['Apellido_filter'])){
             $new_data['vecinos_filtrados'] = $this->vecino_m->get_vecinos_by_Apellido($post['Apellido_filter']);
+          }
+
+          if( count($new_data['vecinos_filtrados']) == 0){
+            $new_data['all_domicilios'] = $this->domicilio_m->get_all_domicilios();
+            
           }
       }
 
@@ -128,6 +137,21 @@ class Main_operator extends CI_Controller{
     $this->load->view('footer',$this->data);
 	}
 
+  function show_reclamos(){
+    if($this->basic_level() != 3) {
+      $this->load->view('restricted',$this->data);
+      return ;
+    }
+
+    $this->load->model('reclamo_m');
+
+    $new_data['reclamos'] = "todos los reclamos";
+
+    $this->load->view('main_operator',$this->data);
+    $this->load->view('show_reclamos',$new_data);
+    $this->load->view('footer',$this->data);   
+  }
+
   function insert_reclamo(){
     $info = $this->input->post(null,true);
     if( count($info) ) {
@@ -136,7 +160,7 @@ class Main_operator extends CI_Controller{
     }
     if ( isset($saved) && $saved ) {
        echo "reclamo agregado exitosamente";
-       redirect('main_operator/show_vecinos');
+       redirect('main_operator/show_main');
     }
   }
 
@@ -159,15 +183,5 @@ class Main_operator extends CI_Controller{
     echo json_encode ($query);
   }
 
-/*
-TODO NO se si me conviene hacerlo recargando la pagina o no... creo que si q es mas facil
-
-  function search_sector(){
-    $this->load->model('sector_m');
-    $search =  $this->input->post('searchCalle');    
-    $query = $this->domicilio_m->get_calle($search);
-    echo json_encode ($query);
-  }
-*/
 
 }

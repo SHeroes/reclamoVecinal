@@ -2,34 +2,11 @@
 <div class="container">
 <h1>Tomar Reclamo</h1>
   <?php if ($id_vecino != '') echo '<div class="buscar_vecinos" style="display:none;">'; else echo '<div class="buscar_vecinos">'; ?>
-  <h1> Buscar Vecinos Registrados según:</h1>
-  <form action="show_main" id="vecinos-dni-form" method="POST" >
-  <p><input type="text" class="span4" name="DNI_filter" id="DNI_filter" placeholder="DNI a buscar..." ></p>
-  <p><input type="submit" class="span4" value="Buscar"></p>
-  </form>
-  <form action="show_main" method="POST" >
-  <p><input type="text" class="span4" name="Apellido_filter" id="Apellido_filter" placeholder="Apellido a buscar..." ></p>
-  <p><input type="submit" class="span4" value="Buscar"></p>
-  </form>
-  <?php echo '</div>'; ?>
-  <?php if($vecinos_filtrados != '') {
-    echo '<h1> Vecinos Filtrados</h1>';
-    echo '<table class="table"><thead class="thead-inverse">        <tr>
-    <th>DNI</th><th>Apellido</th><th>Nombre</th><th>Domicilio</th><th>mail</th><th>otros</th>       </tr>        </thead><tbody>';
-    foreach( $vecinos_filtrados as $vecino){
-      echo  '<tr class="vecinos_filtrados"><th scope="row" id-value="'.$vecino->id_vecino .'">'. $vecino->DNI.'</th>'.
-            '<td>'.$vecino->Apellido.'</td>'.
-            '<td>'.$vecino->Nombre.'</td>'.
-            '<td>'.$vecino->calle . $vecino->altura.'</td>'.
-            '<td>'.$vecino->mail.'</td>';
-    }
-    echo '  </tbody></table>';
-  }else {
-    if ($id_vecino == '')  echo '<h2>No se ha seleccionado vecino</h2>';
-     else echo "El vecino seleccionado es:  " . $name_vecino;
-  }?>
-  <br></br>
-
+  <?php    
+    $this->view('buscar_vecinos_registrados');
+     echo '</div>';
+    //$this->view('registrar_vecino_nuevo');
+  ?>
   <div class="filtro-secretaria" <?php if ($id_vecino == '')  echo 'style="display:none;"';  ?> >
     <h3>Para elegir el tipo de reclamo primero filtre por Secretaría y Oficina:</h3>
     <form action="#oficina_filter" method="POST" >
@@ -174,5 +151,9 @@
   cursor: pointer;
   display: none;
 }
+tr.vecinos_filtrados{
+  cursor: pointer;
+}
+
 
 </style>
