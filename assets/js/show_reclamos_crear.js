@@ -95,15 +95,19 @@
   };
 
 
-  var DOM_elem_Required = $("#id_domicilio").parents("#domicilio-reclamo-data").children("p").children(".required");
-  $("#id_domicilio").change(function(){
-    if($("#id_domicilio").val() != ""){
+  var DOM_elem_Required = $("#usar_domicilio_vecino").parents("#domicilio-reclamo-data").children("p").children(".required");
+  $("#usar_domicilio_vecino").change(function(){
+    if($("#usar_domicilio_vecino").prop( "checked" )){
       DOM_elem_Required.each(function( index ) {
         $(this).prop('required',false);
-      });
+        $(this).prop('disabled',true);
+        $("#columna_electrica").prop('disabled',true);
+      });      
     } else{
       DOM_elem_Required.each(function( index ) {
         $(this).prop('required',true);
+        $(this).prop('disabled',false);
+        $("#columna_electrica").prop('disabled',false);
       });
     }
   });

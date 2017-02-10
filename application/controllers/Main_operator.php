@@ -30,6 +30,7 @@ class Main_operator extends CI_Controller{
             break;
         case 2:
             $this->data['perfil'] = 'Oficina';
+            redirect('/main_office/show_main');
             break;
         case 3: 
             $this->data['perfil'] = 'Operador';
@@ -157,10 +158,15 @@ class Main_operator extends CI_Controller{
     if( count($info) ) {
       $this->load->model('reclamo_m');
       $saved = $this->reclamo_m->create_reclamo($info);
+
+
     }
     if ( isset($saved) && $saved ) {
-       echo "reclamo agregado exitosamente";
-       redirect('main_operator/show_main');
+      echo '<script> alert( "Numero de Reclamo:  '.$saved.'");
+         window.location.replace("/index.php/main_operator/show_main");   
+      </script>';
+       //echo "reclamo agregado exitosamente";      
+       //redirect('main_operator/show_main');
     }
   }
 

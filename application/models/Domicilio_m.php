@@ -26,9 +26,9 @@ class Domicilio_m extends CI_Model {
 	}
 
 	function get_all_domicilios_reclamo(){
-		$this->db->select('id_domicilio, calle, altura_inicio, altura_fin' )
-							->from('domicilio_reclamo, calles')
-							->where('domicilio_reclamo.id_calle = calles.id_calle');
+		$this->db->select('id_domicilio, calle, altura, altura_fin' )
+							->from('domicilio, calles')
+							->where('domicilio.id_calle = calles.id_calle');
 	  $domicilios_reclamo = $this->db->get()->result();
 	  return $domicilios_reclamo; 
 	}

@@ -29,6 +29,7 @@ class Main_admin extends CI_Controller{
             break;
         case 2:
             $this->data['perfil'] = 'Oficina';
+            redirect('/main_office/show_main');
             break;
         case 3: 
             $this->data['perfil'] = 'Operador';

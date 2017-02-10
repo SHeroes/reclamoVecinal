@@ -9,7 +9,7 @@ class Login extends CI_Controller {
                 redirect('/main_admin/show_main');
                 break;
                 case 2:
-                redirect('/main_officer/show_main');
+                redirect('/main_office/show_main');
                 break;
                 case 3:
                 redirect('/main_operator/show_main');

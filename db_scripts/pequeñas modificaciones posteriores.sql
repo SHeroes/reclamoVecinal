@@ -176,3 +176,59 @@ ADD CONSTRAINT `id_dom_reclamo`
   
   /*		MARCA	18/01/17	*/
   
+  ALTER TABLE `dbcav`.`domicilio` 
+ADD COLUMN `altura_fin` INT(11) NULL DEFAULT NULL AFTER `piso`,
+ADD COLUMN `columna_luminaria` INT(11) NULL DEFAULT NULL AFTER `altura_fin`;
+
+/* puede que no esten porq los cargue yo  lo importante es borrar todos los reclamos antes de borrar los domicilios de reclamos y depues ponerle la foren key a domicilios*/
+DELETE FROM `dbcav`.`reclamos` WHERE `id_reclamo`='1';
+DELETE FROM `dbcav`.`reclamos` WHERE `id_reclamo`='2';
+DELETE FROM `dbcav`.`reclamos` WHERE `id_reclamo`='3';
+DELETE FROM `dbcav`.`reclamos` WHERE `id_reclamo`='4';
+DELETE FROM `dbcav`.`reclamos` WHERE `id_reclamo`='5';
+DELETE FROM `dbcav`.`reclamos` WHERE `id_reclamo`='6';
+DELETE FROM `dbcav`.`reclamos` WHERE `id_reclamo`='7';
+DELETE FROM `dbcav`.`reclamos` WHERE `id_reclamo`='8';
+DELETE FROM `dbcav`.`reclamos` WHERE `id_reclamo`='9';
+DELETE FROM `dbcav`.`reclamos` WHERE `id_reclamo`='10';
+DELETE FROM `dbcav`.`reclamos` WHERE `id_reclamo`='11';
+DELETE FROM `dbcav`.`reclamos` WHERE `id_reclamo`='12';
+DELETE FROM `dbcav`.`reclamos` WHERE `id_reclamo`='13';
+
+	
+
+ALTER TABLE `dbcav`.`domicilio_reclamo` 
+DROP FOREIGN KEY `id_dom_rec_calle2`,
+DROP FOREIGN KEY `id_dom_rec_calle1`,
+DROP FOREIGN KEY `id_dom_rec_barrio`,
+DROP FOREIGN KEY `id_calle_reclamo`;
+ALTER TABLE `dbcav`.`domicilio_reclamo` 
+DROP INDEX `id_dom_rec_barrio_idx` ,
+DROP INDEX `id_dom_rec_calle2_idx` ,
+DROP INDEX `id_dom_rec_calle1_idx` ,
+DROP INDEX `id_calle_idx` ;
+
+/* puede que no esten porq los cargue yo */
+DELETE FROM `dbcav`.`domicilio_reclamo` WHERE `id_domicilio`='1';
+DELETE FROM `dbcav`.`domicilio_reclamo` WHERE `id_domicilio`='2';
+DELETE FROM `dbcav`.`domicilio_reclamo` WHERE `id_domicilio`='3';
+
+
+
+ALTER TABLE `dbcav`.`reclamos` 
+DROP FOREIGN KEY `id_dom_reclamo`;
+ALTER TABLE `dbcav`.`reclamos` 
+ADD INDEX `id_dom_reclamo_idx` (`id_dom_reclamo` ASC),
+DROP INDEX `id_dom_reclamo_idx` ;
+ALTER TABLE `dbcav`.`reclamos` 
+ADD CONSTRAINT `id_dom_reclamo`
+  FOREIGN KEY (`id_dom_reclamo`)
+  REFERENCES `dbcav`.`domicilio` (`id_domicilio`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+  /* ACA HAY QUE   DROPERAR LA TABLA DE domicilo_reclamos	a mano */ 
+
+  ALTER TABLE `dbcav`.`reclamos` 
+ADD COLUMN `observaciones` TEXT NULL DEFAULT NULL AFTER `codigo_reclamo`,
+ADD COLUMN `domicilio_restringido` BIT(1) NULL DEFAULT FALSE AFTER `observaciones`;

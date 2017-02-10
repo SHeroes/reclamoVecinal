@@ -65,7 +65,11 @@
 
   <form class="reclamo-form" action="insert_reclamo/" method="POST">
     <div class="col-sm-6" id="domicilio-reclamo-data">
-      <h3>Domicilio de Reclamo</h3>
+     <h3>Domicilio de Reclamo</h3>
+      <p><input id="usar_domicilio_vecino" type="checkbox" name="usar_domicilio_vecino" value="false" >Usar Domicilio del Vecino para el reclamo</p>
+            
+      <?php /*
+
       <p><select type="text" class="span4" name="id_domicilio" id="id_domicilio" placeholder="id_domicilio">
         <option value="">Si el domicilio de Reclamo ya existe... Elegirlo</option>
           <?php foreach( $all_domicilios_reclamo as $domicilio_rec){
@@ -74,7 +78,7 @@
           </select>
       </p>
 
-
+      */?>
 
       <p><input type="text" class="span4 calle required" name="calle" id="calle" placeholder="calle" autocomplete="off" required>
           <input type="text" hidden class="hidden_id" name="calle_id" value="">
