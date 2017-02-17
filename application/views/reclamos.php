@@ -111,22 +111,15 @@
     <div class="col-sm-6" id="reclamo-data">
       <h3>Datos para Reclamo</h3>
       Vecino que realiza el Reclamo:   <?php echo $name_vecino; ?>
-      <?php
-      /* if(isset($vecinos[0])) {
-        echo '<p><select name="id_vecino">';
-        echo '<h1>Seleccionar Vecino</h1>';
-            foreach( $vecinos as $vecino){
-              echo  '<option value="'.$vecino->id_vecino.'">DNI: '.$vecino->DNI.'  '.$vecino->Apellido.' '.$vecino->Nombre.'</option>';
-            }
-        echo '</select></p>';
-      }
-      */ ?>
+
       <p><input hidden  type="text" class="span4 id_vecino" name="id_vecino" value="<?php echo $id_vecino; ?>" id=""></p>
       <p><input hidden  type="text" class="span4 name_vecino" name="name_vecino" value="<?php echo $name_vecino; ?>" id=""></p>
       <p><textarea rows="2" cols="50" type="text" class="span4" name="molestar_dia_hs" id="molestar_dia_hs" placeholder="Días y horarios en que puede ser molestado " ></textarea></p>
       <p><input type="checkbox" name="molestar_al_tel_fijo" value="true" >Se lo puede molestar al tel. fijo</p>
       <p><input type="checkbox" name="molestar_al_tel_mov" value="true" >Se lo puede molestar al tel. movil</p>
       <p><input type="checkbox" name="molestar_al_dom" value="true" >Se lo puede molestar al domicilio</p>
+      <p><input type="checkbox" name="domicilio_restringido" value="true" >Si el vecino no quiere que se puedan ver sus datos</p>
+      
       <p><textarea rows="6" cols="50" type="text" name="comentarios" placeholder="comentarios"></textarea></p>
 
       <input hidden type="text" class="span4" name="id_tipo_reclamo" value="" id="tipo_reclamo">

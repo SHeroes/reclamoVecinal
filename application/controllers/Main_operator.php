@@ -163,7 +163,7 @@ class Main_operator extends CI_Controller{
     }
     if ( isset($saved) && $saved ) {
       echo '<script> alert( "Numero de Reclamo:  '.$saved.'");
-         window.location.replace("/index.php/main_operator/show_main");   
+          window.location.replace("/index.php/main_operator/show_main");   
       </script>';
        //echo "reclamo agregado exitosamente";      
        //redirect('main_operator/show_main');

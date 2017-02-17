@@ -13,6 +13,17 @@ class Vecino_m extends CI_Model {
     return $vecino;
   }
 
+  function get_vecino_info($id_vecino){
+    $this->db->select('*')->from('vecino')->where('id_vecino', $id_vecino);
+
+    $query = $this->db->get();
+    if ( $query->num_rows() > 0 ){
+        $row = $query->row_array();
+        return $row;
+    }
+    
+  }
+
   function get_all_vecinos(){
     $this->db->from('vecino');
     $vecinos = $this->db->get()->result();

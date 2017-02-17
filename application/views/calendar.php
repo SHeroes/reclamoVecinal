@@ -42,6 +42,9 @@
         </div>
   </div>
 
-  <link rel="stylesheet" href="<?php echo base_url();?>assets/js/vendor/datepicker/datepicker.css">
-  <script src="<?php echo base_url();?>assets/js/vendor/datepicker/jquery-ui.js"></script>
+
+
+<link rel="stylesheet" href="<?php echo base_url();?>assets/js/vendor/jquery-ui/jquery-ui.css">
+  <script src="<?php echo base_url();?>assets/js/vendor/jquery-ui/jquery-ui.js"></script>
+
   <?php echo '<script src="'. base_url() .'assets/js/show_calendar.js"></script>'; ?> 

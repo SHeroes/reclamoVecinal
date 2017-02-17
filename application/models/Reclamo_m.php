@@ -67,11 +67,21 @@ class Reclamo_m extends CI_Model {
     return $cod_reclamo;
   }
 
+  function update_obs_info($str_obs,$id_reclamo){
+    $this->db->set('observaciones', $str_obs);
+    $this->db->where('id_reclamo', $id_reclamo);
+    $this->db->update('reclamos');
+  }
 
+  function update_state_reclamo($str_state,$id_reclamo){
+    $this->db->set('estado', $str_state);
+    $this->db->where('id_reclamo', $id_reclamo);
+    $this->db->update('reclamos');
+  }
 
   function get_all_reclamos_by_state($estado){
-    $estado != '' ? $estado_str = " AND reclamos.estado = '".$estado."' " : $estado_str = " AND reclamos.estado != 'Terminado' ";
-    $str_query = 'SELECT id_vecino, codigo_reclamo, fecha_alta_reclamo, barrios.barrio ,calles.calle, domicilio.altura , tiporeclamo.titulo , tiporeclamo.tiempo_respuesta_hs , domicilio_restringido
+    $estado != '' ? $estado_str = " AND reclamos.estado = '".$estado."' " : $estado_str = " AND reclamos.estado != 'Solucionado' ";
+    $str_query = 'SELECT id_reclamo, id_vecino, codigo_reclamo, fecha_alta_reclamo, barrios.barrio ,calles.calle, domicilio.altura , tiporeclamo.titulo , tiporeclamo.tiempo_respuesta_hs , domicilio_restringido,  estado,comentarios, observaciones 
     FROM reclamos, domicilio, tiporeclamo, calles, barrios
     WHERE reclamos.id_tipo_reclamo = tiporeclamo.id_tipo_reclamo '. $estado_str .'
     AND reclamos.id_dom_reclamo = domicilio.id_domicilio
@@ -84,17 +94,5 @@ class Reclamo_m extends CI_Model {
     
     return $query->result_array();
 
-    /*
-    $this->db->select(*)
-
-    return 
-
-        $DNI_ = "'" . $DNI . "'";
-    $where_str = 'domicilio.id_calle = calles.id_calle and DNI ='.$DNI_;
-    $this->db->select('id_vecino, Nombre, Apellido, DNI, mail, tel_fijo, tel_movil, id_domicilio, calle ,altura')
-              ->from('vecino, domicilio, calles')
-              ->where($where_str);
-    $vecino = $this->db->get()->result();
-    return $vecino;*/
   }
 }

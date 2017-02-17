@@ -47,33 +47,52 @@ class Main_office extends CI_Controller{
       $this->load->view('restricted',$this->data);
       return ;
     }
-    /*
-    $this->load->model('sector_m');
-    $this->load->model('domicilio_m');
-    $this->load->model('vecino_m');
-    //$new_data['last_10_days_reclamos'] = '';
-
-    $new_data['secretarias'] = $this->sector_m->get_all_sector_by_type('Secretaria');
-    $new_data['oficinas'] = $this->sector_m->get_all_sector_by_type('Oficina');
-
-    $this->load->model('vecino_m');
-    
-    $new_data['vecinos_filtrados'] = '';
-    $new_data['id_vecino'] = '';
-    $new_data['name_vecino'] = '';
-
-
-    $new_data['all_domicilios_reclamo'] = $this->domicilio_m->get_all_domicilios_reclamo();
-    $new_data['all_barrios'] = $this->domicilio_m->get_all_barrios();
-    */
 
     $new_data['reclamos_list'] = '';
     $this->load->model('reclamo_m');
-    $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_by_state('Iniciado');
+    //$new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_by_state('Iniciado');
+    $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_by_state('');
 
     $this->load->view('main_office',$this->data);
     $this->load->view('reclamos_office',$new_data);
-    $this->load->view('footer',$this->data);
+    $this->load->view('footer_base',$this->data);
 	}
+
+
+
+  public function get_vecino_info(){
+
+    $this->load->model('vecino_m');
+    $id_vecino =  $this->input->post('id_vecino');
+    $query = $this->vecino_m->get_vecino_info($id_vecino);
+    echo json_encode ($query);
+    
+  }
+
+  public function editar_observacion(){
+    $info = $this->input->post(null,true);
+    if( count($info) ) {
+      $this->load->model('reclamo_m');
+      $obs_str =  $this->input->post('observacion_input');
+      $id_reclamo =  $this->input->post('id_reclamo');
+      $saved = $this->reclamo_m->update_obs_info($obs_str, $id_reclamo);
+    }
+    if ( isset($saved) && $saved ) {
+      echo 'Editado Correctamente';
+    }
+  }
+
+  public function actualizar_estado(){
+    $info = $this->input->post(null,true);
+    if( count($info) ) {
+      $this->load->model('reclamo_m');
+      $str_state =  $this->input->post('state');
+      $id_reclamo =  $this->input->post('id_reclamo');
+      $saved = $this->reclamo_m->update_state_reclamo($str_state, $id_reclamo);
+    }
+    if ( isset($saved) && $saved ) {
+      echo 'Estado del Reclamo actualizado Correctamente';
+    }
+  }
 
 }
