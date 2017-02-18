@@ -2,7 +2,24 @@
 <div class="container">
 <h1>Reclamos correspondientes a: <?php echo $this->session->sector_name; ?></h1>
 
+
+
+
   <div class="col-md-12">
+
+
+    <form action="#" id="state_filter" method="POST" >
+        <p><select type="text" class="span4" name="status_filter_selector" id="status_filter_selector" style="margin-right: 30px;">
+            <option id="estado-vacio_filter" value="">Elegir Estado... </option>
+            <option id="iniciado_filter" value="Iniciado">Iniciado</option>
+            <option id="contactado_filter" value="Contactado">Contactado</option>
+            <option id="resolucion_filter" value="En resolución">En resolución</option>
+            <option id="solucionado_filter" value="Solucionado">Solucionado</option>
+            <option id="gestionado_filter" value="Gestionado">Gestionado</option>
+        </select>  <input type="submit" class="span4" value="Filtrar"></p>
+    </form>
+
+
     <?php 
   
     if(count($reclamos_list) > 0){

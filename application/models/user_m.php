@@ -31,9 +31,9 @@ class User_m extends CI_Model {
         // stores data in CodeIgniter's session storage.  Some of the values are built in
         // to CodeIgniter, others are added.  See CodeIgniter's documentation for details.
         
-        $str_query = "SELECT denominacion FROM usuariosxsector, sectores WHERE usuariosxsector.id_sector = sectores.id_sector AND usuariosxsector.id_usuario = '". $this->details->id. "'; ";
+        $str_query = "SELECT denominacion, usuariosxsector.id_sector as id_sector FROM usuariosxsector, sectores WHERE usuariosxsector.id_sector = sectores.id_sector AND usuariosxsector.id_usuario = '". $this->details->id. "'; ";
         $query = $this->db->query($str_query);
-        
+
         $this->session->set_userdata( array(
                 'id'=>$this->details->id,
                 'perfil_level'=>$this->details->perfil_level,
@@ -41,10 +41,10 @@ class User_m extends CI_Model {
                 'email'=>$this->details->email,
                 'password'=>$this->details->password,
                 'sector_name'=>$query->result()[0]->denominacion,
+                'id_sector'=>$query->result()[0]->id_sector,
                 'isLoggedIn'=>true
             )
         );
-
 
     }
 

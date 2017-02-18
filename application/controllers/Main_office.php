@@ -47,12 +47,20 @@ class Main_office extends CI_Controller{
       $this->load->view('restricted',$this->data);
       return ;
     }
-
+    //$id_sector = $this->details->id_sector;
+    $id_sector = $this->session->id_sector;
     $new_data['reclamos_list'] = '';
     $this->load->model('reclamo_m');
-    //$new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_by_state('Iniciado');
-    $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_by_state('');
+    //si se post algo como filtro lo uso, sino no muestro ninguno
+    $info = $this->input->post(null,true);
+    if( count($info) && isset($info['status_filter_selector'])){
+      $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_by('estado',$info['status_filter_selector'], $id_sector);
+    } else {
+      $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_by('estado','', $id_sector);
+    }
 
+    //$new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_by_state('Iniciado');
+    
     $this->load->view('main_office',$this->data);
     $this->load->view('reclamos_office',$new_data);
     $this->load->view('footer_base',$this->data);

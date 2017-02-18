@@ -79,14 +79,17 @@ class Reclamo_m extends CI_Model {
     $this->db->update('reclamos');
   }
 
-  function get_all_reclamos_by_state($estado){
-    $estado != '' ? $estado_str = " AND reclamos.estado = '".$estado."' " : $estado_str = " AND reclamos.estado != 'Solucionado' ";
-    $str_query = 'SELECT id_reclamo, id_vecino, codigo_reclamo, fecha_alta_reclamo, barrios.barrio ,calles.calle, domicilio.altura , tiporeclamo.titulo , tiporeclamo.tiempo_respuesta_hs , domicilio_restringido,  estado,comentarios, observaciones 
-    FROM reclamos, domicilio, tiporeclamo, calles, barrios
-    WHERE reclamos.id_tipo_reclamo = tiporeclamo.id_tipo_reclamo '. $estado_str .'
-    AND reclamos.id_dom_reclamo = domicilio.id_domicilio
-    AND domicilio.id_calle = calles.id_calle
-    AND domicilio.id_barrio = barrios.id_barrio
+  function get_all_reclamos_con_vecino_by($column,$value){
+
+    $value != '' ? $cond_str = " AND ".$column." = '".$value."' " : $cond_str = " AND estado != 'Solucionado' ";
+    if ($column != 'estado'){ $cond_str = " AND ".$column." LIKE '%".$value."%'" ;}
+
+
+
+    $str_query = 'SELECT id_reclamo, vecino.id_vecino, codigo_reclamo, fecha_alta_reclamo, tiporeclamo.titulo , tiporeclamo.tiempo_respuesta_hs , domicilio_restringido,  estado,comentarios, observaciones, Apellido, DNI
+    FROM reclamos, tiporeclamo, vecino
+    WHERE reclamos.id_tipo_reclamo = tiporeclamo.id_tipo_reclamo
+    AND reclamos.id_vecino = vecino.id_vecino '. $cond_str .'
     ORDER BY fecha_alta_reclamo ASC;';
     /* los datos del titular se buscar por ajax al darle click */
 
@@ -95,4 +98,26 @@ class Reclamo_m extends CI_Model {
     return $query->result_array();
 
   }
+
+  /* ES PARA LAS OFICINIAS porque solo aparecen los reclamos de la oficina a la que pertenece el usuario */
+  function get_all_reclamos_by($column,$value, $id_sec){
+    $value != '' ? $cond_str = " AND reclamos.".$column." = '".$value."' " : $cond_str = " AND reclamos.estado != 'Solucionado' ";
+    /*  yo ya tengo mi id de sector, entonces busco los reclamos de los responsable de mi sector */
+    $str_query = 'SELECT id_reclamo, id_vecino, codigo_reclamo, fecha_alta_reclamo, barrios.barrio ,calles.calle, domicilio.altura , tiporeclamo.titulo , tiporeclamo.tiempo_respuesta_hs , domicilio_restringido,  estado,comentarios, observaciones 
+    FROM reclamos, domicilio, tiporeclamo, calles, barrios, usuariosxsector
+    WHERE reclamos.id_tipo_reclamo = tiporeclamo.id_tipo_reclamo
+    AND tiporeclamo.id_responsable = usuariosxsector.id_usuario
+    AND usuariosxsector.id_sector = '. $id_sec . '
+    AND reclamos.id_dom_reclamo = domicilio.id_domicilio
+    AND domicilio.id_calle = calles.id_calle
+    AND domicilio.id_barrio = barrios.id_barrio '. $cond_str .'
+    ORDER BY fecha_alta_reclamo ASC;';
+    /* los datos del titular se buscar por ajax al darle click */
+
+    $query = $this->db->query($str_query);
+    
+    return $query->result_array();
+
+  }
+
 }
