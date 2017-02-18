@@ -66,7 +66,7 @@
   <form class="reclamo-form" action="insert_reclamo/" method="POST">
     <div class="col-sm-6" id="domicilio-reclamo-data">
      <h3>Domicilio de Reclamo</h3>
-      <p><input id="usar_domicilio_vecino" type="checkbox" name="usar_domicilio_vecino" value="false" >Usar Domicilio del Vecino para el reclamo</p>
+      <p><input id="usar_domicilio_vecino" class="more-reg" type="checkbox" name="usar_domicilio_vecino" value="false" >Usar Domicilio del Vecino para el reclamo</p>
             
       <?php /*
 
@@ -80,25 +80,25 @@
 
       */?>
 
-      <p><input type="text" class="span4 calle required" name="calle" id="calle" placeholder="calle" autocomplete="off" required>
-          <input type="text" hidden class="hidden_id" name="calle_id" value="">
+      <p><input type="text" class="span4 more-reg calle required" name="calle" id="calle" placeholder="calle" autocomplete="off" required>
+          <input type="text" hidden class="hidden_id more-reg" name="calle_id" value="">
       </p>
       <div class="calle input-search-result" ></div>
       
 
-      <p><input type="text" class="span4 required" name="altura_inicio" id="altura_inicio" placeholder="altura_inicio" required></p>
-      <p><input type="text" class="span4 required" name="altura_fin" id="altura_fin" placeholder="altura_fin" required></p>
-      <p><input type="text" class="span4 calle required" name="entrecalle1" id="entrecalle1" placeholder="entrecalle1" autocomplete="off" required>
-          <input type="text" hidden class="hidden_id" name="entrecalle1_id" value="">
+      <p><input type="text" class="span4 required more-reg" name="altura_inicio" id="altura_inicio" placeholder="altura_inicio" required></p>
+      <p><input type="text" class="span4 required more-reg" name="altura_fin" id="altura_fin" placeholder="altura_fin" required></p>
+      <p><input type="text" class="span4 calle required more-reg" name="entrecalle1" id="entrecalle1" placeholder="entrecalle1" autocomplete="off" required>
+          <input type="text" hidden class="hidden_id more-reg" name="entrecalle1_id" value="">
       </p>
       <div class="calle input-search-result" ></div>
       
-      <p><input type="text" class="span4 calle required" name="entrecalle2" id="entrecalle2" placeholder="entrecalle2" autocomplete="off" required>
-         <input type="text" hidden class="hidden_id" name="entrecalle2_id" value="">
+      <p><input type="text" class="span4 calle required more-reg" name="entrecalle2" id="entrecalle2" placeholder="entrecalle2" autocomplete="off" required>
+         <input type="text" hidden class="hidden_id more-reg" name="entrecalle2_id" value="">
       </p>
       <div class="calle input-search-result"></div>
 
-      <p><select type="text" class="span4 required" name="id_barrio" id="id_barrio" placeholder="id_barrio" autocomplete="off" required>
+      <p><select type="text" class="span4 required more-reg" name="id_barrio" id="id_barrio" placeholder="id_barrio" autocomplete="off" required>
         <?php
         foreach( $all_barrios as $barrio){
         echo  '<option value="'. $barrio->id_barrio .'">'. $barrio->barrio. '</option>';
@@ -106,29 +106,28 @@
         
         ?>
         </select></p>
-      <p><input type="text" class="span4" name="columna_electrica" id="columna_electrica" placeholder="columna" >“este dato se pide si se refiere a una luminaria”</p>
+      <p><input type="text" class="span4 more-reg" name="columna_electrica" id="columna_electrica" placeholder="columna" >“este dato se pide si se refiere a una luminaria”</p>
     </div>
     <div class="col-sm-6" id="reclamo-data">
       <h3>Datos para Reclamo</h3>
       Vecino que realiza el Reclamo:   <?php echo $name_vecino; ?>
 
-      <p><input hidden  type="text" class="span4 id_vecino" name="id_vecino" value="<?php echo $id_vecino; ?>" id=""></p>
-      <p><input hidden  type="text" class="span4 name_vecino" name="name_vecino" value="<?php echo $name_vecino; ?>" id=""></p>
-      <p><textarea rows="2" cols="50" type="text" class="span4" name="molestar_dia_hs" id="molestar_dia_hs" placeholder="Días y horarios en que puede ser molestado " ></textarea></p>
-      <p><input type="checkbox" name="molestar_al_tel_fijo" value="true" >Se lo puede molestar al tel. fijo</p>
-      <p><input type="checkbox" name="molestar_al_tel_mov" value="true" >Se lo puede molestar al tel. movil</p>
-      <p><input type="checkbox" name="molestar_al_dom" value="true" >Se lo puede molestar al domicilio</p>
-      <p><input type="checkbox" name="domicilio_restringido" value="true" >Si el vecino no quiere que se puedan ver sus datos</p>
+      <p><input hidden  type="text" class="span4 id_vecino more-reg" name="id_vecino" value="<?php echo $id_vecino; ?>" id=""></p>
+      <p><input hidden  type="text" class="span4 name_vecino more-reg" name="name_vecino" value="<?php echo $name_vecino; ?>" id=""></p>
+      <p><textarea rows="2" cols="50" type="text" class="span4 more-reg" name="molestar_dia_hs" id="molestar_dia_hs" placeholder="Días y horarios en que puede ser molestado " ></textarea></p>
+      <p><input type="checkbox" class="more-reg" name="molestar_al_tel_fijo" value="true" >Se lo puede molestar al tel. fijo</p>
+      <p><input type="checkbox" class="more-reg" name="molestar_al_tel_mov" value="true" >Se lo puede molestar al tel. movil</p>
+      <p><input type="checkbox" class="more-reg" name="molestar_al_dom" value="true" >Se lo puede molestar al domicilio</p>
+      <p><input type="checkbox" class="more-reg" name="domicilio_restringido" value="true" >Si el vecino no quiere que se puedan ver sus datos</p>
       
-      <p><textarea rows="6" cols="50" type="text" name="comentarios" placeholder="comentarios"></textarea></p>
+      <p><textarea class="more-reg" rows="6" cols="50" type="text" name="comentarios" placeholder="comentarios"></textarea></p>
 
-      <input hidden type="text" class="span4" name="id_tipo_reclamo" value="" id="tipo_reclamo">
+      <input hidden type="text" class="span4 more-reg" name="id_tipo_reclamo" value="" id="tipo_reclamo">
 
-      <input hidden type="text" class="span4" name="id_operador" id="id_operador" value="<?php echo $id_actual_user; ?>" >
-      
-      <!-- <input hidden type="text" class="span4" name="" id="" > -->
+      <input hidden type="text" class="span4 more-reg" name="id_operador" id="id_operador" value="<?php echo $id_actual_user; ?>" >
 
-      <p><a><input type="submit" class="btn btn-primary" value="Registrar Reclamo"></a></p>
+      <p><a><input type="submit" class="btn btn-primary " value="Registrar Reclamo"></a></p>
+      <p><a><input id="boton_mas_reclamos" class="btn btn-success" value="Registrar más Reclamos"></a></p>
     </div>
 
   </form>

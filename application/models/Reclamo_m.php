@@ -60,7 +60,7 @@ class Reclamo_m extends CI_Model {
     $cod_reclamo = '00' . $int_reclamo . '/' . $currentYear;
     $data3['codigo_reclamo'] = $cod_reclamo;
     $data3['observaciones'] = '';
-    $userData['domicilio_restringido'] ? $data3['domicilio_restringido'] = true : $data3['domicilio_restringido'] = false ;
+     isset($userData['domicilio_restringido']) ? $data3['domicilio_restringido'] = true : $data3['domicilio_restringido'] = false ;
 
     $idReclamogregado = $this->db->insert('reclamos',$data3);
 
