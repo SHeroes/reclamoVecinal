@@ -1,6 +1,6 @@
   <div class="col-sm-12" id="new-sector">
   <h3>Registrar Vecino Nuevo</h3>
-    <form method="POST" action="insert_vecino/">
+    <form method="POST" id="insert_vecino_form" action="insert_vecino/">
       <div class="col-sm-6">
         <h4> Datos del vecino </h4>
         <p><input type="text" class="span4" name="nombre" id="nombre" placeholder="nombre" required></p>
@@ -22,19 +22,19 @@
          si el domicilio ya existe seleccionarlo. Ej: un pariente del mismo domicilio ya se encuentra registrado 
 
         <p><input type="text" class="span4 calle" name="calle" id="calle" placeholder="calle" autocomplete="off" required>
-            <input type="text" hidden class="hidden_id" name="calle_id" value="">
+            <input type="text" hidden class="hidden_id calles" name="calle_id" value="">
         </p>
         <div class="calle input-search-result"></div>
         
 
         <p><input type="text" class="span4 required" name="altura" id="altura" placeholder="altura" required></p>
         <p><input type="text" class="span4 calle required" name="entrecalle1" id="entrecalle1" autocomplete="off" placeholder="entrecalle1" required>
-            <input type="text" hidden class="hidden_id" name="entrecalle1_id" value="">
+            <input type="text" hidden class="hidden_id calles" name="entrecalle1_id" value="">
         </p>
         <div class="calle input-search-result" ></div>
         
         <p><input type="text" class="span4 calle required" name="entrecalle2" id="entrecalle2" placeholder="entrecalle2" autocomplete="off" required>
-           <input type="text" hidden class="hidden_id" name="entrecalle2_id" value="">
+           <input type="text" hidden class="hidden_id calles" name="entrecalle2_id" value="">
         </p>
         <div class="calle input-search-result" ></div>
 
@@ -46,7 +46,27 @@
         <p><input type="text" class="span4" name="departamento" id="departamento" placeholder="departamento"></p>
         <p><input type="text" class="span4" name="piso" id="piso" placeholder="piso"></p>
         </div>
-      <p><a><input type="submit" class="btn btn-primary" value="Registrar"></a></p>
+      <p><a><input type="submit" id="registrar_btn" class="btn btn-primary" value="Registrar"></a></p>
         </div>
     </form>
   </div>
+
+<script type="text/javascript">
+   $(document).ready(function(){
+
+    $('#insert_vecino_form').on('submit', function(e){
+      // validation code here
+      //var valid = true;
+      $("input.hidden_id.calles").each(function(index,elem){
+        el = $(elem);
+        if((el.val()>0)){
+
+        } else {
+          e.preventDefault();
+          alert("Corrija los valores del campo "+ el.attr("name") + " antes de registrar");
+        }
+      })
+    });
+
+});
+</script>

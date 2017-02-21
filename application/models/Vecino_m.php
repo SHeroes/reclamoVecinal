@@ -42,14 +42,7 @@ class Vecino_m extends CI_Model {
   }
 
   function create_vecino($userData){
-    $data['nombre'] = $userData['nombre'];
-    $data['apellido'] = $userData['apellido'];
-    $data['DNI'] = $userData['dni'];
-    $data['mail'] = $userData['mail'];
-    $data['tel_fijo'] = $userData['tel_fijo'];
-    $data['tel_movil'] = $userData['tel_movil'];
-    $this->db->insert('vecino',$data);
-    $idVecinoAgregado = $this->db->insert_id();
+
 
     // create_domicilio //
     if ($userData['id_domicilio'] == null){ 
@@ -67,14 +60,29 @@ class Vecino_m extends CI_Model {
       $idDomicilioAgregado = (int) $userData['id_domicilio'];
     }
 
-    // create domicilioxvecino //
-    $data3['id_vecino'] = $idVecinoAgregado;
-    $data3['id_domicilio'] = $idDomicilioAgregado;
-    $data3['fecha_alta'] = date('Y-m-d H:i:s',time());
+    if($idDomicilioAgregado){
+      $data['nombre'] = $userData['nombre'];
+      $data['apellido'] = $userData['apellido'];
+      $data['DNI'] = $userData['dni'];
+      $data['mail'] = $userData['mail'];
+      $data['tel_fijo'] = $userData['tel_fijo'];
+      $data['tel_movil'] = $userData['tel_movil'];
+      $this->db->insert('vecino',$data);
+      $idVecinoAgregado = $this->db->insert_id();
+      if ($idVecinoAgregado){
+        // create domicilioxvecino //
+        $data3['id_vecino'] = $idVecinoAgregado;
+        $data3['id_domicilio'] = $idDomicilioAgregado;
+        $data3['fecha_alta'] = date('Y-m-d H:i:s',time());
 
-    $this->db->insert('domiciliosxvecinos',$data3);
+        $this->db->insert('domiciliosxvecinos',$data3);
 
-    return $idVecinoAgregado;
+        return $idVecinoAgregado;
+      } else {
+        return "fallo al agregar el vecino";
+      } 
+    } else{
+        return "fallo al agregar el Domicilio";
+    }
   }
-
 }
