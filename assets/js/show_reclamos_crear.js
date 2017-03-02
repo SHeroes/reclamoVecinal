@@ -1,10 +1,7 @@
 
  $(document).ready(function(){
    
-   $("#boton_mas_reclamos").click(function() {
-
-
-
+  $("#boton_mas_reclamos").click(function() {
     var str_obj = '{';
     $(".reclamo-form .more-reg").each(function(index, elem){
       //console.log($(elem).attr("name") + $(elem).val());
@@ -49,7 +46,7 @@
   }
 
 
-   if($(".vecinos_filtrados").length > 0){
+  if($(".vecinos_filtrados").length > 0){
     $(".vecinos_filtrados").click(function() {
         var row = $(this);
         var value = row.children("th").attr("id-value");
@@ -125,28 +122,56 @@
       hiddenElement.attr("value", val);
 
       elemento.val(elementoClickeado.html());
-      //alert(elemento.val());
       resultDOM.hide();
     });
   };
 
-
   var DOM_elem_Required = $("#usar_domicilio_vecino").parents("#domicilio-reclamo-data").children("p").children(".required");
   $("#usar_domicilio_vecino").change(function(){
     if($("#usar_domicilio_vecino").prop( "checked" )){
-      DOM_elem_Required.each(function( index ) {
-        $(this).prop('required',false);
-        $(this).prop('disabled',true);
-        $("#columna_electrica").prop('disabled',true);
-      });      
-    } else{
-      DOM_elem_Required.each(function( index ) {
-        $(this).prop('required',true);
-        $(this).prop('disabled',false);
-        $("#columna_electrica").prop('disabled',false);
-      });
+        var id_vecino = $($(".id_vecino").get(0)).val();
+        var dataToSearch = { id_vecino: id_vecino };
+        $.ajax({
+         type: "post",
+         url: "/index.php/main_operator/search_domicilio_by_id_vecino",
+         cache: false,    
+         data: dataToSearch,
+         success: domicilio_vecino_encontrado,
+         error: function(){      
+          alert('Error while request..');
+         }
+        }); 
+        DOM_elem_Required.each(function( index ) {
+          $(this).prop('required',false);
+          $(this).prop('disabled',true);
+          $("#columna_electrica").prop('disabled',true);
+        }); 
+    }else{
+        DOM_elem_Required.each(function( index ) {
+          $(this).prop('required',true);
+          $(this).prop('disabled',false);
+          $("#columna_electrica").prop('disabled',false);
+        });
+        $("#calle").val('');
+        $("#altura_inicio").val('');
+        $("#altura_fin").val('');
+        $("#entrecalle1").val('');
+        $("#entrecalle2").val('');
+        $("#id_barrio").val('');
+        $("#columna_electrica").val('');
     }
   });
+
+  function domicilio_vecino_encontrado(response){
+    var obj = JSON.parse(response);
+    $("#calle").val(obj.calle);
+    $("#altura_inicio").val(obj.altura);
+    $("#altura_fin").val(obj.altura_fin);
+    $("#entrecalle1").val(obj.entrecalle1);
+    $("#entrecalle2").val(obj.entrecalle2);
+    $("#id_barrio").val(obj.id_barrio);
+    $("#columna_electrica").val(obj.columna_luminaria);
+  };
 
   $(".tipo_reclamo_row").click(function(){
       var elementoClickeado = $($(this));

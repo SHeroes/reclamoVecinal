@@ -174,9 +174,12 @@ class Main_operator extends CI_Controller{
     $info = $this->input->post(null,true);
     if( count($info) ) {
       $this->load->model('reclamo_m');
-      $saved = $this->reclamo_m->create_reclamo($info);
 
-
+      if ($info['usar_domicilio_vecino']){
+        $this->load->model('domicilio_m');
+        $info['idDomicilioParaReclamo'] = $this->domicilio_m->search_Dom_by_Vecino($info['id_vecino']);
+      }
+      $saved = $this->reclamo_m->create_reclamo($info,$info['usar_domicilio_vecino']);
     }
     if ( isset($saved) && $saved ) {
       echo '<script> alert( "Numero de Reclamo:  '.$saved.'");
@@ -203,6 +206,7 @@ class Main_operator extends CI_Controller{
   }
 
   function insert_vecino() {
+    echo '<script src="'. base_url() .'assets/js/vendor/jquery-1.9.0.min.js"></script>';
     $info = $this->input->post(null,true);
     if( count($info) ) {
       $this->load->model('vecino_m');
@@ -210,7 +214,26 @@ class Main_operator extends CI_Controller{
     }
     if ( isset($saved) && $saved ) {
        echo "vecino agregado exitosamente";
-       redirect('main_operator/show_vecinos');
+       $vecino_info = $this->vecino_m->get_vecino_info($saved);
+       //print_r($vecino_info);
+       
+       $name_vecino = 'name_vecino';
+       $name_vecino = $vecino_info['Apellido'] . ", " . $vecino_info['Nombre'];
+
+        echo '<form id="form-id-vecino-creado" action="/index.php/main_operator/show_main" method="POST" >
+        <p><input hidden  type="text" class="span4 id_vecino" name="id_vecino" value="'. $saved .'" id=""></p>
+    <p><input hidden  type="text" class="span4 name_vecino" name="name_vecino" value="'. $name_vecino .'" id=""></p>
+        </form>
+        <script>
+        $(document).ready(function(){
+          $("form#form-id-vecino-creado").submit(function(){
+              alert("Se ha Registrado al Vecino:'. $name_vecino .'correctamente, Se procede a la toma del reclamo");
+          });
+          $("form#form-id-vecino-creado").submit();
+        });
+        </script>';
+
+       //redirect('main_operator/show_main');
     }
   }
 
@@ -219,6 +242,23 @@ class Main_operator extends CI_Controller{
     $search =  $this->input->post('searchCalle');    
     $query = $this->domicilio_m->get_calle($search);
     echo json_encode ($query);
+  }
+
+
+  function search_domicilio_by_id_vecino(){
+    
+    $this->load->model('domicilio_m');
+    $id_vecino =  $this->input->post('id_vecino');
+    $info = $this->domicilio_m->buscar_info_domicilio_by_id_vecino($id_vecino);
+    echo json_encode ($info);
+    
+    /*
+$array = array(
+    "foo" => "bar",
+    "bar" => "foo",
+);
+    echo json_encode ($array);
+    */
   }
 
 

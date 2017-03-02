@@ -22,18 +22,18 @@
          si el domicilio ya existe seleccionarlo. Ej: un pariente del mismo domicilio ya se encuentra registrado 
 
         <p><input type="text" class="span4 calle" name="calle" id="calle" placeholder="calle" autocomplete="off" required>
-            <input type="text" hidden class="hidden_id calles" name="calle_id" value="">
+            <input type="text" hidden class="hidden_id calles calle-principal" name="calle_id" value="">
         </p>
         <div class="calle input-search-result"></div>
         
 
         <p><input type="text" class="span4 required" name="altura" id="altura" placeholder="altura" required></p>
-        <p><input type="text" class="span4 calle required" name="entrecalle1" id="entrecalle1" autocomplete="off" placeholder="entrecalle1" required>
+        <p><input type="text" class="span4 calle" name="entrecalle1" id="entrecalle1" autocomplete="off" placeholder="entrecalle1">
             <input type="text" hidden class="hidden_id calles" name="entrecalle1_id" value="">
         </p>
         <div class="calle input-search-result" ></div>
         
-        <p><input type="text" class="span4 calle required" name="entrecalle2" id="entrecalle2" placeholder="entrecalle2" autocomplete="off" required>
+        <p><input type="text" class="span4 calle" name="entrecalle2" id="entrecalle2" placeholder="entrecalle2" autocomplete="off">
            <input type="text" hidden class="hidden_id calles" name="entrecalle2_id" value="">
         </p>
         <div class="calle input-search-result" ></div>
@@ -51,15 +51,28 @@
     </form>
   </div>
 
+<style>
+  .calle.input-search-result{
+    background-color: khaki;
+    margin-bottom: 10px;
+  }
+  .calle.input-search-result div{
+        border-bottom: 1px solid white;
+  }
+ .calle.input-search-result div:hover{
+    font-weight: 600;
+  }
+
+</style>
 <script type="text/javascript">
    $(document).ready(function(){
 
     $('#insert_vecino_form').on('submit', function(e){
       // validation code here
       //var valid = true;
-      $("input.hidden_id.calles").each(function(index,elem){
+      $("input.hidden_id.calle-principal").each(function(index,elem){
         el = $(elem);
-        if((el.val()>0)){
+        if ( el.val()>0 ){
 
         } else {
           e.preventDefault();

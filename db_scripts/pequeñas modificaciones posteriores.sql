@@ -511,3 +511,11 @@ INSERT INTO `dbcav`.`tiporeclamo`(`tiempo_respuesta_hs`,`id_responsable`,`descri
 INSERT INTO `dbcav`.`tiporeclamo`(`tiempo_respuesta_hs`,`id_responsable`,`descripcion`,`titulo`)VALUES('7','17','via publica.','ramas');
 INSERT INTO `dbcav`.`tiporeclamo`(`tiempo_respuesta_hs`,`id_responsable`,`descripcion`,`titulo`)VALUES('10','17','pluviales.','pluviales');
 INSERT INTO `dbcav`.`tiporeclamo`(`tiempo_respuesta_hs`,`id_responsable`,`descripcion`,`titulo`)VALUES('7','17','varios.','otros');
+
+
+
+/*  25/02/17 */
+
+ALTER TABLE `dbcav`.`domicilio` 
+CHANGE COLUMN `entrecalle1_id` `entrecalle1_id` INT(11) NULL DEFAULT NULL ,
+CHANGE COLUMN `entrecalle2_id` `entrecalle2_id` INT(11) NULL DEFAULT NULL ;

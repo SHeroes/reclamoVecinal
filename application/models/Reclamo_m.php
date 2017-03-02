@@ -3,20 +3,12 @@
 
 class Reclamo_m extends CI_Model {
 
-  function create_reclamo($userData){
+
+
+  function create_reclamo($userData,$usar_domicilio_vecino){
     // create_domicilio //
-    if ($userData['usar_domicilio_vecino']){ 
-      //checkbox para que tome el ID del domicilio del vecino como el de reclamo
-      $str_query = 'SELECT domicilio.id_domicilio
-      FROM domiciliosxvecinos, domicilio
-      where domiciliosxvecinos.id_vecino = '.$userData['id_vecino'].' and domiciliosxvecinos.id_domicilio = domicilio.id_domicilio
-      order by fecha_alta DESC
-      LIMIT 1;';
-      $query = $this->db->query($str_query);
-
-      $array = $query->result_array();
-      $idDomicilioReclamoAgregado = (int) $array[0]['id_domicilio'];
-
+    if ($usar_domicilio_vecino){ 
+      $idDomicilioReclamoAgregado = $userData['idDomicilioParaReclamo'];
     } else {
       $data2['id_calle'] =    (int) $userData['calle_id'];
       $data2['altura'] =      (int) $userData['altura_inicio'];
@@ -84,8 +76,6 @@ class Reclamo_m extends CI_Model {
     $value != '' ? $cond_str = " AND ".$column." = '".$value."' " : $cond_str = " AND estado != 'Solucionado' ";
     if ($column != 'estado'){ $cond_str = " AND ".$column." LIKE '%".$value."%'" ;}
 
-
-
     $str_query = 'SELECT id_reclamo, vecino.id_vecino, codigo_reclamo, fecha_alta_reclamo, tiporeclamo.titulo , tiporeclamo.tiempo_respuesta_hs , domicilio_restringido,  estado,comentarios, observaciones, Apellido, DNI
     FROM reclamos, tiporeclamo, vecino
     WHERE reclamos.id_tipo_reclamo = tiporeclamo.id_tipo_reclamo
@@ -96,7 +86,6 @@ class Reclamo_m extends CI_Model {
     $query = $this->db->query($str_query);
     
     return $query->result_array();
-
   }
 
   /* ES PARA LAS OFICINIAS porque solo aparecen los reclamos de la oficina a la que pertenece el usuario */
