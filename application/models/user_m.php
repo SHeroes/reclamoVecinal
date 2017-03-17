@@ -5,6 +5,16 @@ class User_m extends CI_Model {
 
     var $details;
 
+    function change_password_user( $id, $password ) {
+        // Build a query to retrieve the user's details
+        // based on the received username and password
+        $this->db->set('password', sha1($password)); //value that used to update column  
+        $this->db->where('id', $id); //which row want to upgrade  
+        $this->db->update('user');  //table name
+
+        return $id;
+    }
+
     function validate_user( $email, $password ) {
         // Build a query to retrieve the user's details
         // based on the received username and password

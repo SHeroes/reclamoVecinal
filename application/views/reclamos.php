@@ -132,24 +132,4 @@
 
   </form>
 
-
-
-
-
-
 </div>
-
-<style>
-.reclamo-form{
- display: none; 
-}
-.input-search-result{
-  cursor: pointer;
-  display: none;
-}
-tr.vecinos_filtrados{
-  cursor: pointer;
-}
-
-
-</style>

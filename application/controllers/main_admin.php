@@ -26,6 +26,7 @@ class Main_admin extends CI_Controller{
             break;
         case 1: 
             $this->data['perfil'] = 'Secretario';
+            redirect('/main_secretary_coord/show_main');
             break;
         case 2:
             $this->data['perfil'] = 'Oficina';
@@ -58,37 +59,6 @@ class Main_admin extends CI_Controller{
     $this->load->view('main_admin',$this->data);
     $this->load->view('usuarios',$this->data);
     $this->load->view('footer',$this->data);
-/*
-    switch ($this->session->userdata('perfil_level')){
-      case 0:
-        data['is_admin'] = true;
-        //print_r($this->perfil);
-        $this->load->model('sector_m');
-        $sectores = $this->sector_m->get_all_sectores();
-        data['array_sectores'] = $sectores;
-
-        $this->load->model('user_m');
-        $all_users = $this->user_m->get_all__users();
-        data['all_users'] = $all_users;
-
-        $this->load->view('main_admin',data);
-        $this->load->view('usuarios',data);
-        $this->load->view('footer',data);
-      break;
-      case 2: 
-        $this->load->view('main_oficina',data);
-        //$this->load->view('reclamos',data);
-        $this->load->view('footer',data);
-      case 3:
-        $this->load->view('main_operator',data);
-        //$this->load->view('reclamos',data);
-        $this->load->view('footer',data);
-      break;
-      default:
-        $this->load->view('restricted',data);
-      break;
-    }  
-    */
   }
 
   function show_sector() {
@@ -150,6 +120,19 @@ class Main_admin extends CI_Controller{
        echo "success";
     }
   }
+
+  function reset_password() {
+    $info = $this->input->post(null,true);
+    if( count($info) ) {
+      $this->load->model('user_m');
+      $saved = $this->user_m->change_password_user($info['id'],$info['password']);
+    }
+    if ( isset($saved) && $saved ) {
+       echo "success";
+    }
+  }
+
+
 
   function show_calendar() {
     if($this->basic_level() != 0) {

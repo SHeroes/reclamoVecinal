@@ -24,6 +24,8 @@ $(function () {
       this.$myMessages = $('#tblMyMessages tbody');
       this.$newUserButton = $('#btnCreateUser');
       this.$modUserButton = $('#btnModifyUser');
+      this.$modResetPassword = $('#btnResetPassUser');
+
       this.$delUserButton = $('#btnDeleteUser');
 
       this.$newSectorButton = $('#btnSubmitSector');
@@ -37,6 +39,7 @@ $(function () {
     bindEvents: function () {
       this.$newUserButton.on('click', this.addNewUser);
       this.$modUserButton.on('click', this.modUser);
+      this.$modResetPassword.on('click', this.resetPassword);
       this.$delUserButton.on('click', this.delUser);
 
       this.$newSectorButton.on('click', this.addNewSector);
@@ -84,27 +87,58 @@ $(function () {
     },
 
     modUser : function (e) {
+      var str = '';
+      $("#mod-user .required").each(function (index, elem){
+        item = $(elem);
+        //console.log(item.attr("placeholder"));
+        if (item.val() == ''){ 
+          str = str + ' - ' + item.attr("placeholder");
+        };
+      });
+      if (str != ''){
+        alert("Campos incompletos: " + str);    
+      } else {
+        var formData = {
+          id: $('#mod-user #id_user').val(),
+          firstName   : $('#mod-user #first_name').val(),
+          lastName    : $('#mod-user #last_name').val(),
+          email       : $('#mod-user #email').val(),
+          perfil_level: $('#mod-user #teamId').val(),
+          miembro_sector: $('#mod-user #miembro_sector').val(),
+          password1   : $('#mod-user #password').val(),
+          password2   : $('#mod-user #password2').val()
+        };
+        // TODO: Client-side validation goes here
+
+        var postUrl = App.baseUrl + '/index.php/main_admin/update_user';
+
+        $.ajax({
+          type: 'POST',
+          url: postUrl,
+          dataType: 'text',
+          data: formData,
+          success: App.userModify,
+          error: App.userModify
+        })
+      }
+    },
+
+    resetPassword : function (e) {
       var formData = {
         id: $('#mod-user #id_user').val(),
-        firstName   : $('#mod-user #first_name').val(),
-        lastName    : $('#mod-user #last_name').val(),
-        email       : $('#mod-user #email').val(),
-        perfil_level: $('#mod-user #teamId').val(),
-        miembro_sector: $('#mod-user #miembro_sector').val(),
-        password1   : $('#mod-user #password').val(),
-        password2   : $('#mod-user #password2').val()
+        password   : 'clave1234'
       };
       // TODO: Client-side validation goes here
 
-      var postUrl = App.baseUrl + '/index.php/main_admin/update_user';
+      var postUrl = App.baseUrl + '/index.php/main_admin/reset_password';
 
       $.ajax({
         type: 'POST',
         url: postUrl,
         dataType: 'text',
         data: formData,
-        success: App.userModify,
-        error: App.userModify
+        success: App.passReset,
+        error: App.alertError
       })
 
     },
@@ -236,6 +270,13 @@ $(function () {
       // TODO: if response not true, show server validation errors
     },
 
+    passReset :  function(response) {
+      if ( response ) {
+        console.log(response);
+        alert("password reiniciada Correctamente");
+      }
+      // TODO: if response not true, show server validation errors
+    },
         
     sectorReload : function(response) {
       if ( response ) {
@@ -257,5 +298,7 @@ $(function () {
   };
 
   App.init();
+
+  
 
 });

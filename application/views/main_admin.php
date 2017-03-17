@@ -34,6 +34,7 @@
                   </li>
                   <li>
                     <div class="btn-group pull-right">
+                        <a class="btn" href="javascript:change_password();"><i class="glyphicon glyphicon-share"></i> Password </a>                     
                         <a class="btn" href="<?php echo base_url() ?>index.php/login/logout_user"><i class="glyphicon glyphicon-share"></i> Logout</a>          
                     </div>
                   </li>
@@ -47,3 +48,5 @@
     <!--/.navbar-inner -->
   </div>
   <!--/.navbar -->
+
+<?php $this->load->view('change_pass'); ?>

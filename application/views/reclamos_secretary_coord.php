@@ -79,5 +79,4 @@
   </div> 
 
 
-
-<?php echo '<script src="'. base_url() .'assets/js/show_office.js"></script>'; ?>
+<?php echo '<script src="'. base_url() .'assets/js/show_secretary_coord.js"></script>'; ?>

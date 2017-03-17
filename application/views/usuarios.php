@@ -1,5 +1,24 @@
     <?php echo '<script src="'. base_url() .'assets/js/show_users.js"></script>'; ?>
   <div class="container">
+      <div class="">
+      <div class="reset-password">
+        <h2>Resetear Password del Usuario</h2>
+        <p>La nueva clave será: clave1234</p>
+        <div class="col-sm-4">
+        <select class="span4" name="id_user_pass_rst" id="id_user_pass_rst">
+         <?php
+          foreach( $all_users as $usuario){
+            echo  '<option value="'.$usuario->id.'">'. $usuario->email.'</option>';
+          }
+          ?>
+        </select>
+        </div>
+        <div class="col-sm-4">
+          <a href="#" id="btnResetPassUser" class="btn btn-primary">Resetear Password</a>
+        </div>
+
+      </div>
+      <div class="col-sm-12">
       <h1> Usuarios Existentes</h1>
       <?php
         echo '<table class="table"><thead class="thead-inverse">        <tr>
@@ -13,6 +32,7 @@
         }
         echo '  </tbody></table>';
      ?>
+      </div>
       </br>
         
       <div class="col-sm-6" id="new-user">
@@ -57,7 +77,7 @@
     
         <div class="">
             <p><span>Elegir usuario a modficar:</span><p>
-            <select class="span4" name="id_user" id="id_user">
+            <select class="span4 required" name="id_user" id="id_user">
              <?php
               foreach( $all_users as $usuario){
                 echo  '<option value="'.$usuario->id.'">'. $usuario->email.'</option>';
@@ -65,11 +85,11 @@
               ?>
             </select>
             <p><span>Ingresar los datos nuevos:</span><p>
-            <p><input type="text" class="span4" name="first_name" id="first_name" placeholder="Nombre"></p>
-            <p><input type="text" class="span4" name="last_name" id="last_name" placeholder="Apellido"></p>
-            <p><input type="text" class="span4" name="email" id="email" placeholder="Email"></p>
+            <p><input type="text" class="span4 required" name="first_name" id="first_name" placeholder="Nombre" required></p>
+            <p><input type="text" class="span4 required" name="last_name" id="last_name" placeholder="Apellido" required></p>
+            <p><input type="text" class="span4 required" name="email" id="email" placeholder="Email"></p>
             <p>
-            <select class="span4" name="miembro_sector" id="miembro_sector">
+            <select class="span4 required" name="miembro_sector" id="miembro_sector" placeholder="Sector Nuevo" required>
             <option value="">Sector nuevo</option>
                  <?php
                   foreach( $array_sectores as $sector){
@@ -81,7 +101,7 @@
 
 
             <p>
-              <select class="span4" name="teamId" id="teamId">
+              <select class="span4 required" name="teamId" id="teamId" placeholder="Perfil Nuevo" required >
                 <option value="">Perfil nuevo</option>
                 <option value="1">Secretario</option>
                 <option value="2">Usuario Oficina</option>
@@ -89,8 +109,8 @@
                 <option value="4">Intendente</option>
               </select>
             </p>
-            <p><input type="password" class="span4" name="password" id="password" placeholder="Password"></p>
-            <p><input type="password" class="span4" name="password2" id="password2" placeholder="Confirm Password"></p>
+            <p><input type="password" class="span4 required" name="password" id="password" placeholder="Password" required></p>
+            <p><input type="password" class="span4 required" name="password2" id="password2" placeholder="Confirm Password" required></p>
             
         </div>
         <div class="">

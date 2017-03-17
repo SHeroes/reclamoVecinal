@@ -1,6 +1,6 @@
 <?php
 
-class Main_office extends CI_Controller{
+class Main_secretary_coord extends CI_Controller{
 
   var $data = array(
     'perfil' => '' ,
@@ -27,10 +27,10 @@ class Main_office extends CI_Controller{
             break;
         case 1: 
             $this->data['perfil'] = 'Secretario';
-            redirect('/main_secretary_coord/show_main');
             break;
         case 2:
             $this->data['perfil'] = 'Oficina';
+            redirect('/main_office/show_main');
             break;
         case 3: 
             $this->data['perfil'] = 'Operador';
@@ -44,7 +44,7 @@ class Main_office extends CI_Controller{
   }
 
 	function show_main() {
-    if($this->basic_level() != 2) {
+    if($this->basic_level() != 1) {
       $this->load->view('restricted',$this->data);
       return ;
     }
@@ -57,15 +57,15 @@ class Main_office extends CI_Controller{
     //si se post algo como filtro lo uso, sino no muestro ninguno
     $info = $this->input->post(null,true);
     if( count($info) && isset($info['status_filter_selector'])){
-      $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_by('estado',$info['status_filter_selector'], $id_sector);
+      $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_for_secretary_by('estado',$info['status_filter_selector'], $id_sector);
     } else {
-      $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_by('estado','', $id_sector);
+      $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_for_secretary_by('estado','', $id_sector);
     }
 
     //$new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_by_state('Iniciado');
     
-    $this->load->view('main_office',$this->data);
-    $this->load->view('reclamos_office',$new_data);
+    $this->load->view('main_secretary_coord',$this->data);
+    $this->load->view('reclamos_secretary_coord',$new_data);
     $this->load->view('footer_base',$this->data);
 	}
 

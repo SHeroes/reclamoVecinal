@@ -183,7 +183,7 @@ class Main_operator extends CI_Controller{
     }
     if ( isset($saved) && $saved ) {
       echo '<script> alert( "Numero de Reclamo:  '.$saved.'");
-          //window.location.replace("/index.php/main_operator/show_main");   
+          window.location.replace("/index.php/main_operator/show_main");   
       </script>';
        //echo "reclamo agregado exitosamente";      
        //redirect('main_operator/show_main');
@@ -195,11 +195,8 @@ class Main_operator extends CI_Controller{
     if( count($info) ) {
       $this->load->model('reclamo_m');
       $saved = $this->reclamo_m->create_reclamo($info);
-
-
     }
     if ( isset($saved) && $saved ) {
-      
       //echo '<script> alert( "Numero de Reclamo:  '.$saved.'");</script>';
       echo "Reclamo agregado exitosamente. Numero de Reclamo:  " .$saved;      
     }
@@ -244,6 +241,12 @@ class Main_operator extends CI_Controller{
     echo json_encode ($query);
   }
 
+  function show_observaciones(){
+    $this->load->model('reclamo_m');
+    $id_reclamo =  $this->input->post('id_reclamo');    
+    $result = $this->reclamo_m->show_observaciones($id_reclamo);
+    echo json_encode ($result);
+  }
 
   function search_domicilio_by_id_vecino(){
     
@@ -252,13 +255,6 @@ class Main_operator extends CI_Controller{
     $info = $this->domicilio_m->buscar_info_domicilio_by_id_vecino($id_vecino);
     echo json_encode ($info);
     
-    /*
-$array = array(
-    "foo" => "bar",
-    "bar" => "foo",
-);
-    echo json_encode ($array);
-    */
   }
 
 

@@ -10,22 +10,22 @@
                 </a>
                 <ul class="nav navbar-nav">
                   <li class="tomar_reclamos">
-                    <a href="show_main"><i class="glyphicon glyphicon-home"></i> Tomar reclamos </a>
+                    <a href="show_main"><i class="glyphicon glyphicon-home"></i> Ver Reclamos Asignados a la Secretaria </a>
                     </li>
-                  <li class="vecinos">
+  
+                  <!--
+                    <li class="vecinos">
                     <a href="show_vecinos"><i class="glyphicon glyphicon-th-list"></i> Vecinos </a>
                   </li>
-                  <!-- <li class="domicilios">
-                    <a href="show_domicilios"><i class="glyphicon glyphicon-th-list"></i> Domicilios </a>
-                  </li> -->
-                  <li class="domicilios">
-                    <a href="show_reclamos"><i class="glyphicon glyphicon-th-list"></i>Ver reclamos</a>
-                  </li>
-                  <li>
 
+                  <li class="domicilios">
+                    <a href="show_reclamos"><i class="glyphicon glyphicon-th-list"></i> Ver reclamos ( en construccion ) </a>
+                  </li>
+                   -->
+                  <li>
                     <div class="btn-group pull-right">
                         <a class="btn" href="javascript:change_password();"><i class="glyphicon glyphicon-share"></i> Password </a> 
-                        <a class="btn" href="<?php echo base_url() ?>index.php/login/logout_user"><i class="glyphicon glyphicon-share"></i> Logout</a>          
+                        <a class="btn" href="<?php echo base_url() ?>index.php/login/logout_user"><i class="glyphicon glyphicon-share"></i> Logout</a>                   
                     </div>
                   </li>
                 </ul>

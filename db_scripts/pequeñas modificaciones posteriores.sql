@@ -519,3 +519,43 @@ INSERT INTO `dbcav`.`tiporeclamo`(`tiempo_respuesta_hs`,`id_responsable`,`descri
 ALTER TABLE `dbcav`.`domicilio` 
 CHANGE COLUMN `entrecalle1_id` `entrecalle1_id` INT(11) NULL DEFAULT NULL ,
 CHANGE COLUMN `entrecalle2_id` `entrecalle2_id` INT(11) NULL DEFAULT NULL ;
+
+CREATE TABLE `observaciones` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `userId` int(11) DEFAULT NULL,
+  `body` varchar(320) DEFAULT NULL,
+  `createdDate` datetime DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+ALTER TABLE `dbcav`.`observaciones` 
+CHANGE COLUMN `body` `body` TEXT NULL DEFAULT NULL ;
+
+
+ALTER TABLE `dbcav`.`reclamos` 
+DROP COLUMN `observaciones`;
+
+CREATE TABLE `dbcav`.`observacionesxreclamo` (
+  `id_obs` INT(11) NOT NULL,
+  `id_reclamo` INT(11) NOT NULL,
+  PRIMARY KEY (`id_obs`, `id_reclamo`)) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  
+  
+  ALTER TABLE `dbcav`.`observacionesxreclamo` 
+ADD CONSTRAINT `id_obs`
+  FOREIGN KEY (`id_obs`)
+  REFERENCES `dbcav`.`observaciones` (`ID`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+  
+  ALTER TABLE `dbcav`.`observacionesxreclamo` 
+ADD INDEX `id_obs_reclamo_idx` (`id_reclamo` ASC);
+ALTER TABLE `dbcav`.`observacionesxreclamo` 
+ADD CONSTRAINT `id_obs_reclamo`
+  FOREIGN KEY (`id_reclamo`)
+  REFERENCES `dbcav`.`reclamos` (`id_reclamo`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+
