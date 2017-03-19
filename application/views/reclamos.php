@@ -120,6 +120,8 @@
       <p><input type="checkbox" class="more-reg" name="molestar_al_dom" value="true" >Se lo puede molestar al domicilio</p>
       <p><input type="checkbox" class="more-reg" name="domicilio_restringido" value="true" >Si el vecino no quiere que se puedan ver sus datos</p>
       
+    <!-- upload img // -->
+      <p></p>
       <p><textarea class="more-reg" rows="6" cols="50" type="text" name="comentarios" placeholder="comentarios"></textarea></p>
 
       <input hidden type="text" class="span4 more-reg" name="id_tipo_reclamo" value="" id="tipo_reclamo">
@@ -131,5 +133,19 @@
     </div>
 
   </form>
+
+  <!--
+  <div id="upload-img" class="dialog-box" style="display: none;" title="Subir imagenes">
+    <p>
+      <?php // echo $error;  echo form_open_multipart('upload/do_upload');?> 
+    
+      <form action = "" method = "">
+         <input type = "file" name = "userfile" size = "20" /> 
+         <br /><br /> 
+         <input type = "submit" value = "upload" /> 
+      </form> 
+    </p>
+  </div> 
+  -->
 
 </div>

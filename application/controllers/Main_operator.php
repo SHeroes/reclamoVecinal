@@ -174,6 +174,9 @@ class Main_operator extends CI_Controller{
 
   function insert_reclamo(){
     $info = $this->input->post(null,true);
+    if ( !isset($info['usar_domicilio_vecino'])){
+      $info['usar_domicilio_vecino'] = false;
+    }
     if( count($info) ) {
       $this->load->model('reclamo_m');
 
@@ -194,9 +197,16 @@ class Main_operator extends CI_Controller{
 
   function insert_varios_reclamos(){
     $info = $this->input->post(null,true);
+    if ( !isset($info['usar_domicilio_vecino'])){
+      $info['usar_domicilio_vecino'] = false;
+    }
     if( count($info) ) {
       $this->load->model('reclamo_m');
-      $saved = $this->reclamo_m->create_reclamo($info);
+      if ($info['usar_domicilio_vecino']){
+        $this->load->model('domicilio_m');
+        $info['idDomicilioParaReclamo'] = $this->domicilio_m->search_Dom_by_Vecino($info['id_vecino']);
+      }      
+      $saved = $this->reclamo_m->create_reclamo($info,$info['usar_domicilio_vecino']);
     }
     if ( isset($saved) && $saved ) {
       //echo '<script> alert( "Numero de Reclamo:  '.$saved.'");</script>';
