@@ -6,7 +6,7 @@
         <div class="navbar-header">
 
           <div class="collapse navbar-collapse">
-                <a class="navbar-brand" href="#" name="top">Bienvenido <?php echo $name; ?> perfil: <?php echo $perfil;?></a>
+                <a class="navbar-brand" id="head_user_info" pass-sha1="<?php echo $my_sha1_pass; ?>" id-user="<?php echo $my_id_user; ?>" href="#" name="top">Bienvenido <?php echo $name; ?> perfil: <?php echo $perfil;?></a>
                 <ul class="nav navbar-nav">
                   <li class="usuarios">
                     <a href="show_main"><i class="glyphicon glyphicon-home"></i> Usuarios </a>

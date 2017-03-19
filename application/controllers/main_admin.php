@@ -18,6 +18,8 @@ class Main_admin extends CI_Controller{
 
   public function basic_level(){
       $this->data['name'] = $this->session->name;
+      $this->data['my_id_user'] = $this->session->userdata('id');
+      $this->data['my_sha1_pass'] = $this->session->userdata('password');      
       $this->data['perfil_lvl'] = $this->session->userdata('perfil_level');
       switch ($this->data['perfil_lvl']){
         case 0:
@@ -115,6 +117,17 @@ class Main_admin extends CI_Controller{
     if( count($info) ) {
       $this->load->model('user_m');
       $saved = $this->user_m->update_user_id($info['id'],$info);
+    }
+    if ( isset($saved) && $saved ) {
+       echo "success";
+    }
+  }
+
+  function update_pass() {
+    $info = $this->input->post(null,true);
+    if( count($info) ) {
+      $this->load->model('user_m');
+      $saved = $this->user_m->change_password_user($info['id'],$info['pass']);
     }
     if ( isset($saved) && $saved ) {
        echo "success";

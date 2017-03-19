@@ -1,6 +1,6 @@
   <div id="ch_pass" class="dialog-box" style="display: none;" title="Cambiar Contraseña">
-    
-    <p><input type="text" class="span4" name="new_pass" id="new_pass"></p>
+    <p>ingrese la contraseña nueva</p>
+    <p><input type="text" class="span4" name="new_pass" id="new_pass" placeholder="password"></p>
     <div class="btn btn-primary">Cambiar</div>
   </div>
 
@@ -23,10 +23,6 @@ tr.reclamo_row{
 .input-form{
   margin-right: 30px;
   width: 130px;
-}
-
-.ui-draggable, .ui-droppable {
-  background-position: top;
 }
 
 .reclamo-form{
