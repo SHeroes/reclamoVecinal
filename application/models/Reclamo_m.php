@@ -12,7 +12,7 @@ class Reclamo_m extends CI_Model {
     } else {
       $data2['id_calle'] =    (int) $userData['calle_id'];
       $data2['altura'] =      (int) $userData['altura_inicio'];
-      $data2['altura_fin'] =      (int) $userData['altura_fin'];
+      //$data2['altura_fin'] =      (int) $userData['altura_fin'];
 
       $data2['entrecalle1_id'] = (int) $userData['entrecalle1_id'];
       $data2['entrecalle2_id'] = (int) $userData['entrecalle2_id'];
@@ -62,11 +62,6 @@ class Reclamo_m extends CI_Model {
 
   function concat_observacion($str_obs,$id_reclamo,$id_user){
 
-      /*
-      $this->db->set('observaciones', $str_obs);
-      $this->db->where('id_reclamo', $id_reclamo);
-      $this->db->update('reclamos');
-      */
     $data['userId'] = $id_user;
     $data['body'] = $str_obs;
     $data['createdDate'] = date('Y-m-d H:i:s',time());
@@ -79,7 +74,6 @@ class Reclamo_m extends CI_Model {
 
     $id_obsXreclamo = $this->db->insert('observacionesxreclamo', $data2);
 
-    
     return $id_observacion;
   }
 

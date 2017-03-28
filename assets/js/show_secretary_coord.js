@@ -1,97 +1,5 @@
 
-function editar_observacion(){
-
-  var id_reclamo = $("#id-rec").val();
-  var obs_str = $("#observacion-input").val();
-  if (obs_str == ''){
-    alert("Los comentarios en blanco se agregaran al historial");
-  } else{
-    var dataToSearch = {
-      id_reclamo: id_reclamo,
-      observacion_input: obs_str
-    };
-    $.ajax({
-     type: "post",
-     url: "/index.php/main_office/editar_observacion",
-     cache: false,    
-     data: dataToSearch,
-     success: comentario_editado,
-     error: function(){      
-      alert('Error while request..');
-     }
-    }); 
-  }
-}
-
-function comentario_editado(response){
-  $("#obs-data").dialog('close');
-}
-
 $(document).ready(function(){
-
-  $("#state .btn").click(function() {
-    
-    var state_str = $("#status_selector").val();
-    var id_reclamo = $("#state").attr("id-rec");
-
-    $(".state").each(function (index, elem){
-      var el = $(elem);
-      if (el.attr("id_reclamo") == id_reclamo){
-        el.children("div").html(state_str);
-      }
-    });
-
-    var dataToSearch = {
-      id_reclamo: id_reclamo,
-      state: state_str
-    };
-    $.ajax({
-     type: "post",
-     url: "/index.php/main_office/actualizar_estado",
-     cache: false,    
-     data: dataToSearch,
-     success: $("#state").dialog('close'),
-     error: function(){      
-      alert('Error while request..');
-     }
-    });  
-  });
-
-  $("td.state.officer").click(function(user) {
-    var id_reclamo = $(this).parents("tr").children("th").attr("id_reclamo");
-    var str_state = $("td.state .btn").html();
-    $("option#estado-vacio").hide();
-    $("#state").dialog();
-    switch($("td.state .btn").html()) {
-      case 'Iniciado':
-          $("option#resolucion").hide();
-          $("option#solucionado").hide();
-          $("option#gestionado").hide();         
-          break;
-      case 'Contactado':
-          $("#state").dialog('close');
-          break;
-      case 'En resolución':
-          $("option#contactado").hide();
-          $("option#resolucion").hide();
-          $("#state").show();
-          break;
-      case 'Solucionado':
-          break;
-      case 'Gestionado':
-          break;
-      default:
-          alert("otro");
-    }
-    
-
-   // $("#observacion-input").val(obs);
-    $("#state").attr("id-rec",id_reclamo);
-    $("#state").attr("str_state",str_state);
-
-   // $(".ui-dialog").width(500);
-  });
-
 
   function detalle_vecino(response){
     var htmlString = '<div class="">';
@@ -126,15 +34,6 @@ $(document).ready(function(){
     $("#comments-data").show();
   });
 
-  $(".observacion .btn-success.observar").click(function() {
-    var id_reclamo = $(this).parents("tr").children("th").attr("id_reclamo");
-
-    $("#obs-data").dialog();
-    $("#observacion-input").val('');
-    $("input#id-rec").attr("value",id_reclamo);
-    $(".ui-dialog").width(500);
-    $("#obs-data").show();
-  });
 
   $(".observacion .btn-success.ver").click(function() {
       var id_reclamo = $(this).parents("tr").children("th").attr("id_reclamo");

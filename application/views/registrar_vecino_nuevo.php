@@ -51,19 +51,6 @@
     </form>
   </div>
 
-<style>
-  .calle.input-search-result{
-    background-color: khaki;
-    margin-bottom: 10px;
-  }
-  .calle.input-search-result div{
-        border-bottom: 1px solid white;
-  }
- .calle.input-search-result div:hover{
-    font-weight: 600;
-  }
-
-</style>
 <script type="text/javascript">
    $(document).ready(function(){
 

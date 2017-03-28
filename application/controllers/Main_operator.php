@@ -109,7 +109,7 @@ class Main_operator extends CI_Controller{
 
     $this->load->view('main_operator',$this->data);
     $this->load->view('reclamos',$new_data);
-    $this->load->view('footer',$this->data);
+    $this->load->view('footer_base',$this->data);
 	}
 
 	function show_vecinos() {
@@ -137,7 +137,7 @@ class Main_operator extends CI_Controller{
 
     $this->load->view('main_operator',$this->data);
     $this->load->view('vecinos',$new_data);
-    $this->load->view('footer',$this->data);
+    $this->load->view('footer_base',$this->data);
 	}
 
   function show_reclamos(){

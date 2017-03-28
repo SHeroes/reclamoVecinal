@@ -12,6 +12,7 @@
         <p><select type="text" class="span4" name="status_filter_selector" id="status_filter_selector" style="margin-right: 30px;">
             <option id="estado-vacio_filter" value="">Elegir Estado... </option>
             <option id="iniciado_filter" value="Iniciado">Iniciado</option>
+            <option id="visto_filter" value="Visto">Visto</option>
             <option id="contactado_filter" value="Contactado">Contactado</option>
             <option id="resolucion_filter" value="En resolución">En resolución</option>
             <option id="solucionado_filter" value="Solucionado">Solucionado</option>
@@ -32,9 +33,9 @@
             '<td>'.$rec['altura'].'</td>'.
             '<td>'.$rec['titulo'].'</td>'.
             '<td>'.$rec['tiempo_respuesta_hs'].'</td>'.
-            '<td class="state '. $user_enable .'" id_reclamo="'.$rec['id_reclamo'].'"><div class="btn btn-primary">'.$rec['estado'].'</div></td>'.
+            '<td class="state '. $user_enable .'" id_reclamo="'.$rec['id_reclamo'].'"><div class="">'.$rec['estado'].'</div></td>'.
             '<td class="comentario" comentario="'.$rec['comentarios'].'"><div class="btn btn-info">Ver</div></td>'.
-            '<td class="observacion" id_reclamo="'.$rec['id_reclamo'].'" observacion="'  . '"><div class="btn btn-success observar">Observar</div><div class="btn btn-success ver">Ver</div></td>';
+            '<td class="observacion" id_reclamo="'.$rec['id_reclamo'].'"><div class="btn btn-success ver">Ver</div></td>';
           if ($rec['domicilio_restringido'] == 0) echo '<td><div class="btn btn-info info-vecino" dom-res="0">Ver</div></td>'; else echo '<td></td>';
         }
         echo '  </tbody></table>'; 

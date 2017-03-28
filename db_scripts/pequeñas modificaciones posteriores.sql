@@ -548,7 +548,7 @@ ADD CONSTRAINT `id_obs`
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
   
-  
+
   ALTER TABLE `dbcav`.`observacionesxreclamo` 
 ADD INDEX `id_obs_reclamo_idx` (`id_reclamo` ASC);
 ALTER TABLE `dbcav`.`observacionesxreclamo` 
@@ -558,4 +558,10 @@ ADD CONSTRAINT `id_obs_reclamo`
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
-
+  
+  
+  /*		21/03/2017	*/
+  
+  /*	crear la carpeta upload y sacarle el modo lectura		 file permissions to 777.	*/
+  /*	modificar el archivo router			*/
+	/*			*/

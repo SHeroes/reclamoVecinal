@@ -123,6 +123,7 @@ class Main_admin extends CI_Controller{
     }
   }
 
+  // cuando lo actualizo yo
   function update_pass() {
     $info = $this->input->post(null,true);
     if( count($info) ) {
@@ -134,6 +135,7 @@ class Main_admin extends CI_Controller{
     }
   }
 
+  //cuando lo resetea al administrador
   function reset_password() {
     $info = $this->input->post(null,true);
     if( count($info) ) {

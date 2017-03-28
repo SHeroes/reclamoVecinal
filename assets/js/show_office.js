@@ -4,7 +4,7 @@ function editar_observacion(){
   var id_reclamo = $("#id-rec").val();
   var obs_str = $("#observacion-input").val();
   if (obs_str == ''){
-    alert("Los comentarios en blanco se agregaran al historial");
+    alert("Los comentarios en blanco no se agregaran al historial");
   } else{
     var dataToSearch = {
       id_reclamo: id_reclamo,
@@ -27,54 +27,109 @@ function comentario_editado(response){
   $("#obs-data").dialog('close');
 }
 
+function actualizar_a_visto(id_reclamo, row_elem){
+
+  state_str = 'Visto';
+  $(".state").each(function (index, elem){
+    var el = $(elem);
+    if (el.attr("id_reclamo") == id_reclamo){
+      el.children("div").html(state_str);
+    }
+  });
+
+  var dataToSearch = {
+    id_reclamo: id_reclamo,
+    state: state_str
+  };
+
+  $.ajax({
+   type: "post",
+   url: "/index.php/main_office/actualizar_estado",
+   cache: false,    
+   data: dataToSearch,
+   success: console.log,
+   error: function(){      
+    alert('Error while request..');
+   }
+  });
+
+  pasadoAVisto(row_elem);
+}
+
+function pasadoAVisto(row_elem){
+  row_elem.children(".no-visto").each(function (index, elem){
+    $(elem).removeClass("no-visto");
+  });
+}
+
+
 $(document).ready(function(){
 
   $("#state .btn").click(function() {
     
     var state_str = $("#status_selector").val();
-    var id_reclamo = $("#state").attr("id-rec");
 
-    $(".state").each(function (index, elem){
-      var el = $(elem);
-      if (el.attr("id_reclamo") == id_reclamo){
-        el.children("div").html(state_str);
-      }
-    });
+    if (state_str == ''){
+      alert("No se realiza cambio de estado");
+      return;
+    }else {
+      var id_reclamo = $("#state").attr("id-rec");
 
-    var dataToSearch = {
-      id_reclamo: id_reclamo,
-      state: state_str
-    };
-    $.ajax({
-     type: "post",
-     url: "/index.php/main_office/actualizar_estado",
-     cache: false,    
-     data: dataToSearch,
-     success: $("#state").dialog('close'),
-     error: function(){      
-      alert('Error while request..');
-     }
-    });  
+      $(".state").each(function (index, elem){
+        var el = $(elem);
+        if (el.attr("id_reclamo") == id_reclamo){
+          el.children("div").html(state_str);
+        }
+      });
+
+      var dataToSearch = {
+        id_reclamo: id_reclamo,
+        state: state_str
+      };
+      $.ajax({
+       type: "post",
+       url: "/index.php/main_office/actualizar_estado",
+       cache: false,    
+       data: dataToSearch,
+       success: $("#state").dialog('close'),
+       error: function(){      
+        alert('Error while request..');
+       }
+      });
+    }  
   });
 
-  $("td.state.officer").click(function(user) {
+  $("td.state").click(function() {
     var id_reclamo = $(this).parents("tr").children("th").attr("id_reclamo");
-    var str_state = $("td.state .btn").html();
-      $("option#estado-vacio").hide();
+    var str_state = $(this).children(".btn").html();
+    //alert(str_state);
+      $("option#estado-vacio").show();
+      $("#status_selector option:eq(0)").prop('selected', true);
       $("#state").dialog();
-      switch($("td.state .btn").html()) {
-        case 'Iniciado':
+      switch(str_state) {
+        case 'Ver Info':
             $("#state").dialog('close');
+            actualizar_a_visto(id_reclamo, $(this).parents("tr"));
+            break;
+        case 'Visto':
+            $("option#solucionado").hide();
+            $("option#gestionado").hide();
+            $("option#resolucion").hide();
+            $("option#contactado").show();
+            $("#state").show();
             break;
         case 'Contactado':
             $("option#contactado").hide();
             $("option#solucionado").hide();
-            $("option#gestionado").hide();
+            $("option#gestionado").show();
+            $("option#resolucion").show();
             $("#state").show();
             break;
         case 'En resolución':
             $("option#contactado").hide();
             $("option#resolucion").hide();
+            $("option#solucionado").show();
+            $("option#gestionado").show();
             $("#state").show();
             break;
         case 'Solucionado':
@@ -82,7 +137,7 @@ $(document).ready(function(){
         case 'Gestionado':
             break;
         default:
-            alert("otro");
+            alert("Error en el estado del reclamo, el mismo no esta contemplado");
     }
     
 

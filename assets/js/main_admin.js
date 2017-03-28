@@ -125,7 +125,7 @@ $(function () {
 
     resetPassword : function (e) {
       var formData = {
-        id: $('#mod-user #id_user').val(),
+        id: $("#id_user_pass_rst").val(),
         password   : 'clave1234'
       };
       // TODO: Client-side validation goes here

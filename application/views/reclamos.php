@@ -81,19 +81,19 @@
       */?>
 
       <p><input type="text" class="span4 more-reg calle required" name="calle" id="calle" placeholder="calle" autocomplete="off" required>
-          <input type="text" hidden class="hidden_id more-reg" name="calle_id" value="">
+          <input type="text" hidden class="hidden_id more-reg" id="calle_id_hidden" name="calle_id" value="">
       </p>
       <div class="calle input-search-result" ></div>
       
 
-      <p><input type="text" class="span4 required more-reg" name="altura_inicio" id="altura_inicio" placeholder="altura_inicio" required></p>
-      <p><input type="text" class="span4 required more-reg" name="altura_fin" id="altura_fin" placeholder="altura_fin" required></p>
-      <p><input type="text" class="span4 calle required more-reg" name="entrecalle1" id="entrecalle1" placeholder="entrecalle1" autocomplete="off" required>
+      <p><input type="text" class="span4 required more-reg" name="altura_inicio" id="altura_inicio" placeholder="altura" required></p>
+      <!-- <p style="display:none;"><input type="text" class="span4 required more-reg" name="altura_fin" id="altura_fin" placeholder="altura_fin"></p> -->
+      <p><input type="text" class="span4 calle required more-reg" name="entrecalle1" id="entrecalle1" placeholder="entrecalle1" autocomplete="off" >
           <input type="text" hidden class="hidden_id more-reg" name="entrecalle1_id" value="">
       </p>
       <div class="calle input-search-result" ></div>
       
-      <p><input type="text" class="span4 calle required more-reg" name="entrecalle2" id="entrecalle2" placeholder="entrecalle2" autocomplete="off" required>
+      <p><input type="text" class="span4 calle required more-reg" name="entrecalle2" id="entrecalle2" placeholder="entrecalle2" autocomplete="off" >
          <input type="text" hidden class="hidden_id more-reg" name="entrecalle2_id" value="">
       </p>
       <div class="calle input-search-result"></div>
@@ -133,19 +133,5 @@
     </div>
 
   </form>
-
-  <!--
-  <div id="upload-img" class="dialog-box" style="display: none;" title="Subir imagenes">
-    <p>
-      <?php // echo $error;  echo form_open_multipart('upload/do_upload');?> 
-    
-      <form action = "" method = "">
-         <input type = "file" name = "userfile" size = "20" /> 
-         <br /><br /> 
-         <input type = "submit" value = "upload" /> 
-      </form> 
-    </p>
-  </div> 
-  -->
 
 </div>
