@@ -149,7 +149,7 @@ $(document).ready(function(){
   });
 
 
-  function detalle_vecino(response){
+  function detalle_vecino(response, str_horarios){
     var htmlString = '<div class="">';
     $( "#vecino-data" ).html('');
  
@@ -171,6 +171,7 @@ $(document).ready(function(){
       }
     });
     
+    htmlString = htmlString + "<div><p> Comunicarse : " + str_horarios + "</p></div>";
     htmlString = htmlString + '</div>';
     $( "#vecino-data" ).html(htmlString);
   }
@@ -232,13 +233,15 @@ $(document).ready(function(){
       el = $(this)
       if ( el.attr("dom-res") == 0 ) {
         var id_vecino = el.parents("tr.reclamo_row").children("th").attr("value");
-        mostrar_datos_vecino(id_vecino);
+        var str_horarios = el.parents("tr.reclamo_row").children(".horario").html();
+        mostrar_datos_vecino(id_vecino, str_horarios);
+
       } else {
         alert( "La Información del Vecino se encuentra Restringida");
       }
   });
 
-  function mostrar_datos_vecino(id_vecino){
+  function mostrar_datos_vecino(id_vecino,str_horarios){
     var dataToSearch = {
       id_vecino: id_vecino
     };
@@ -247,11 +250,14 @@ $(document).ready(function(){
      url: "/index.php/main_office/get_vecino_info",
      cache: false,    
      data: dataToSearch,
-     success: detalle_vecino,
+     success: function(response){  
+      detalle_vecino(response,str_horarios)   
+     },
      error: function(){      
       alert('Error while request..');
      }
     });
+
   }
 
 });

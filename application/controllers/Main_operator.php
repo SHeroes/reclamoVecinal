@@ -38,6 +38,10 @@ class Main_operator extends CI_Controller{
             $this->data['perfil'] = 'Operador';
             break;
         case 4: 
+            $this->data['perfil'] = 'Supervisor';
+            redirect('/main_supervisor/show_main'); 
+            break;            
+        case 5: 
             $this->data['perfil'] = 'Intendente';  
             break;
       }

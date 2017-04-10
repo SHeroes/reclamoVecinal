@@ -2,52 +2,54 @@
  $(document).ready(function(){
    
   $("#boton_mas_reclamos").click(function() {
-    if ($("#altura_inicio").val() == ''){
-      alert ("Falta completar el campo de altura");
-    } else if($("#calle_id_hidden").val() == ''){
-      alert ("Falta completar el campo de calle");
-    } else{
-          var str_obj = '{';
-          $(".reclamo-form .more-reg").each(function(index, elem){
-            //console.log($(elem).attr("name") + $(elem).val());
-           
-            var name = '';
-            var value = '';
-            if ( $(elem).attr("type") == 'checkbox' ){
-              if ( $(elem).prop('checked') ) {
-                name = $(elem).attr("name");
-                value = $(elem).prop('checked');
-              }else {
-                //nadaaaaa 
-              }
-            }else {
-              name = $(elem).attr("name");
-              value = $(elem).val();
-            }
-
-            if (index >0) {str_obj = str_obj + ",";}
-            str_obj = str_obj +'"'+ name +'":"'+ value +'"';
-
-          });
-          str_obj = str_obj + '}';
-          console.log(str_obj);
-          var dataToSearch = $.parseJSON(str_obj);
-          $.ajax({
-           type: "post",
-           url: "/index.php/main_operator/insert_varios_reclamos",
-           cache: false,    
-           data: dataToSearch,
-           success: un_reclamo_exitoso,
-           error: function(){      
-            alert('Error while request..');
-           }
-          }); 
-    
+    if(!$("#usar_domicilio_vecino").prop( "checked" )){
+      if($("#calle_id_hidden").val() == ''){
+        alert ("Falta completar el campo de calle");
+        return;
+      }else if ($("#altura_inicio").val() == ''){
+        alert ("Falta completar el campo de altura");
+        return;
+      } 
     }
 
-   });
+    var str_obj = '{';
+    $(".reclamo-form .more-reg").each(function(index, elem){
+      //console.log($(elem).attr("name") + $(elem).val());
+     
+      var name = '';
+      var value = '';
+      if ( $(elem).attr("type") == 'checkbox' ){
+        if ( $(elem).prop('checked') ) {
+          name = $(elem).attr("name");
+          value = $(elem).prop('checked');
+        }else {
+          //nadaaaaa 
+        }
+      }else {
+        name = $(elem).attr("name");
+        value = $(elem).val();
+      }
 
-   function un_reclamo_exitoso(response){
+      if (index >0) {str_obj = str_obj + ",";}
+      str_obj = str_obj +'"'+ name +'":"'+ value +'"';
+    });
+
+    str_obj = str_obj + '}';
+    console.log(str_obj);
+    var dataToSearch = $.parseJSON(str_obj);
+    $.ajax({
+     type: "post",
+     url: "/index.php/main_operator/insert_varios_reclamos",
+     cache: false,    
+     data: dataToSearch,
+     success: un_reclamo_exitoso,
+     error: function(){      
+      alert('Error while request..');
+     }
+    }); 
+  }); 
+    
+  function un_reclamo_exitoso(response){
     alert(response);
     //  var obj = JSON.parse(response);
   }
@@ -76,8 +78,7 @@
         $(".buscar_vecinos").hide();
         $(".filtro-secretaria").show();
     }); 
-
-   };
+  };
    
    $(".calle").keyup(function(){
     elemento = $(this);
@@ -151,13 +152,13 @@
         DOM_elem_Required.each(function( index ) {
           $(this).prop('required',false);
           $(this).prop('disabled',true);
-          $("#columna_electrica").prop('disabled',true);
+          //$("#columna_electrica").prop('disabled',true);
         }); 
     }else{
         DOM_elem_Required.each(function( index ) {
           $(this).prop('required',true);
           $(this).prop('disabled',false);
-          $("#columna_electrica").prop('disabled',false);
+          //$("#columna_electrica").prop('disabled',false);
         });
         $("#calle").val('');
         $("#altura_inicio").val('');

@@ -35,6 +35,7 @@
          }else{ $visualizacion = 'visto'; }
         echo  '<tr class="reclamo_row"><th scope="row" class="" id_reclamo="'.$rec['id_reclamo'].'"value="'. $rec['id_vecino'].' ">'. $rec['codigo_reclamo'] .'</th>'. '<td>'.$rec['fecha_alta_reclamo'].'</td>'.
             '<td class="state" id_reclamo="'.$rec['id_reclamo'].'"><div class="btn btn-primary">'.$mostrarEstado.'</div></td>'.
+            '<td class="horario hidden">'. $rec['molestar_dia_hs'] .'</td>'.
             '<td class="'. $visualizacion .'"><div>'.$rec['barrio'].'</div></td>'.
             '<td class="'. $visualizacion .'">'.$rec['calle'].'</td>'.
             '<td class="'. $visualizacion .'">'.$rec['altura'].'</td>'.

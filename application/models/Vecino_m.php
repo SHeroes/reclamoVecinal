@@ -5,9 +5,9 @@ class Vecino_m extends CI_Model {
 
   function get_vecinos_by_DNI($DNI){
     $DNI_ = "'" . $DNI . "'";
-    $where_str = 'domicilio.id_calle = calles.id_calle and DNI ='.$DNI_;
-    $this->db->select('id_vecino, Nombre, Apellido, DNI, mail, tel_fijo, tel_movil, id_domicilio, calle ,altura')
-              ->from('vecino, domicilio, calles')
+    $where_str = 'domicilio.id_calle = calles.id_calle and  domiciliosxvecinos.id_domicilio = domicilio.id_domicilio and domiciliosxvecinos.id_vecino = vecino.id_vecino and DNI ='.$DNI_;
+    $this->db->select('domiciliosxvecinos.id_vecino, Nombre, Apellido, DNI, mail, tel_fijo, tel_movil, domiciliosxvecinos.id_domicilio, calle ,altura')
+              ->from('vecino, domicilio, calles, domiciliosxvecinos')
               ->where($where_str);
     $vecino = $this->db->get()->result();
     return $vecino;
@@ -31,10 +31,10 @@ class Vecino_m extends CI_Model {
   }
 
   function get_vecinos_by_Apellido($Apellido){
-    $Apellido_ = "'" . $Apellido . "'";
-    $where_str = 'domicilio.id_calle = calles.id_calle and vecino.Apellido ='.$Apellido_;
-    $this->db->select('id_vecino, Nombre, Apellido, DNI, mail, tel_fijo, tel_movil, id_domicilio, calle ,altura')
-              ->from('vecino, domicilio, calles')
+    $Apellido_ = "'%" . $Apellido . "%'";
+    $where_str = 'domicilio.id_calle = calles.id_calle and  domiciliosxvecinos.id_domicilio = domicilio.id_domicilio and domiciliosxvecinos.id_vecino = vecino.id_vecino and vecino.Apellido LIKE'.$Apellido_;
+    $this->db->select('domiciliosxvecinos.id_vecino, Nombre, Apellido, DNI, mail, tel_fijo, tel_movil, domiciliosxvecinos.id_domicilio, calle ,altura')
+              ->from('vecino, domicilio, calles, domiciliosxvecinos')
               ->where($where_str);
               //->limit(1);
     $vecino = $this->db->get()->result();

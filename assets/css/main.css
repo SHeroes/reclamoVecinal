@@ -7,6 +7,7 @@
 body {
     padding-top: 0px;
     line-height: 16px;
+    background-color: #80c191; 
 }
 
 hr {
@@ -40,6 +41,9 @@ label.checkbox {
     margin-right: 6px;
 }
 
+.table{
+    border: solid 2px lightgrey;
+}
 .title-site{
     font-family: "PT Sans", Arial, Helvetica, sans-serif;
     font-weight: 400;
@@ -54,7 +58,9 @@ label.checkbox {
     color: #FFF;
 }
 
-
+.glyphicon {
+    padding-right: 5px;
+}
 
 
 

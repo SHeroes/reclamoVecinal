@@ -21,7 +21,7 @@ class Reclamo_tipo_m extends CI_Model {
 
     function get_responsables(){
       $str_query = "
-      SELECT id as id_responsable , nombre , apellido, denominacion as sec_nombre , sectores.id_sector as sec_id
+      SELECT user.id as id_responsable , nombre , apellido, denominacion as sec_nombre , sectores.id_sector as sec_id
       FROM user , usuariosxsector , sectores
       WHERE perfil_level = '2' and user.id = usuariosxsector.id_usuario and usuariosxsector.id_sector = sectores.id_sector
       ";

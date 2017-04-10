@@ -9,16 +9,16 @@
                 <a class="navbar-brand" id="head_user_info" pass-sha1="<?php echo $my_sha1_pass; ?>" id-user="<?php echo $my_id_user; ?>" href="#" name="top">Bienvenido <?php echo $name; ?> perfil: <?php echo $perfil;?></a>
                 <ul class="nav navbar-nav">
                   <li class="usuarios">
-                    <a href="show_main"><i class="glyphicon glyphicon-home"></i> Usuarios </a>
+                    <a href="show_main"><i class="glyphicon glyphicon-home"></i>Usuarios </a>
                     </li>
                   <li class="sectores">
-                    <a href="show_sector"><i class="glyphicon glyphicon-th-list"></i> Sectores </a>
+                    <a href="show_sector"><i class="glyphicon glyphicon-th-list"></i>Sectores </a>
                   </li>
                   <li class="calendario">
-                    <a href="show_calendar"><i class="glyphicon glyphicon-th-list"></i> Calendario </a>
+                    <a href="show_calendar"><i class="glyphicon glyphicon-th-list"></i>Calendario </a>
                   </li>
                   <li class="catalogo-reclamos">
-                    <a href="show_reclamo_tipo"><i class="glyphicon glyphicon-th-list"></i> Catálogo Reclamos </a>
+                    <a href="show_reclamo_tipo"><i class="glyphicon glyphicon-th-list"></i>Catálogo Reclamos </a>
                   </li>
                   <li class="dropdown hidden">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -33,10 +33,10 @@
                     </ul>
                   </li>
                   <li>
-                    <div class="btn-group pull-right">
-                        <a class="btn" href="javascript:change_password();"><i class="glyphicon glyphicon-share"></i> Password </a>                     
-                        <a class="btn" href="<?php echo base_url() ?>index.php/login/logout_user"><i class="glyphicon glyphicon-share"></i> Logout</a>          
-                    </div>
+                    <a class="btn" href="javascript:change_password();"><i class="glyphicon glyphicon-user"></i>Cambiar Contraseña</a>
+                  </li>
+                  <li>
+                    <a class="btn" href="<?php echo base_url() ?>index.php/login/logout_user"><i class="glyphicon glyphicon-share"></i>Logout</a>          
                   </li>
                 </ul>
           </div>
