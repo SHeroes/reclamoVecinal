@@ -133,6 +133,38 @@ class Main_supervisor extends CI_Controller{
     //$this->load->view('footer_base',$this->data);  
   }
 
+  function show_reclamos(){
+    if($this->basic_level() != 4) {
+      $this->load->view('restricted',$this->data);
+      return ;
+    }
+
+    $this->load->model('reclamo_m');
+
+    $new_data['reclamos_list'] = '';
+
+    $post = $this->input->post(null,true);
+    if( count($post)){
+      if(isset($post['status_filter_selector'])){
+        $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_con_vecino_by('estado',$post['status_filter_selector']);
+      } 
+      if (isset($post['DNI_filter_sel'])){
+        $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_con_vecino_by('DNI',$post['DNI_filter_sel']);
+      }
+      if (isset($post['Apellido_filter_sel'])){
+        $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_con_vecino_by('Apellido',$post['Apellido_filter_sel']);
+      }
+      if (isset($post['num_reclamo_sel'])){
+        $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_con_vecino_by('codigo_reclamo',$post['num_reclamo_sel']);
+      }
+    }else{
+      $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_con_vecino_by('estado','');
+    }
+    $this->load->view('main_supervisor',$this->data);
+    $this->load->view('show_reclamos',$new_data);
+    $this->load->view('footer_base',$this->data);   
+  }
+
   public function editar_observacion_esp(){
     $info = $this->input->post(null,true);
     if( count($info) ) {

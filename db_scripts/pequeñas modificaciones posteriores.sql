@@ -1977,4 +1977,51 @@ INSERT INTO `dbcav`.`tiporeclamo`(`tiempo_respuesta_hs`,`id_responsable`,`titulo
 
 /*    EN MONTEGRANDE */
 
+UPDATE `dbcav`.`user` SET `apellido`='Rodriguez Parise' WHERE `id`='47';
+UPDATE `dbcav`.`user` SET `apellido`='Rodriguez Parise' WHERE `id`='89';
+
+
+UPDATE `dbcav`.`user` SET `email`='inspeccionambientalecheverria@gmail.com' WHERE `id`='60';
+UPDATE `dbcav`.`user` SET `email`='hernanpipito@yahoo.com.ar' WHERE `id`='62';
+
+UPDATE `dbcav`.`user` SET `email`='giordanodogos@hotmail.com' WHERE `id`='78';
+UPDATE `dbcav`.`user` SET `email`='lorenzo_lautaro@estebanecheverria.gob.ar' WHERE `id`='63';
+
+UPDATE `dbcav`.`user` SET `email`='bromatologiaee_carolina@estebanecheverria.gob.ar' WHERE `id`='73';
+UPDATE `dbcav`.`user` SET `apellido`='Barreto', `nombre`='Celeste', `email`='bromatologiaee_celeste@estebanecheverria.gob.ar' WHERE `id`='74';
+UPDATE `dbcav`.`user` SET `email`='seguridadee_salerno@estebanecheverria.gob.ar' WHERE `id`='44';
+UPDATE `dbcav`.`user` SET `email`='seguridadee_zarate@estebanecheverria.gob.ar' WHERE `id`='46';
+
+UPDATE `dbcav`.`tiporeclamo` SET `id_responsable`='49' WHERE `id_tipo_reclamo`='790';
+UPDATE `dbcav`.`tiporeclamo` SET `id_responsable`='49' WHERE `id_tipo_reclamo`='791';
+
+DELETE FROM `dbcav`.`user` WHERE `id`='52';
+
+
+
+/*   cambios con respecto a mails repetidos entre coordinador y secretario */
+
+UPDATE `dbcav`.`user` SET `email`='seguridad_coord@estebanecheverria.gob.ar' WHERE `id`='88';
+UPDATE `dbcav`.`user` SET `email`='lautarolorenzo1973@hotmail.com' WHERE `id`='101';
+
+
+UPDATE `dbcav`.`user` SET `email`='defensa_civil@estebanecheverria.gob.ar' WHERE `id`='68';
+UPDATE `dbcav`.`user` SET `email`='lorenzo_lautaro@estebanecheverria.gob.ar' WHERE `id`='63';
+UPDATE `dbcav`.`user` SET `email`='red_cloacal_ee@estebanecheverria.gob.ar' WHERE `id`='30';
+UPDATE `dbcav`.`user` SET `email`='logistica_desarrollo@estebanecheverria.gob.ar' WHERE `id`='66';
+UPDATE `dbcav`.`user` SET `email`='subsecretaria_cultura@estebanecheverria.gob.ar' WHERE `id`='47';
+UPDATE `dbcav`.`user` SET `email`='urchipia_miguel@estebanecheverria.gob.ar' WHERE `id`='69';
+
+INSERT INTO `dbcav`.`user`
+(`id`, `perfil_level`, `apellido`, `nombre`, `email`,`password`) VALUES
+('0','Lage','Carlos','clage@estebanecheverria.gob.ar','d00972f2c0796cd00ed2404e07230dcf220e438c');
+
+
+
+
+
+
+
+
+
 

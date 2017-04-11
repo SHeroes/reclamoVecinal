@@ -19,7 +19,10 @@
                     <a href="show_verificados"><i class="glyphicon glyphicon-print"></i>Rec. Verificados</a>
                   </li>                  
                   <li class="">
-                    <a href="show_contactados"><i class="glyphicon glyphicon-phone-alt"></i>Revisión de Reclamos</a>
+                    <a href="show_contactados"><i class="glyphicon glyphicon-phone-alt"></i>Rev. Rec</a>
+                  </li>
+                  <li class="">
+                    <a href="show_reclamos"><i class="glyphicon glyphicon-list-alt"></i>Show Rec</a>
                   </li>
                   <li>
                     <a class="btn" href="javascript:change_password();"><i class="glyphicon glyphicon-user"></i>Cambiar Contraseña</a>
