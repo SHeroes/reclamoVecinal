@@ -60,12 +60,28 @@ class Main_secretary_coord extends CI_Controller{
     $new_data['user_enable'] = 'officer';
     
     $this->load->model('reclamo_m');
+    
+    $sectores_multiples = $this->session->sectores_multiples;
+
+    $array_sectores = $this->session->array_sectores;
+
     //si se post algo como filtro lo uso, sino no muestro ninguno
     $info = $this->input->post(null,true);
+
+
     if( count($info) && isset($info['status_filter_selector'])){
-      $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_for_secretary_by('estado',$info['status_filter_selector'], $id_sector);
+      if(!$sectores_multiples){
+        $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_for_secretary_by('estado',$info['status_filter_selector'], $id_sector);        
+      }else{
+        $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_for_secretary_by_mutiples_sectores('estado',$info['status_filter_selector'], $array_sectores);
+      }
+
     } else {
-      $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_for_secretary_by('estado','', $id_sector);
+      if(!$sectores_multiples){
+        $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_for_secretary_by('estado','', $id_sector);
+      }else{
+         $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_for_secretary_by_mutiples_sectores('estado','', $array_sectores);       
+      }
     }
 
     //$new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_by_state('Iniciado');

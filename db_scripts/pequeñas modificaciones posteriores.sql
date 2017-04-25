@@ -2019,9 +2019,89 @@ INSERT INTO `dbcav`.`user`
 
 
 
+/*	en produccion				*/
+
+ALTER TABLE `dbcav`.`user` 
+ADD COLUMN `sectores_multiples` BIT(1) NULL DEFAULT false AFTER `password`;
+
+
+UPDATE `dbcav`.`user` SET `sectores_multiples`=b'1' WHERE `id`='102';
+UPDATE `dbcav`.`user` SET `sectores_multiples`=b'1' WHERE `id`='103';
+UPDATE `dbcav`.`user` SET `sectores_multiples`=b'1' WHERE `id`='104';
+
+UPDATE `dbcav`.`user` SET `sectores_multiples`=b'1' WHERE `id`='60';
 
 
 
 
+/* borre otras que estaban duplicadas  */ 
+
+DELETE FROM `dbcav`.`usuariosxsector` WHERE `id`='21';
+DELETE FROM `dbcav`.`usuariosxsector` WHERE `id`='23';
+DELETE FROM `dbcav`.`usuariosxsector` WHERE `id`='36';
+
+
+/*  BORRAR relacione malas */
+
+DELETE FROM `dbcav`.`usuariosxsector` WHERE `id`='124';
+DELETE FROM `dbcav`.`usuariosxsector` WHERE `id`='123';
+DELETE FROM `dbcav`.`usuariosxsector` WHERE `id`='122';
+DELETE FROM `dbcav`.`usuariosxsector` WHERE `id`='121';
+DELETE FROM `dbcav`.`usuariosxsector` WHERE `id`='120';
+DELETE FROM `dbcav`.`usuariosxsector` WHERE `id`='119';
+DELETE FROM `dbcav`.`usuariosxsector` WHERE `id`='118';
+DELETE FROM `dbcav`.`usuariosxsector` WHERE `id`='117';
+DELETE FROM `dbcav`.`usuariosxsector` WHERE `id`='116';
+DELETE FROM `dbcav`.`usuariosxsector` WHERE `id`='115';
+DELETE FROM `dbcav`.`usuariosxsector` WHERE `id`='114';
+DELETE FROM `dbcav`.`usuariosxsector` WHERE `id`='111';
+DELETE FROM `dbcav`.`usuariosxsector` WHERE `id`='113';
+DELETE FROM `dbcav`.`usuariosxsector` WHERE `id`='65';
+DELETE FROM `dbcav`.`usuariosxsector` WHERE `id`='57';
+DELETE FROM `dbcav`.`usuariosxsector` WHERE `id`='37';
+DELETE FROM `dbcav`.`usuariosxsector` WHERE `id`='34';
+DELETE FROM `dbcav`.`usuariosxsector` WHERE `id`='15';
+
+DELETE FROM `dbcav`.`usuariosxsector` WHERE `id`='33';
+
+
+DELETE FROM `dbcav`.`sectores` WHERE `id_sector`='38';
+DELETE FROM `dbcav`.`sectores` WHERE `id_sector`='39';
+DELETE FROM `dbcav`.`sectores` WHERE `id_sector`='40';
+DELETE FROM `dbcav`.`sectores` WHERE `id_sector`='41';
+DELETE FROM `dbcav`.`sectores` WHERE `id_sector`='43';
+DELETE FROM `dbcav`.`sectores` WHERE `id_sector`='44';
+DELETE FROM `dbcav`.`sectores` WHERE `id_sector`='45';
+DELETE FROM `dbcav`.`sectores` WHERE `id_sector`='47';
+DELETE FROM `dbcav`.`sectores` WHERE `id_sector`='49';
+DELETE FROM `dbcav`.`sectores` WHERE `id_sector`='52';
+DELETE FROM `dbcav`.`sectores` WHERE `id_sector`='68';
+DELETE FROM `dbcav`.`sectores` WHERE `id_sector`='70';
+DELETE FROM `dbcav`.`sectores` WHERE `id_sector`='71';
+DELETE FROM `dbcav`.`sectores` WHERE `id_sector`='76';
+DELETE FROM `dbcav`.`sectores` WHERE `id_sector`='77';
+DELETE FROM `dbcav`.`sectores` WHERE `id_sector`='78';
+DELETE FROM `dbcav`.`sectores` WHERE `id_sector`='79';
+DELETE FROM `dbcav`.`sectores` WHERE `id_sector`='80';
+DELETE FROM `dbcav`.`sectores` WHERE `id_sector`='81';
+DELETE FROM `dbcav`.`sectores` WHERE `id_sector`='82';
+DELETE FROM `dbcav`.`sectores` WHERE `id_sector`='83';
+DELETE FROM `dbcav`.`sectores` WHERE `id_sector`='84';
+DELETE FROM `dbcav`.`sectores` WHERE `id_sector`='85';
+DELETE FROM `dbcav`.`sectores` WHERE `id_sector`='86';
+DELETE FROM `dbcav`.`sectores` WHERE `id_sector`='87';
+DELETE FROM `dbcav`.`sectores` WHERE `id_sector`='88';
+DELETE FROM `dbcav`.`sectores` WHERE `id_sector`='89';
+DELETE FROM `dbcav`.`sectores` WHERE `id_sector`='90';
+
+
+DELETE FROM `dbcav`.`sectores` WHERE `id_sector`='34';
+
+/* ----------------------------------------------------------------------------------------------------   */
+
+
+INSERT INTO `dbcav`.`barrios`(`id_barrio`,`barrio`) VALUES (69,'LAS TALITAS');
+
+UPDATE `dbcav`.`barrios` SET `barrio`='DESCONOCIDO' WHERE `id_barrio`='1';
 
 

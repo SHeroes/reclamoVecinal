@@ -153,6 +153,34 @@ class Reclamo_m extends CI_Model {
     return $query->result_array();
   }
 
+  function get_all_reclamos_for_secretary_by_mutiples_sectores($column,$value, $array_sectores){
+    $value != '' ? $cond_str = " AND reclamos.".$column." = '".$value."' " : $cond_str = " ";
+
+    /* example  AND ( sectores.id_sector = '13' OR sectores.id_sector = '14' OR false)*/
+    $string_sectores = " AND ( ";
+
+    foreach ($array_sectores as $row => $value) {
+      $string_sectores = $string_sectores. " sectores.id_sector = '" .$array_sectores[$row]->id_sector ."' OR ";
+    }
+    $string_sectores = $string_sectores .' false ) ';
+
+    $str_query = 'SELECT id_reclamo, id_vecino, codigo_reclamo, fecha_alta_reclamo, barrios.barrio ,calles.calle, domicilio.altura , tiporeclamo.titulo , tiporeclamo.tiempo_respuesta_hs , domicilio_restringido,  estado,comentarios 
+    FROM reclamos, domicilio, tiporeclamo, calles, barrios, usuariosxsector, sectores
+    WHERE reclamos.id_tipo_reclamo = tiporeclamo.id_tipo_reclamo
+    AND tiporeclamo.id_responsable = usuariosxsector.id_usuario'.
+    $string_sectores . '
+    AND usuariosxsector.id_sector = sectores.id_sector
+    AND reclamos.id_dom_reclamo = domicilio.id_domicilio
+    AND domicilio.id_calle = calles.id_calle
+    AND domicilio.id_barrio = barrios.id_barrio '. $cond_str .'
+    ORDER BY fecha_alta_reclamo ASC;';
+
+    $query = $this->db->query($str_query);
+    
+    return $query->result_array();
+
+  }
+
   /* ES PARA LAS SECRETARIAS porque solo aparecen los reclamos de la oficina a la que pertenece el usuario */
   function get_all_reclamos_for_secretary_by($column,$value, $id_sec){
     $value != '' ? $cond_str = " AND reclamos.".$column." = '".$value."' " : $cond_str = " ";

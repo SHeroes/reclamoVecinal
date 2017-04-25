@@ -50,8 +50,10 @@ class User_m extends CI_Model {
                 'name'=> $this->details->nombre . ' ' . $this->details->apellido,
                 'email'=>$this->details->email,
                 'password'=>$this->details->password,
+                'sectores_multiples'=>$this->details->sectores_multiples,
                 'sector_name'=>$query->result()[0]->denominacion,
                 'id_sector'=>$query->result()[0]->id_sector,
+/* multisectores  */ 'array_sectores' => $query->result(),
                 'isLoggedIn'=>true
             )
         );

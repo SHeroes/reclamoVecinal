@@ -1,6 +1,15 @@
 <?php //echo '<script src="'. base_url() .'assets/js/show_reclamos_crear.js"></script>'; ?>
 <div class="container">
-<h1>Reclamos correspondientes a: <?php echo $this->session->sector_name; ?></h1>
+<h1>Reclamos correspondientes a: <?php
+  if ($this->session->sectores_multiples){
+    $array_sectores = $this->session->array_sectores;
+    foreach ($array_sectores as $row => $value) {
+     echo '</br> - ' .$array_sectores[$row]->denominacion ;
+    }
+  }else{
+    echo $this->session->sector_name;
+  }
+ ?></h1>
 
 
 
