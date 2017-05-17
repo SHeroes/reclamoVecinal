@@ -59,16 +59,36 @@ class Main_office extends CI_Controller{
     $new_data['reclamos_list'] = '';
     $new_data['user_enable'] = 'officer';
     
+
+    $this->load->model('reclamo_tipo_m');
+
+    if ($this->session->sectores_multiples){
+      $array_sectores = $this->session->array_sectores;
+      foreach ($array_sectores as $row => $value) {
+        $sectorArray = $this->reclamo_tipo_m->get_all_tipo_reclamos_by_sector($array_sectores[$row]->id_sector) ;
+        array_push( $new_data['list_reclaim_type'], $sectorArray );
+      }
+    }else{
+      $new_data['list_reclaim_type'] =  $this->reclamo_tipo_m->get_all_tipo_reclamos_by_sector($id_sector);
+    }
+
+
     $this->load->model('reclamo_m');
     //si se post algo como filtro lo uso, sino no muestro ninguno
     $info = $this->input->post(null,true);
-    if( count($info) && isset($info['status_filter_selector'])){
-      $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_by('estado',$info['status_filter_selector'], $id_sector);
+    if( count($info) ){
+      if (!isset($info['status_filter_selector']))      $info['status_filter_selector'] = '';
+      if( !isset($info['reclamoType_filter_selector'])) $info['reclamoType_filter_selector'] = '';
+      if( !isset($info['desde']))                       $info['desde'] = '';
+      if( !isset($info['hasta']))                       $info['hasta'] = '';
     } else {
-      $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_by('estado','', $id_sector);
+      $info['status_filter_selector'] = '';
+      $info['reclamoType_filter_selector'] = '';
+      $info['desde'] = '';
+      $info['hasta'] = '';
     }
 
-    //$new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_by_state('Iniciado');
+    $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_for_office('estado',$info['status_filter_selector'], $id_sector, $info['desde'], $info['hasta'], $info['reclamoType_filter_selector'] );
     
     $this->load->view('main_office',$this->data);
     $this->load->view('reclamos_office',$new_data);

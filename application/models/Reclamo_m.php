@@ -116,12 +116,24 @@ class Reclamo_m extends CI_Model {
     $this->db->update('reclamos');
   }
 
+  function update_reitero_reclamo($num_reitero,$id_reclamo, $str_comentario){
+    $num_reitero++;
+    $fecha_reitero = date('Y-m-d H:i:s',time());
+    $str_comentario = $str_comentario . "\n --- \n Reitero de Reclamo: " . $fecha_reitero . "\n --- \n";
+
+    $this->db->set('reitero', $num_reitero);
+    $this->db->set('comentarios', $str_comentario);
+    
+    $this->db->where('id_reclamo', $id_reclamo);
+    $this->db->update('reclamos');
+  }
+
   function get_all_reclamos_con_vecino_by($column,$value){
 
     $value != '' ? $cond_str = " AND ".$column." = '".$value."' " : $cond_str = " AND estado != 'Solucionado' ";
     if ($column != 'estado'){ $cond_str = " AND ".$column." LIKE '%".$value."%'" ;}
 
-    $str_query = 'SELECT id_reclamo, vecino.id_vecino, codigo_reclamo, fecha_alta_reclamo, tiporeclamo.titulo , tiporeclamo.tiempo_respuesta_hs , domicilio_restringido,  estado,comentarios, Apellido, DNI
+    $str_query = 'SELECT id_reclamo, vecino.id_vecino, codigo_reclamo, fecha_alta_reclamo, tiporeclamo.titulo , tiporeclamo.tiempo_respuesta_hs , domicilio_restringido,  estado,comentarios, Apellido, DNI, reitero
     FROM reclamos, tiporeclamo, vecino
     WHERE reclamos.id_tipo_reclamo = tiporeclamo.id_tipo_reclamo
     AND reclamos.id_vecino = vecino.id_vecino '. $cond_str .'
@@ -133,10 +145,22 @@ class Reclamo_m extends CI_Model {
   }
 
   /* ES PARA LAS OFICINIAS porque solo aparecen los reclamos de la oficina a la que pertenece el usuario */
-  function get_all_reclamos_by($column,$value, $id_sec){
+  function get_all_reclamos_for_office($column,$value, $id_sec, $fecha_desde, $fecha_hasta, $typeReclamo){
     $value != '' ? $cond_str = " AND reclamos.".$column." = '".$value."' " : $cond_str = " AND reclamos.estado != 'Solucionado' ";
+
+    $filtro_fecha = false;
+    if ( $fecha_desde != '' OR $fecha_hasta != '') $filtro_fecha = true;
+    if ( $fecha_hasta == '') $fecha_hasta = date('Y-m-d'); 
+    if ( $fecha_desde == '') $fecha_desde = '2017-01-10';
+    if ( $filtro_fecha){
+      $cond_str = $cond_str . "AND fecha_alta_reclamo between '". $fecha_desde ."' and '".$fecha_hasta."' ";
+    }
+
+    if ($typeReclamo != ''){
+      $cond_str = $cond_str . "AND tiporeclamo.id_tipo_reclamo ='". $typeReclamo ."' ";
+    } 
     /*  yo ya tengo mi id de sector, entonces busco los reclamos de los responsable de mi sector */
-    $str_query = 'SELECT id_reclamo, id_vecino, codigo_reclamo, fecha_alta_reclamo, barrios.barrio ,calles.calle, domicilio.altura , tiporeclamo.titulo , tiporeclamo.tiempo_respuesta_hs , domicilio_restringido,  estado,comentarios, molestar_dia_hs 
+    $str_query = 'SELECT id_reclamo, id_vecino, codigo_reclamo, fecha_alta_reclamo, barrios.barrio ,calles.calle, domicilio.altura , tiporeclamo.titulo , tiporeclamo.tiempo_respuesta_hs , domicilio_restringido,  estado,comentarios, molestar_dia_hs , reitero
     FROM reclamos, domicilio, tiporeclamo, calles, barrios, usuariosxsector
     WHERE reclamos.id_tipo_reclamo = tiporeclamo.id_tipo_reclamo
     AND tiporeclamo.id_responsable = usuariosxsector.id_usuario';

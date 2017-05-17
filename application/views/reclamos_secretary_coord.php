@@ -9,7 +9,16 @@
   }else{
     echo $this->session->sector_name;
   }
- ?></h1>
+  /*
+  ?><pre>
+  <?php
+  //print_r($this->session);
+  print_r(count($this->session->sectores_multiples));
+  ?></pre>
+  */
+  
+  ?>
+ </h1>
 
 
 

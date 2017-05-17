@@ -31,6 +31,7 @@ function editar_observacion(){
   }
 }
 
+
 function comentario_editado(response){
   $("#obs-data").dialog('close');
 }

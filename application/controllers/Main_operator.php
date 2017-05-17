@@ -176,6 +176,18 @@ class Main_operator extends CI_Controller{
     $this->load->view('footer_base',$this->data);   
   }
 
+  function update_reitero_reclamo(){
+    $info = $this->input->post(null,true);
+    
+    print_r($info);
+
+    if( count($info) ) {
+      $this->load->model('reclamo_m');
+      $saved = $this->reclamo_m->update_reitero_reclamo($info['num_reitero'],$info['id_reclamo'],$info['str_comentario']);
+    }
+    
+  }
+
   function insert_reclamo(){
     $info = $this->input->post(null,true);
     if ( !isset($info['usar_domicilio_vecino'])){

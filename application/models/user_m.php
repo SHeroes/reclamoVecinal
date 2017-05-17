@@ -43,6 +43,7 @@ class User_m extends CI_Model {
         
         $str_query = "SELECT denominacion, usuariosxsector.id_sector as id_sector FROM usuariosxsector, sectores WHERE usuariosxsector.id_sector = sectores.id_sector AND usuariosxsector.id_usuario = '". $this->details->id. "'; ";
         $query = $this->db->query($str_query);
+        
 
         $this->session->set_userdata( array(
                 'id'=>$this->details->id,
@@ -50,7 +51,7 @@ class User_m extends CI_Model {
                 'name'=> $this->details->nombre . ' ' . $this->details->apellido,
                 'email'=>$this->details->email,
                 'password'=>$this->details->password,
-                'sectores_multiples'=>$this->details->sectores_multiples,
+                'sectores_multiples'=>false,
                 'sector_name'=>$query->result()[0]->denominacion,
                 'id_sector'=>$query->result()[0]->id_sector,
 /* multisectores  */ 'array_sectores' => $query->result(),
@@ -58,6 +59,7 @@ class User_m extends CI_Model {
             )
         );
 
+        if (count($this->session->array_sectores)>1)  $this->session->sectores_multiples = true;
     }
 
     function  create_new_user( $userData ) {

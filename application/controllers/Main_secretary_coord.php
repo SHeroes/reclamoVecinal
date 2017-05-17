@@ -83,8 +83,6 @@ class Main_secretary_coord extends CI_Controller{
          $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_for_secretary_by_mutiples_sectores('estado','', $array_sectores);       
       }
     }
-
-    //$new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_by_state('Iniciado');
     
     $this->load->view('main_secretary_coord',$this->data);
     $this->load->view('reclamos_secretary_coord',$new_data);
