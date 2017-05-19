@@ -16,7 +16,7 @@
   print_r(count($this->session->sectores_multiples));
   ?></pre>
   */
-  
+
   ?>
  </h1>
 
@@ -27,6 +27,15 @@
 
 
     <form action="#" id="state_filter" method="POST" >
+
+      <div class="col-sm-6">
+        <p>desde: <input type="text" class="input-fecha desde" name="desde" id="datepicker" size="15"></p>
+        <p>hasta: <input type="text" class="input-fecha hasta" name="hasta" id="datepicker2" size="15"></p>  
+        <input type="submit" class="span4" value="Filtrar">
+        <p></p> 
+      </div>  
+
+      <div class="col-sm-6">
         <p><select type="text" class="span4" name="status_filter_selector" id="status_filter_selector" style="margin-right: 30px;">
             <option id="estado-vacio_filter" value="">Elegir Estado... </option>
             <option id="iniciado_filter" value="Iniciado">Iniciado</option>
@@ -36,6 +45,21 @@
             <option id="solucionado_filter" value="Solucionado">Solucionado</option>
             <option id="gestionado_filter" value="Gestionado">Gestionado</option>
         </select>  <input type="submit" class="span4" value="Filtrar"></p>
+
+        <p><select type="text" class="span4" name="reclamoType_filter_selector" id="reclamoType_filter_selector" style="margin-right: 30px;">
+        <option id="typeReclamo-vacio_filter" value="">Elegir Tipo de Reclamo... </option>
+        <?php
+
+        foreach ($list_reclaim_type as $row => $value) {
+           $str = '<option id="typeReclamo-vacio_filter" value="'.$list_reclaim_type[$row]->id_tipo_reclamo. '">' . $list_reclaim_type[$row]->titulo.'</option>';
+           echo $str;
+
+        }
+        print_r($list_reclaim_type);
+        ?>
+        </select>
+        </p>
+      </div>
     </form>
 
 
@@ -99,3 +123,8 @@
 
 
 <?php echo '<script src="'. base_url() .'assets/js/show_secretary_coord.js"></script>'; ?>
+
+
+<link rel="stylesheet" href="<?php echo base_url();?>assets/js/vendor/jquery-ui/jquery-ui.css">
+<script src="<?php echo base_url();?>assets/js/vendor/jquery-ui/jquery-ui.js"></script>
+<?php echo '<script src="'. base_url() .'assets/js/show_calendar.js"></script>'; ?> 

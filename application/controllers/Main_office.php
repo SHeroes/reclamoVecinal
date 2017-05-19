@@ -58,7 +58,7 @@ class Main_office extends CI_Controller{
     $id_sector = $this->session->id_sector;
     $new_data['reclamos_list'] = '';
     $new_data['user_enable'] = 'officer';
-    
+    $new_data['list_reclaim_type'] = array();
 
     $this->load->model('reclamo_tipo_m');
 

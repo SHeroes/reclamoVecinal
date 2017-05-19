@@ -58,32 +58,49 @@ class Main_secretary_coord extends CI_Controller{
     $id_sector = $this->session->id_sector;
     $new_data['reclamos_list'] = '';
     $new_data['user_enable'] = 'officer';
-    
-    $this->load->model('reclamo_m');
-    
-    $sectores_multiples = $this->session->sectores_multiples;
+    $new_data['list_reclaim_type'] = array();
 
-    $array_sectores = $this->session->array_sectores;
+    $this->load->model('reclamo_tipo_m');
+
+     //si se post algo como filtro lo uso, sino no muestro ninguno
+    $info = $this->input->post(null,true);  
+    $sectores_multiples = $this->session->sectores_multiples;  
+
+
+
+
 
     //si se post algo como filtro lo uso, sino no muestro ninguno
     $info = $this->input->post(null,true);
-
-
-    if( count($info) && isset($info['status_filter_selector'])){
-      if(!$sectores_multiples){
-        $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_for_secretary_by('estado',$info['status_filter_selector'], $id_sector);        
-      }else{
-        $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_for_secretary_by_mutiples_sectores('estado',$info['status_filter_selector'], $array_sectores);
-      }
-
+    if( count($info) ){
+      if (!isset($info['status_filter_selector']))      $info['status_filter_selector'] = '';
+      if( !isset($info['reclamoType_filter_selector'])) $info['reclamoType_filter_selector'] = '';
+      if( !isset($info['desde']))                       $info['desde'] = '';
+      if( !isset($info['hasta']))                       $info['hasta'] = '';
     } else {
-      if(!$sectores_multiples){
-        $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_for_secretary_by('estado','', $id_sector);
-      }else{
-         $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_for_secretary_by_mutiples_sectores('estado','', $array_sectores);       
-      }
+      $info['status_filter_selector'] = '';
+      $info['reclamoType_filter_selector'] = '';
+      $info['desde'] = '';
+      $info['hasta'] = '';
     }
-    
+    if ($sectores_multiples){
+      $array_sectores = $this->session->array_sectores;
+      foreach ($array_sectores as $row => $value) {
+        $sectorArray = $this->reclamo_tipo_m->get_all_tipo_reclamos_by_sector($array_sectores[$row]->id_sector) ;
+        array_push( $new_data['list_reclaim_type'], $sectorArray );
+      }
+    }else{
+      $new_data['list_reclaim_type'] =  $this->reclamo_tipo_m->get_all_tipo_reclamos_by_sector($id_sector);
+    }
+    $this->load->model('reclamo_m');
+ 
+
+      if(!$sectores_multiples){
+        $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_for_secretary_by('estado',$info['status_filter_selector'], $id_sector, $info['desde'], $info['hasta'], $info['reclamoType_filter_selector']);        
+      }else{
+        $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_for_secretary_by_mutiples_sectores('estado',$info['status_filter_selector'], $array_sectores, $info['desde'], $info['hasta'], $info['reclamoType_filter_selector'] );
+     }
+
     $this->load->view('main_secretary_coord',$this->data);
     $this->load->view('reclamos_secretary_coord',$new_data);
     $this->load->view('footer_base',$this->data);

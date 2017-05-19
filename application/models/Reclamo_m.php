@@ -148,17 +148,8 @@ class Reclamo_m extends CI_Model {
   function get_all_reclamos_for_office($column,$value, $id_sec, $fecha_desde, $fecha_hasta, $typeReclamo){
     $value != '' ? $cond_str = " AND reclamos.".$column." = '".$value."' " : $cond_str = " AND reclamos.estado != 'Solucionado' ";
 
-    $filtro_fecha = false;
-    if ( $fecha_desde != '' OR $fecha_hasta != '') $filtro_fecha = true;
-    if ( $fecha_hasta == '') $fecha_hasta = date('Y-m-d'); 
-    if ( $fecha_desde == '') $fecha_desde = '2017-01-10';
-    if ( $filtro_fecha){
-      $cond_str = $cond_str . "AND fecha_alta_reclamo between '". $fecha_desde ."' and '".$fecha_hasta."' ";
-    }
+    $cond_str = $cond_str . $this->armar_Str_Cond_Fechas_Tipo_Reclamo($fecha_desde, $fecha_hasta, $typeReclamo);
 
-    if ($typeReclamo != ''){
-      $cond_str = $cond_str . "AND tiporeclamo.id_tipo_reclamo ='". $typeReclamo ."' ";
-    } 
     /*  yo ya tengo mi id de sector, entonces busco los reclamos de los responsable de mi sector */
     $str_query = 'SELECT id_reclamo, id_vecino, codigo_reclamo, fecha_alta_reclamo, barrios.barrio ,calles.calle, domicilio.altura , tiporeclamo.titulo , tiporeclamo.tiempo_respuesta_hs , domicilio_restringido,  estado,comentarios, molestar_dia_hs , reitero
     FROM reclamos, domicilio, tiporeclamo, calles, barrios, usuariosxsector
@@ -177,12 +168,13 @@ class Reclamo_m extends CI_Model {
     return $query->result_array();
   }
 
-  function get_all_reclamos_for_secretary_by_mutiples_sectores($column,$value, $array_sectores){
+  function get_all_reclamos_for_secretary_by_mutiples_sectores($column,$value, $array_sectores,$fecha_desde, $fecha_hasta, $typeReclamo){
     $value != '' ? $cond_str = " AND reclamos.".$column." = '".$value."' " : $cond_str = " ";
+
+    $cond_str = $cond_str . $this->armar_Str_Cond_Fechas_Tipo_Reclamo($fecha_desde, $fecha_hasta, $typeReclamo);
 
     /* example  AND ( sectores.id_sector = '13' OR sectores.id_sector = '14' OR false)*/
     $string_sectores = " AND ( ";
-
     foreach ($array_sectores as $row => $value) {
       $string_sectores = $string_sectores. " sectores.id_sector = '" .$array_sectores[$row]->id_sector ."' OR ";
     }
@@ -206,9 +198,12 @@ class Reclamo_m extends CI_Model {
   }
 
   /* ES PARA LAS SECRETARIAS porque solo aparecen los reclamos de la oficina a la que pertenece el usuario */
-  function get_all_reclamos_for_secretary_by($column,$value, $id_sec){
+  function get_all_reclamos_for_secretary_by($column,$value, $id_sec,$fecha_desde, $fecha_hasta, $typeReclamo){
     $value != '' ? $cond_str = " AND reclamos.".$column." = '".$value."' " : $cond_str = " ";
     /*  yo ya tengo mi id de sector, entonces busco los reclamos de los responsable de mi sector */
+
+    $cond_str = $cond_str . armar_Str_Cond_Fechas_Tipo_Reclamo($fecha_desde, $fecha_hasta, $typeReclamo);
+
     $str_query = 'SELECT id_reclamo, id_vecino, codigo_reclamo, fecha_alta_reclamo, barrios.barrio ,calles.calle, domicilio.altura , tiporeclamo.titulo , tiporeclamo.tiempo_respuesta_hs , domicilio_restringido,  estado,comentarios 
     FROM reclamos, domicilio, tiporeclamo, calles, barrios, usuariosxsector, sectores
     WHERE reclamos.id_tipo_reclamo = tiporeclamo.id_tipo_reclamo
@@ -305,5 +300,26 @@ class Reclamo_m extends CI_Model {
     return $saved;
   }
 
+/* ------------------------*/
+/*  FUNCIONES AUXILIARES   */
+/* ------------------------*/
+
+
+  function armar_Str_Cond_Fechas_Tipo_Reclamo($fecha_desde, $fecha_hasta, $typeReclamo){
+  $cond_str = '';
+  $filtro_fecha = false;
+  if ( $fecha_desde != '' OR $fecha_hasta != '') $filtro_fecha = true;
+  if ( $fecha_hasta == '') $fecha_hasta = date('Y-m-d'); 
+  if ( $fecha_desde == '') $fecha_desde = '2017-01-10';
+  if ( $filtro_fecha){
+    $cond_str = $cond_str . "AND fecha_alta_reclamo between '". $fecha_desde ."' and '".$fecha_hasta."' ";
+  }
+
+  if ($typeReclamo != ''){
+    $cond_str = $cond_str . "AND tiporeclamo.id_tipo_reclamo ='". $typeReclamo ."' ";
+  } 
+
+  return $cond_str;
+  }
 
 }
