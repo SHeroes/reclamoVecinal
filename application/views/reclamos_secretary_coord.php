@@ -9,14 +9,6 @@
   }else{
     echo $this->session->sector_name;
   }
-  /*
-  ?><pre>
-  <?php
-  //print_r($this->session);
-  print_r(count($this->session->sectores_multiples));
-  ?></pre>
-  */
-
   ?>
  </h1>
 
@@ -25,12 +17,19 @@
 
   <div class="col-md-12">
 
-
     <form action="#" id="state_filter" method="POST" >
-
       <div class="col-sm-6">
         <p>desde: <input type="text" class="input-fecha desde" name="desde" id="datepicker" size="15"></p>
-        <p>hasta: <input type="text" class="input-fecha hasta" name="hasta" id="datepicker2" size="15"></p>  
+        <p>hasta: <input type="text" class="input-fecha hasta" name="hasta" id="datepicker2" size="15"></p>
+        <p><select type="text" class="span4" name="sector_filter_selector" id="sector_filter_selector" style="margin-right: 30px;">
+        <option class="sector_filter" value="">Elegir Sector... </option>
+        <?php
+        foreach ($query_tipo_reclamo as $row => $v2) {
+          $str = '<option class="sector_filter" value="'. $v2['id_sector'] . '">'. $v2['nombre_sector'] .'</option>';
+          echo $str;
+        }?>
+        </select></p>
+
         <input type="submit" class="span4" value="Filtrar">
         <p></p> 
       </div>  
@@ -44,27 +43,32 @@
             <option id="resolucion_filter" value="En resolución">En resolución</option>
             <option id="solucionado_filter" value="Solucionado">Solucionado</option>
             <option id="gestionado_filter" value="Gestionado">Gestionado</option>
-        </select>  <input type="submit" class="span4" value="Filtrar"></p>
+        </select>
 
         <p><select type="text" class="span4" name="reclamoType_filter_selector" id="reclamoType_filter_selector" style="margin-right: 30px;">
         <option id="typeReclamo-vacio_filter" value="">Elegir Tipo de Reclamo... </option>
         <?php
-
         foreach ($list_reclaim_type as $row => $value) {
-           $str = '<option id="typeReclamo-vacio_filter" value="'.$list_reclaim_type[$row]->id_tipo_reclamo. '">' . $list_reclaim_type[$row]->titulo.'</option>';
-           echo $str;
-
+          foreach ($value as $row => $v2) {
+            $str_1 = '<option id="typeReclamo-vacio_filter" value="'.$v2->id_tipo_reclamo. '">'. $v2->titulo.' - '. $v2->denominacion.'</option>';
+            echo $str_1;
+          }      
         }
-        print_r($list_reclaim_type);
         ?>
-        </select>
-        </p>
+        </select></p>
+
+        <p><select type="text" class="span4" name="responsable_filter_selector" id="responsable_filter_selector" style="margin-right: 30px;">
+        <option class="responsable_filter" value="">Elegir Responsable... </option>
+        <?php
+        foreach ($query_tipo_reclamo as $row => $v2) {
+          $string_2 = '<option class="sector_filter" value="'. $v2['id_responsable'] . '">'. $v2['nombre'] .' '. $v2['apellido'] .'</option>';
+          echo $string_2;
+        }?>
+        </select></p>
       </div>
     </form>
+    <?php
 
-
-    <?php 
-  
     if(count($reclamos_list) > 0){
       echo '<table class="table"><thead class="thead-inverse">        <tr>
       <th>Código Reclamo</th><th>Fecha Alta</th><th>Barrio</th><th>Calle</th><th>Nº</th><th>Título</th><th>Rta. hs</th><th>Estado</th><th>Comentarios</th><th>Observaciones</th><th>Vecino</th> </tr>        </thead><tbody>';

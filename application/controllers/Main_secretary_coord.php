@@ -59,6 +59,10 @@ class Main_secretary_coord extends CI_Controller{
     $new_data['reclamos_list'] = '';
     $new_data['user_enable'] = 'officer';
     $new_data['list_reclaim_type'] = array();
+    $new_data['list_responsables_posibles'] = array();
+    $new_data['list_oficinas_posibles'] = array();
+    $new_data['array_id_tipo_reclamo'] = array();
+
 
     $this->load->model('reclamo_tipo_m');
 
@@ -66,22 +70,22 @@ class Main_secretary_coord extends CI_Controller{
     $info = $this->input->post(null,true);  
     $sectores_multiples = $this->session->sectores_multiples;  
 
-
-
-
-
     //si se post algo como filtro lo uso, sino no muestro ninguno
     $info = $this->input->post(null,true);
     if( count($info) ){
-      if (!isset($info['status_filter_selector']))      $info['status_filter_selector'] = '';
-      if( !isset($info['reclamoType_filter_selector'])) $info['reclamoType_filter_selector'] = '';
-      if( !isset($info['desde']))                       $info['desde'] = '';
-      if( !isset($info['hasta']))                       $info['hasta'] = '';
+      if (!isset($info['status_filter_selector']))        $info['status_filter_selector'] = '';
+      if( !isset($info['reclamoType_filter_selector']))   $info['reclamoType_filter_selector'] = '';
+      if( !isset($info['desde']))                         $info['desde'] = '';
+      if( !isset($info['hasta']))                         $info['hasta'] = '';
+      if( !isset($info['sector_filter_selector']))        $info['sector_filter_selector'] = '';
+      if( !isset($info['responsable_filter_selector']))   $info['responsable_filter_selector'] = '';
     } else {
       $info['status_filter_selector'] = '';
       $info['reclamoType_filter_selector'] = '';
       $info['desde'] = '';
       $info['hasta'] = '';
+      $info['sector_filter_selector'] = '';
+      $info['responsable_filter_selector'] = '';
     }
     if ($sectores_multiples){
       $array_sectores = $this->session->array_sectores;
@@ -90,16 +94,27 @@ class Main_secretary_coord extends CI_Controller{
         array_push( $new_data['list_reclaim_type'], $sectorArray );
       }
     }else{
-      $new_data['list_reclaim_type'] =  $this->reclamo_tipo_m->get_all_tipo_reclamos_by_sector($id_sector);
+      $id_secretaria = $this->session->id_sector;
+      $sectorArray2 = $this->reclamo_tipo_m->get_all_tipo_reclamos_by_secretary($id_secretaria) ;
+      array_push( $new_data['list_reclaim_type'], $sectorArray2 );
     }
-    $this->load->model('reclamo_m');
- 
 
-      if(!$sectores_multiples){
-        $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_for_secretary_by('estado',$info['status_filter_selector'], $id_sector, $info['desde'], $info['hasta'], $info['reclamoType_filter_selector']);        
-      }else{
-        $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_for_secretary_by_mutiples_sectores('estado',$info['status_filter_selector'], $array_sectores, $info['desde'], $info['hasta'], $info['reclamoType_filter_selector'] );
-     }
+    foreach ($new_data['list_reclaim_type'] as $row => $value) {
+      foreach ($value as $row => $v2) {
+        array_push($new_data['array_id_tipo_reclamo'], $v2->id_tipo_reclamo);
+      }
+    }
+
+    $this->load->model('reclamo_m');
+
+    if(!$sectores_multiples){
+      $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_for_secretary_by('estado',$info['status_filter_selector'], $id_sector, $info['desde'], $info['hasta'], $info['reclamoType_filter_selector'], $info['sector_filter_selector'], $info['responsable_filter_selector'] ); 
+    }else{
+      $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_for_secretary_by_mutiples_sectores('estado',$info['status_filter_selector'], $array_sectores, $info['desde'], $info['hasta'], $info['reclamoType_filter_selector'], $info['sector_filter_selector'], $info['responsable_filter_selector'] );
+    } 
+
+    $new_data['query_tipo_reclamo'] = $this->reclamo_m->get_responsables_y_oficinas_by_id_tipo_reclamo($new_data['array_id_tipo_reclamo']);
+    //$info['responsable_filter_selector'] = '';
 
     $this->load->view('main_secretary_coord',$this->data);
     $this->load->view('reclamos_secretary_coord',$new_data);
