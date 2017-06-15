@@ -38,7 +38,7 @@
 
     if($reclamos_list != ''){
       echo '<table class="table"><thead class="thead-inverse">        <tr>
-      <th>Código Reclamo</th><th>Fecha Alta</th><th>Título</th><th>Reitero</th><th>Rta. hs</th><th>Estado</th><th>Comentarios</th><th>Observaciones</th><th>Vecino</th><th>Apellido</th><th>DNI</th><th>Imagenes</th></tr>        </thead><tbody>';
+      <th>Código Reclamo</th><th>Fecha Alta</th><th>Título</th><th>Reitero</th><th>Rta. hs</th><th>Estado</th><th>Comentarios</th><th>Observaciones</th><th>Vecino</th><th>Apellido</th><th>DNI</th><th>Imagenes</th><th></th></tr>        </thead><tbody>';
       foreach ($reclamos_list as $rec) {
         echo  '<tr class="reclamo_row"><th scope="row" class="" id_reclamo="'.$rec['id_reclamo'].'"value="'. $rec['id_vecino'].' ">'. $rec['codigo_reclamo'] .'</th>'. '<td>'.$rec['fecha_alta_reclamo'].'</td>'.
             '<td>'.$rec['titulo'].'</td>'.
@@ -50,7 +50,9 @@
           if ($rec['domicilio_restringido'] == 0) echo '<td><div class="btn btn-info info-vecino" dom-res="0">Ver</div></td>'; else echo '<td></td>';
           	echo '<td>'.$rec['Apellido'].'</td>'.
             '<td>'.$rec['DNI'].'</td>'.
-            '<td><a href="/index.php/upload?id-rec='.$rec['id_reclamo'].'" class="btn btn-info">Upload</div></td>';
+            '<td><a href="/index.php/upload?id-rec='.$rec['id_reclamo'].'" class="btn btn-info" target="_blank" >Subir</div></td>';
+            if ($rec['flag_imagenes']) echo '<td><div class="btn btn-success sh-img" id_reclamo="'.$rec['id_reclamo'].'" >Ver..</div></td>';
+            else echo '<td></td>';
         }
         echo '  </tbody></table>'; 
     }
@@ -96,8 +98,15 @@
     </p>
   </div> 
 
-
+  <div id="img-box" class="ui-widget-content" style="display: none;" title="Fotos del Reclamo">
+    <p>
+      
+    </p>
+  </div> 
 
 
 <?php echo '<script src="'. base_url() .'assets/js/show_reclamos_operator.js"></script>'; ?>
 <?php echo '<script src="'. base_url() .'assets/js/reclamos_reitero.js"></script>'; ?>
+
+
+<?php echo '<script src="'. base_url() .'assets/js/ver_imagenes_reclamo.js"></script>'; ?>

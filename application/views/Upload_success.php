@@ -1,27 +1,35 @@
-<html>
- 
-   <head> 
-      <title>Upload Form</title> 
-   </head>
-	
-   <body>  
-      <h3>Your file was successfully uploaded!</h3>  
-		
-      <ul> 
-      <?php //print_r($upload_data);
-         foreach( $upload_data as $item => $value){
-           echo  '<li>'. $item. ': '.$value .'</li>';
-         } 
+<?php $this->load->view('header'); ?>
 
-      /*
-         <?phpforeach ($upload_data as $item => $value):?> 
-         <li><?php echo $item;?>: <?php echo $value;?></li> 
-         <?phpendforeach; ?>
-         */
-         ?>
-      </ul>  
+  <div class="navbar navbar-default upload-form">
+    <div class="navbar-inner">
+      <div class="container">
+       <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6" style="margin-top: 50px;">
+              <div class="span4 offset4 well">
+
+                  <legend>Tu archivo se ha subido correctamente</legend>  
 		
-      <p><?php echo anchor('upload', 'Upload Another File!'); ?></p>  
-   </body>
-	
-</html>
+                  <div style="display: none;"><pre> <?php print_r($upload_data); ?></pre></div>
+            		
+                  <p>¿ Desea subir otro archivo asociado al mismo Reclamo ?
+
+                  <?php echo anchor('upload?id-rec='.$this->session->userdata('id-reclamo-aux') . '" class="btn btn-success"', 'Si');?>
+                        <a onclick="self.close()" class="btn btn-info" >No</a>
+                   
+                    
+
+                  </p>  
+               </div>
+               <!--/.container-fluid -->
+             </div>
+          </div>
+        <!--/.navbar-header -->
+      </div>
+      <!--/.container-fluid -->
+    </div>
+    <!--/.navbar-inner -->
+  </div>
+  <!--/.navbar -->
+
+<?php $this->load->view('footer_base'); ?>

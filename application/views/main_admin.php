@@ -20,6 +20,15 @@
                   <li class="catalogo-reclamos">
                     <a href="show_reclamo_tipo"><i class="glyphicon glyphicon-th-list"></i>Catálogo Reclamos </a>
                   </li>
+                  <li class="dropdown ">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <i class="glyphicon glyphicon-th-list"></i>
+                    Reportes<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="../Reportes/show_reportes_pSector" target="_blank">Generar Reporte por Sector</a></li>
+                      <li><a href="../Reportes/show_reportes_Reclamos" target="_blank">Generar Reporte Reclamos</a></li>
+                    </ul>
+                  </li>
                   <li class="dropdown hidden">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
                     <ul class="dropdown-menu">

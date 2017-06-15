@@ -55,6 +55,7 @@ class User_m extends CI_Model {
                 'sector_name'=>$query->result()[0]->denominacion,
                 'id_sector'=>$query->result()[0]->id_sector,
 /* multisectores  */ 'array_sectores' => $query->result(),
+                'id-reclamo-aux' => '',
                 'isLoggedIn'=>true
             )
         );

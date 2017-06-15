@@ -87,3 +87,25 @@ tr.reclamo_row.reitero5 {
     background-color: red;
 }
 
+.navbar.navbar-default.upload-form{
+    background-color: #80c191;
+    border: none;
+}
+
+.upload-form {
+    
+}
+
+#img-box{
+    /* text-align: center; */
+
+}
+
+.reporte_global_sec{
+    background-color:rgb(249, 198, 52);
+}
+
+.tbl-rep-glob-tr{
+    background-color: lightgrey;    
+}
+

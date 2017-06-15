@@ -133,7 +133,7 @@ class Reclamo_m extends CI_Model {
     $value != '' ? $cond_str = " AND ".$column." = '".$value."' " : $cond_str = " AND estado != 'Solucionado' ";
     if ($column != 'estado'){ $cond_str = " AND ".$column." LIKE '%".$value."%'" ;}
 
-    $str_query = 'SELECT id_reclamo, vecino.id_vecino, codigo_reclamo, fecha_alta_reclamo, tiporeclamo.titulo , tiporeclamo.tiempo_respuesta_hs , domicilio_restringido,  estado,comentarios, Apellido, DNI, reitero
+    $str_query = 'SELECT id_reclamo, vecino.id_vecino, codigo_reclamo, fecha_alta_reclamo, tiporeclamo.titulo , tiporeclamo.tiempo_respuesta_hs , domicilio_restringido,  estado,comentarios, Apellido, DNI, reitero, flag_imagenes
     FROM reclamos, tiporeclamo, vecino
     WHERE reclamos.id_tipo_reclamo = tiporeclamo.id_tipo_reclamo
     AND reclamos.id_vecino = vecino.id_vecino '. $cond_str .'
@@ -326,6 +326,13 @@ class Reclamo_m extends CI_Model {
     return $query->result_array();
   }
 
+  function get_images($id){
+    $this->db->select("file_name");
+    $this->db->where('id_reclamo',$id);
+    $this->db->from('upload_x_reclamo');
+    $query = $this->db->get();
+    return $query->result_array();
+  }
 
   function verificacion_reclamo( $id_reclamo, $correctitud){
     $data['id_reclamo_asociado'] = $id_reclamo;
@@ -339,6 +346,42 @@ class Reclamo_m extends CI_Model {
 
     return $saved;
   }
+
+  function get_reporte_global(){
+    $str_query = 'SELECT estado, count(estado) as cantidad
+                  FROM reclamos
+                  group by estado ;';
+    $query = $this->db->query($str_query); 
+    return $query->result_array();     
+  }
+
+  function reporte_gl_sec(){
+    $str_query = 'SELECT estado, count(estado) as cantidad, s1.id_padre as id_secretaria, s2.denominacion
+                  FROM reclamos, tiporeclamo, usuariosxsector, sectores s1 , sectores s2
+                  WHERE reclamos.id_tipo_reclamo = tiporeclamo.id_tipo_reclamo
+                  AND tiporeclamo.id_responsable = usuariosxsector.id_usuario
+                  AND s1.id_sector = usuariosxsector.id_sector
+                  AND s1.id_padre = s2.id_sector
+
+                  group by estado, s1.id_padre
+                  order by s1.id_padre ;';
+
+    $query = $this->db->query($str_query); 
+    return $query->result_array(); 
+  }
+
+  function reporte_gl_of(){
+    $str_query = 'SELECT estado, count(estado) as cantidad, sectores.denominacion, sectores.id_padre
+                  FROM reclamos, tiporeclamo, usuariosxsector, sectores
+                  WHERE reclamos.id_tipo_reclamo = tiporeclamo.id_tipo_reclamo
+                  AND tiporeclamo.id_responsable = usuariosxsector.id_usuario
+                  AND sectores.id_sector = usuariosxsector.id_sector
+                  group by estado, sectores.id_sector
+                  order by sectores.id_padre, sectores.id_sector  ;';
+    $query = $this->db->query($str_query);
+    return $query->result_array();
+  }
+
 
 /* ------------------------*/
 /*  FUNCIONES AUXILIARES   */
