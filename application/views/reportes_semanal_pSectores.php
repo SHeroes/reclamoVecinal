@@ -10,10 +10,10 @@
 
                   <?php
                   $table_header_Secretaria = '<table class="table ">
-                  <thead class="thead-inverse"><tr class="tbl-rep-glob-tr"><th>Estado del Reclamo</th><th>Cantidad</th></tr></thead><tbody>';
+                  <thead class="thead-inverse"><tr class="tbl-sec-glob-tr"><th>Estado del Reclamo</th><th>Cantidad</th></tr></thead><tbody>';
 
                   $table_header_Oficina = '<table class="table">
-                  <thead class="thead-inverse"><tr><th>Estado del Reclamo</th><th>Cantidad</th><th>Sector / Oficina </th></tr></thead>';
+                  <thead class="thead-inverse"><tr class="tbl-sec-glob-tr"><th>Estado del Reclamo</th><th>Cantidad</th><th>Sector / Oficina </th></tr></thead>';
                   $table_fin = '  </tbody></table>';    
 
                   //REPORTE GLOBAL

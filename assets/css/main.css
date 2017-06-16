@@ -101,11 +101,22 @@ tr.reclamo_row.reitero5 {
 
 }
 
-.reporte_global_sec{
-    background-color:rgb(249, 198, 52);
+.reporte_global_sec, .reporte_global, .tbl-reclamos-tr{
+    background-color: rgb(249, 198, 52);
+    font-size: 18px;
+    font-weight: bolder;
+    font-style: italic;
+    padding: 10px;
 }
 
-.tbl-rep-glob-tr{
+.reporte_global{
+    margin-top: 20px;
+}
+
+.tbl-sec-glob-tr{
     background-color: lightgrey;    
 }
 
+.tbl-ofi-glob-tr {
+    background-color: lightgrey;
+}

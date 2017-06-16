@@ -382,6 +382,40 @@ class Reclamo_m extends CI_Model {
     return $query->result_array();
   }
 
+  function reporte_reclamos_sin_fecha(){
+    $str = 'SELECT reclamos.codigo_reclamo as NumRec, s1.denominacion Oficina , s2.denominacion Secretaria, estado, fecha_alta_reclamo
+            FROM dbcav.reclamos, tiporeclamo, usuariosxsector, sectores s1, sectores s2
+            WHERE reclamos.id_tipo_reclamo = tiporeclamo.id_tipo_reclamo
+            AND tiporeclamo.id_responsable = usuariosxsector.id_usuario
+            AND s1.id_sector = usuariosxsector.id_sector
+            AND s1.id_padre = s2.id_sector ;';
+    $query = $this->db->query($str);
+    return $query->result_array();
+  }
+
+  function reporte_reclamos_localidades(){
+    $str = 'SELECT id_localidad, localidades, tiporeclamo.id_tipo_reclamo , tiporeclamo.titulo ,  estado as estado , count(estado) as cantidad 
+            FROM reclamos, tiporeclamo, domicilio, localidadxcalle, localidades
+            WHERE reclamos.id_tipo_reclamo = tiporeclamo.id_tipo_reclamo
+            AND domicilio.id_domicilio = reclamos.id_dom_reclamo
+            AND domicilio.id_calle = localidadxcalle.id_calle
+            AND localidades.id_localidad = localidadxcalle.id_loc
+            group by estado, tiporeclamo.id_tipo_reclamo
+            order by localidades, titulo ;';
+    $query = $this->db->query($str);
+    return $query->result_array();   
+  }
+
+  function reporte_reclamos_localidades_global(){
+    $str = 'SELECT localidades, count(localidades) as cantidad 
+            FROM reclamos, domicilio, localidadxcalle, localidades
+            WHERE domicilio.id_domicilio = reclamos.id_dom_reclamo
+            AND domicilio.id_calle = localidadxcalle.id_calle
+            AND localidades.id_localidad = localidadxcalle.id_loc
+            group by  localidades ';
+    $query = $this->db->query($str);
+    return $query->result_array();      
+  }
 
 /* ------------------------*/
 /*  FUNCIONES AUXILIARES   */

@@ -38,10 +38,6 @@ class Reportes extends CI_Controller{
 		$reporte_gl_of = $this->reclamo_m->reporte_gl_of();
 
 		$new_data['reporte_global'] = $reporte_global;
-		
-		//$new_data['reporte_secretaria'] = $reporte_gl_sec;
-		//$new_data['reporte_oficina'] = $reporte_gl_of;
-
 
 		$reportesSecretaria = array();
 		//armos el array con clave con el id de la secretaria
@@ -84,40 +80,33 @@ class Reportes extends CI_Controller{
 		    	$this->load->view('restricted',$this->data);
 		    return;
 		}
+		$this->load->model('reclamo_m');
 
-		echo 'Super Hola show_reportes_Reclamos';
-
-		$this->load->view('reportes_semanal_Reclamos',$this->data);
+		$new_data['reporte_reclamos'] = $this->reclamo_m->reporte_reclamos_sin_fecha();
+		$this->load->view('reportes_semanal_Reclamos',$new_data);
 		$this->load->view('footer',$this->data);
 	}
 
-	/*
-	function armarReportes($sec,$of){
-		$reportesArmados = array();
+	function show_reportes_localidades() {  
 
-		foreach ($sec as $sec_value) {
-			$reportesArmados[$sec_value['id_secretaria']] = array();
+		switch ($this->session->userdata('perfil_level')){
+		    case 0:
+		        break;
+		    case 4: 
+		        break;            
+		    case 5: 
+		        break;
+		    default :
+		    	$this->load->view('restricted',$this->data);
+		    return;
 		}
 
-		foreach ($sec as $sec_value) {
-			
-			array_push($reportesArmados[$sec_value['id_secretaria']], $sec_value);
-			
-			//$reportesArmados[$sec_value['id_secretaria']] = array();
-			
-			foreach ($of as $of_value){
-				
-			}
+		$this->load->model('reclamo_m');
 
-			//array_push($reportesArmados, $sec, $of);
-		}
-
-		//print_r($reportesArmados);
-
-		return $reportesArmados;
+		$new_data['reporte_localidades'] = $this->reclamo_m->reporte_reclamos_localidades();
+		$new_data['reporte_localidades_gl'] = $this->reclamo_m->reporte_reclamos_localidades_global();
+		$this->load->view('reportes_semanal_localidades',$new_data);
+		$this->load->view('footer',$this->data);
 	}
-*/
-
-
 
 }
