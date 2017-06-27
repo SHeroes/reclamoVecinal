@@ -269,12 +269,6 @@ class Main_operator extends CI_Controller{
     echo json_encode ($query);
   }
 
-  function search_imagenes_por_reclamo(){
-    $this->load->model('reclamo_m');
-    $id_reclamo =  $this->input->post('id_reclamo');    
-    $query = $this->reclamo_m->get_images($id_reclamo);
-    echo json_encode ($query);    
-  }
 
   function show_observaciones(){
     $this->load->model('reclamo_m');

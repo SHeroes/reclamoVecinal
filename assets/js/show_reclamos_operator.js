@@ -196,7 +196,7 @@ $(document).ready(function(){
     };
     $.ajax({
      type: "post",
-     url: "/index.php/main_office/get_vecino_info",
+     url: "/index.php/main_common/get_vecino_info",
      cache: false,    
      data: dataToSearch,
      success: detalle_vecino,

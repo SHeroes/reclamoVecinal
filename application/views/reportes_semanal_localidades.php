@@ -10,7 +10,7 @@
 
                   <?php
                   $table_header = '<table class="table ">
-                  <thead class="thead-inverse"><tr class="tbl-sec-glob-tr"><th>Id Tipo Rec.</th><th>titulo</th><th>estado</th><th>cantidad</th></tr></thead><tbody>';
+                  <thead class="thead-inverse"><tr class="tbl-sec-glob-tr"><th>Id Tipo Rec.</th><th>titulo</th><th>cantidad</th></tr></thead><tbody>';
                   $table_fin = '  </tbody></table>';    
 
 
@@ -44,7 +44,6 @@
                         echo '<tr>';
                         echo '<td>'.$value['id_tipo_reclamo'].'</td>';
                         echo '<td>'.$value['titulo'].'</td>';
-                        echo '<td>'.$value['estado'].'</td>';
                         echo '<td>'.$value['cantidad'].'</td>';
                         echo '</tr>';
 

@@ -1,5 +1,5 @@
 <?php //echo '<script src="'. base_url() .'assets/js/show_reclamos_crear.js"></script>'; ?>
-<div class="container">
+<div class="container-fluid">
 <h1>Reclamos correspondientes a: <?php
   if ($this->session->sectores_multiples){
     $array_sectores = $this->session->array_sectores;
@@ -18,7 +18,12 @@
   <div class="col-md-12">
 
     <form action="#" id="state_filter" method="POST" >
-      <div class="col-sm-6">
+      <div class="col-sm-3">
+        <p><input type="text" name="apellido" class="input-form" placeholder="Apellido..."></p>
+        <p><input type="int" name="dni" class="input-form" placeholder="DNI..."></p>
+        <p><input type="text" name="nro_rec" class="input-form" placeholder="Nº Reclamo"></p>
+      </div>
+      <div class="col-sm-3">    
         <p>desde: <input type="text" class="input-fecha desde" name="desde" id="datepicker" size="15"></p>
         <p>hasta: <input type="text" class="input-fecha hasta" name="hasta" id="datepicker2" size="15"></p>
         <p><select type="text" class="span4" name="sector_filter_selector" id="sector_filter_selector" style="margin-right: 30px;">
@@ -73,7 +78,9 @@
       echo '<table class="table"><thead class="thead-inverse">        <tr>
       <th>Código Reclamo</th><th>Fecha Alta</th><th>Barrio</th><th>Calle</th><th>Nº</th><th>Título</th><th>Rta. hs</th><th>Estado</th><th>Comentarios</th><th>Observaciones</th><th>Vecino</th> </tr>        </thead><tbody>';
       foreach ($reclamos_list as $rec) {
-        echo  '<tr class="reclamo_row"><th scope="row" class="" id_reclamo="'.$rec['id_reclamo'].'"value="'. $rec['id_vecino'].' ">'. $rec['codigo_reclamo'] .'</th>'. '<td>'.$rec['fecha_alta_reclamo'].'</td>'.
+        echo  '<tr class="reclamo_row">
+                <th scope="row" class="" horario="-'.$rec['molestar_dia_hs'].'" id_reclamo="'.$rec['id_reclamo'].'"value="'. $rec['id_vecino'].' ">'. $rec['codigo_reclamo'] .'</th>'.
+            '<td>'.$rec['fecha_alta_reclamo'].'</td>'.
             '<td><div>'.$rec['barrio'].'</div></td>'.
             '<td>'.$rec['calle'].'</td>'.
             '<td>'.$rec['altura'].'</td>'.

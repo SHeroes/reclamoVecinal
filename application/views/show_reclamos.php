@@ -38,13 +38,14 @@
 
     if($reclamos_list != ''){
       echo '<table class="table"><thead class="thead-inverse">        <tr>
-      <th>Código Reclamo</th><th>Fecha Alta</th><th>Título</th><th>Reitero</th><th>Rta. hs</th><th>Estado</th><th>Comentarios</th><th>Observaciones</th><th>Vecino</th><th>Apellido</th><th>DNI</th><th>Imagenes</th><th></th></tr>        </thead><tbody>';
+      <th>Código Reclamo</th><th>Fecha Alta</th><th>Título</th><th>Reitero</th><th>Rta. hs</th><th>Dirección Reclamo</th><th>Estado</th><th>Comentarios</th><th>Observaciones</th><th>Vecino</th><th>Apellido</th><th>DNI</th><th>Imagenes</th><th></th></tr>        </thead><tbody>';
       foreach ($reclamos_list as $rec) {
         echo  '<tr class="reclamo_row"><th scope="row" class="" id_reclamo="'.$rec['id_reclamo'].'"value="'. $rec['id_vecino'].' ">'. $rec['codigo_reclamo'] .'</th>'. '<td>'.$rec['fecha_alta_reclamo'].'</td>'.
             '<td>'.$rec['titulo'].'</td>'.
             '<td><div class="reitero-num">'.$rec['reitero'].'</div></td>'.
             '<td>'.$rec['tiempo_respuesta_hs'].'</td>'.
-            '<td>'.$rec['estado'].'</div></td>'.
+            '<td>'.$rec['calle'].' Nro: '.$rec['altura'].'</td>'.
+            '<td>'.$rec['estado'].'</td>'.
             '<td class="comentario" comentario="'.$rec['comentarios'].'"><div class="btn btn-info">Ver</div></td>'.
             '<td class="observacion" id_reclamo="'.$rec['id_reclamo'].'" observacion="'  . '"><div class="btn btn-success ver">Ver</div></td>';
           if ($rec['domicilio_restringido'] == 0) echo '<td><div class="btn btn-info info-vecino" dom-res="0">Ver</div></td>'; else echo '<td></td>';

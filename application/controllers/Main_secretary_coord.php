@@ -79,6 +79,9 @@ class Main_secretary_coord extends CI_Controller{
       if( !isset($info['hasta']))                         $info['hasta'] = '';
       if( !isset($info['sector_filter_selector']))        $info['sector_filter_selector'] = '';
       if( !isset($info['responsable_filter_selector']))   $info['responsable_filter_selector'] = '';
+      if( !isset($info['nro_rec']))                       $info['nro_rec'] = '';
+      if( !isset($info['apellido']))                      $info['apellido'] = '';
+      if( !isset($info['dni']))                           $info['dni'] = '';      
     } else {
       $info['status_filter_selector'] = '';
       $info['reclamoType_filter_selector'] = '';
@@ -86,6 +89,9 @@ class Main_secretary_coord extends CI_Controller{
       $info['hasta'] = '';
       $info['sector_filter_selector'] = '';
       $info['responsable_filter_selector'] = '';
+      $info['nro_rec'] = '';
+      $info['apellido'] = '';
+      $info['dni'] = '';      
     }
     if ($sectores_multiples){
       $array_sectores = $this->session->array_sectores;
@@ -108,9 +114,9 @@ class Main_secretary_coord extends CI_Controller{
     $this->load->model('reclamo_m');
 
     if(!$sectores_multiples){
-      $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_for_secretary_by('estado',$info['status_filter_selector'], $id_sector, $info['desde'], $info['hasta'], $info['reclamoType_filter_selector'], $info['sector_filter_selector'], $info['responsable_filter_selector'] ); 
+      $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_for_secretary_by('estado',$info['status_filter_selector'], $id_sector, $info['desde'], $info['hasta'], $info['reclamoType_filter_selector'], $info['sector_filter_selector'], $info['responsable_filter_selector'], $info['nro_rec'], $info['apellido'], $info['dni'] ); 
     }else{
-      $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_for_secretary_by_mutiples_sectores('estado',$info['status_filter_selector'], $array_sectores, $info['desde'], $info['hasta'], $info['reclamoType_filter_selector'], $info['sector_filter_selector'], $info['responsable_filter_selector'] );
+      $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_for_secretary_by_mutiples_sectores('estado',$info['status_filter_selector'], $array_sectores, $info['desde'], $info['hasta'], $info['reclamoType_filter_selector'], $info['sector_filter_selector'], $info['responsable_filter_selector'], $info['nro_rec'], $info['apellido'], $info['dni'] );
     } 
 
     $new_data['query_tipo_reclamo'] = $this->reclamo_m->get_responsables_y_oficinas_by_id_tipo_reclamo($new_data['array_id_tipo_reclamo']);
@@ -121,16 +127,6 @@ class Main_secretary_coord extends CI_Controller{
     $this->load->view('footer_base',$this->data);
 	}
 
-
-
-  public function get_vecino_info(){
-
-    $this->load->model('vecino_m');
-    $id_vecino =  $this->input->post('id_vecino');
-    $query = $this->vecino_m->get_vecino_info($id_vecino);
-    echo json_encode ($query);
-    
-  }
 
   public function editar_observacion(){
     $info = $this->input->post(null,true);

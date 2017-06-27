@@ -100,6 +100,22 @@ class Main_supervisor extends CI_Controller{
     $this->load->view('footer_base',$this->data);
   }
 
+  public function correctitud(){
+    $info = $this->input->post(null,true);
+    if( count($info) ) {
+      $id_supervisor = $this->session->userdata('id');
+      $this->load->model('reclamo_m');
+      $obs_str =  $this->input->post('observacion_input');
+      $id_reclamo =  $this->input->post('id_reclamo');
+
+      $saved = $this->reclamo_m->concat_observacion_esp($obs_str, $id_reclamo, $id_supervisor);
+      echo json_encode ($saved);
+      //print_r($saved);
+    }
+    if ( isset($saved) && $saved ) {
+      echo 'Editado Correctamente';
+    }
+  }
   
   function show_verificados() {
     if($this->basic_level() != 4) {

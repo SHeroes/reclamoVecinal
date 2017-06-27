@@ -14,14 +14,22 @@ class Vecino_m extends CI_Model {
   }
 
   function get_vecino_info($id_vecino){
-    $this->db->select('*')->from('vecino')->where('id_vecino', $id_vecino);
+    $this->db->select('Nombre, Apellido, DNI, mail, tel_fijo, tel_movil, calle, altura, dpto, piso');
+    $this->db->from('vecino');
+    $this->db->join('domiciliosxvecinos', 'domiciliosxvecinos.id_vecino = vecino.id_vecino');
+    $this->db->join('domicilio', 'domiciliosxvecinos.id_domicilio = domicilio.id_domicilio');
+    $this->db->join('calles', 'calles.id_calle = domicilio.id_calle');
+    $this->db->where('vecino.id_vecino', $id_vecino);
 
     $query = $this->db->get();
     if ( $query->num_rows() > 0 ){
         $row = $query->row_array();
+        //print_r($row);
         return $row;
+    }else {
+      return $query;
     }
-    
+
   }
 
   function get_all_vecinos(){

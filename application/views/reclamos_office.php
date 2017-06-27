@@ -1,5 +1,5 @@
 <?php //echo '<script src="'. base_url() .'assets/js/show_reclamos_crear.js"></script>'; ?>
-<div class="container">
+<div class="container-fluid">
 <h1>Reclamos correspondientes a: <?php
   if ($this->session->sectores_multiples){
     $array_sectores = $this->session->array_sectores;
@@ -13,13 +13,17 @@
 
 
 
-  <div class="col-md-12">
+  <div class="col-sm-12">
 
 
     <form action="#" id="state_filter" method="POST" >
 
-
-        <div class="col-sm-6">
+        <div class="col-sm-3">
+          <p><input type="text" name="apellido" class="input-form" placeholder="Apellido..."></p>
+          <p><input type="int" name="dni" class="input-form" placeholder="DNI..."></p>
+          <p><input type="text" name="nro_rec" class="input-form" placeholder="Nº Reclamo"></p>
+        </div>
+        <div class="col-sm-3">
           <p>desde: <input type="text" class="input-fecha desde" name="desde" id="datepicker" size="15"></p>
           <p>hasta: <input type="text" class="input-fecha hasta" name="hasta" id="datepicker2" size="15"></p>  
           <input type="submit" class="span4" value="Filtrar">
@@ -61,7 +65,7 @@
   
     if(count($reclamos_list) > 0){
       echo '<table class="table"><thead class="thead-inverse">        <tr>
-      <th>Código Reclamo</th><th>Fecha Alta</th><th>Estado</th><th>Barrio</th><th>Calle</th><th>Nº</th><th>Título</th><th>Rta. hs</th><th>Comentarios</th><th>Observaciones</th><th>Vecino</th> </tr>        </thead><tbody>';
+      <th>Código Reclamo</th><th>Fecha Alta</th><th>Estado</th><th>Barrio</th><th>Calle</th><th>Nº</th><th>Título</th><th>Rta. hs</th><th>Comentarios</th><th>Observaciones</th><th>Vecino</th><th>Fotos</th> </tr>        </thead><tbody>';
       foreach ($reclamos_list as $rec) {
         $visualizacion = '';
         $mostrarEstado = $rec['estado'];
@@ -69,9 +73,8 @@
           $visualizacion = 'no-visto';
           $mostrarEstado = 'Ver Info';
          }else{ $visualizacion = 'visto'; }
-        echo  '<tr class="reclamo_row reitero'.$rec['reitero'].'"><th scope="row" class="" id_reclamo="'.$rec['id_reclamo'].'"value="'. $rec['id_vecino'].' ">'. $rec['codigo_reclamo'] .'</th>'. '<td>'.$rec['fecha_alta_reclamo'].'</td>'.
+        echo  '<tr class="reclamo_row reitero'.$rec['reitero'].'"><th scope="row" class="" horario="-'.$rec['molestar_dia_hs'].'" id_reclamo="'.$rec['id_reclamo'].'"value="'. $rec['id_vecino'].' ">'. $rec['codigo_reclamo'] .'</th>'. '<td>'.$rec['fecha_alta_reclamo'].'</td>'.
             '<td class="state" id_reclamo="'.$rec['id_reclamo'].'"><div class="btn btn-primary">'.$mostrarEstado.'</div></td>'.
-            '<td class="horario hidden">'. $rec['molestar_dia_hs'] .'</td>'.
             '<td class="'. $visualizacion .'"><div>'.$rec['barrio'].'</div></td>'.
             '<td class="'. $visualizacion .'">'.$rec['calle'].'</td>'.
             '<td class="'. $visualizacion .'">'.$rec['altura'].'</td>'.
@@ -80,6 +83,8 @@
             '<td class="comentario '. $visualizacion .'" comentario="'.$rec['comentarios'].'"><div class="btn btn-info">Ver</div></td>'.
             '<td class="observacion '. $visualizacion .'" id_reclamo="'.$rec['id_reclamo'].'" observacion="'  . '"><div class="btn btn-success observar">Observar</div><div class="btn btn-success ver">Ver</div></td>';
           if ($rec['domicilio_restringido'] == 0) echo '<td class="'. $visualizacion .'"><div class="btn btn-info info-vecino" dom-res="0">Ver</div></td>'; else echo '<td></td>';
+           if ($rec['flag_imagenes']) echo '<td><div class="btn btn-success sh-img" id_reclamo="'.$rec['id_reclamo'].'" >Ver</div></td>';
+            else echo '<td></td>';
         }
         echo '  </tbody></table>'; 
     }
@@ -122,12 +127,17 @@
     </p>
   </div> 
 
-
+  <div id="img-box" class="ui-widget-content" style="display: none;" title="Fotos del Reclamo">
+    <p>
+      
+    </p>
+  </div> 
 
 <?php echo '<script src="'. base_url() .'assets/js/show_office.js"></script>'; ?>
 
-
+<?php echo '<script src="'. base_url() .'assets/js/ver_imagenes_reclamo.js"></script>'; ?>
  
 <link rel="stylesheet" href="<?php echo base_url();?>assets/js/vendor/jquery-ui/jquery-ui.css">
 <script src="<?php echo base_url();?>assets/js/vendor/jquery-ui/jquery-ui.js"></script>
 <?php echo '<script src="'. base_url() .'assets/js/show_calendar.js"></script>'; ?> 
+

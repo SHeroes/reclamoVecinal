@@ -81,30 +81,25 @@ class Main_office extends CI_Controller{
       if( !isset($info['reclamoType_filter_selector'])) $info['reclamoType_filter_selector'] = '';
       if( !isset($info['desde']))                       $info['desde'] = '';
       if( !isset($info['hasta']))                       $info['hasta'] = '';
+      if( !isset($info['nro_rec']))                     $info['nro_rec'] = '';
+      if( !isset($info['apellido']))                    $info['apellido'] = '';
+      if( !isset($info['dni']))                         $info['dni'] = '';
     } else {
       $info['status_filter_selector'] = '';
       $info['reclamoType_filter_selector'] = '';
       $info['desde'] = '';
       $info['hasta'] = '';
+      $info['nro_rec'] = '';
+      $info['apellido'] = '';
+      $info['dni'] = '';
     }
 
-    $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_for_office('estado',$info['status_filter_selector'], $id_sector, $info['desde'], $info['hasta'], $info['reclamoType_filter_selector'] );
+    $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_for_office('estado',$info['status_filter_selector'], $id_sector, $info['desde'], $info['hasta'], $info['reclamoType_filter_selector'], $info['nro_rec'], $info['apellido'], $info['dni']  );
     
     $this->load->view('main_office',$this->data);
     $this->load->view('reclamos_office',$new_data);
     $this->load->view('footer_base',$this->data);
 	}
-
-
-
-  public function get_vecino_info(){
-
-    $this->load->model('vecino_m');
-    $id_vecino =  $this->input->post('id_vecino');
-    $query = $this->vecino_m->get_vecino_info($id_vecino);
-    echo json_encode ($query);
-    
-  }
 
   public function editar_observacion(){
     $info = $this->input->post(null,true);

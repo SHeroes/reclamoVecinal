@@ -11,7 +11,7 @@ $(document).ready(function(){
 
 	    $.ajax({
 	     type: "post",
-	     url: "/index.php/main_operator/search_imagenes_por_reclamo",
+	     url: "/index.php/main_common/search_imagenes_por_reclamo",
 	     cache: false,    
 	     data: dataToSearch,
 	     success: poblar_imagenes,
