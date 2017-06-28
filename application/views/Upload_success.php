@@ -32,4 +32,6 @@
   </div>
   <!--/.navbar -->
 
+
+
 <?php $this->load->view('footer_base'); ?>
