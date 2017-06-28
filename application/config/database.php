@@ -50,7 +50,7 @@ $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'root';
-$db['default']['password'] = '';
+$db['default']['password'] = 'my852654';
 $db['default']['database'] = 'dbcav';
 $db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = '';
@@ -64,7 +64,6 @@ $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
-//if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/ci_sock/part_one/application/config/database-local.php'))
 if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/application/config/database-local.php'))
   include 'database-local.php';
 
