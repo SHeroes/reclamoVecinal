@@ -1,0 +1,12 @@
+0 - Hacer un backup del todo el sitio por las dudas
+1 - guardar la carpeta de /uploads y la de /application/config
+en mi PC
+
+2 - borrar todo el directorio y revisar que no tenga archivos ocultos
+3 - hacer un git clone del repositorio con ssh , en teoria el publickey ya esta configurado en el repositorio
+git clone git@github.com:SHeroes/reclamoVecinal.git /var/www/html
+
+4 - Chequear que no haya mayusculas intermedias en el modelo y que las vistas esten en minusculas.
+
+5 - Chequearlos con varios usuarios
+
