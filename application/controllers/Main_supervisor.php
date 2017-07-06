@@ -156,28 +156,49 @@ class Main_supervisor extends CI_Controller{
     }
 
     $this->load->model('reclamo_m');
+    $this->load->model('user_m');
+    $this->load->model('reclamo_tipo_m');
+    $this->load->model('sector_m');
 
     $new_data['reclamos_list'] = '';
+    $new_data['query_responsable'] = '';
+    $new_data['query_tipos_reclamo'] = '';
+    $new_data['query_sectores'] = '';
 
-    $post = $this->input->post(null,true);
-    if( count($post)){
-      if(isset($post['status_filter_selector'])){
-        $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_con_vecino_by('estado',$post['status_filter_selector']);
-      } 
-      if (isset($post['DNI_filter_sel'])){
-        $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_con_vecino_by('DNI',$post['DNI_filter_sel']);
-      }
-      if (isset($post['Apellido_filter_sel'])){
-        $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_con_vecino_by('Apellido',$post['Apellido_filter_sel']);
-      }
-      if (isset($post['num_reclamo_sel'])){
-        $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_con_vecino_by('codigo_reclamo',$post['num_reclamo_sel']);
-      }
-    }else{
-      $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_con_vecino_by('estado','');
+
+    $info = $this->input->post(null,true);
+
+    if( count($info) ){
+      if( !isset($info['status_filter_selector']))        $info['status_filter_selector'] = '';
+      if( !isset($info['reclamoType_filter_selector']))   $info['reclamoType_filter_selector'] = '';
+      if( !isset($info['desde']))                         $info['desde'] = '';
+      if( !isset($info['hasta']))                         $info['hasta'] = '';
+      if( !isset($info['sector_filter_selector']))        $info['sector_filter_selector'] = '';
+      if( !isset($info['responsable_filter_selector']))   $info['responsable_filter_selector'] = '';
+      if( !isset($info['nro_rec']))                       $info['nro_rec'] = '';
+      if( !isset($info['apellido']))                      $info['apellido'] = '';
+      if( !isset($info['dni']))                           $info['dni'] = '';      
+    } else {
+      $info['status_filter_selector'] = '';
+      $info['reclamoType_filter_selector'] = '';
+      $info['desde'] = '';
+      $info['hasta'] = '';
+      $info['sector_filter_selector'] = '';
+      $info['responsable_filter_selector'] = '';
+      $info['nro_rec'] = '';
+      $info['apellido'] = '';
+      $info['dni'] = '';      
     }
+
+    $new_data['info'] = $info;
+    $new_data['query_responsable'] = $this->user_m->get_all_users_responsables();
+    $new_data['query_tipos_reclamo'] = $this->reclamo_tipo_m->get_all_tipo_reclamos();
+    $new_data['query_sectores'] = $this->sector_m->get_all_sectores();
+
+    $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_for_supervisor('estado',$info['status_filter_selector'], $info['sector_filter_selector'], $info['desde'], $info['hasta'], $info['reclamoType_filter_selector'], $info['responsable_filter_selector'], $info['nro_rec'], $info['apellido'], $info['dni'] );
+
     $this->load->view('main_supervisor',$this->data);
-    $this->load->view('show_reclamos',$new_data);
+    $this->load->view('reclamos_supervisor',$new_data);
     $this->load->view('footer_base',$this->data);   
   }
 

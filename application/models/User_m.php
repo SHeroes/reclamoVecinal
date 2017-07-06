@@ -105,6 +105,15 @@ class User_m extends CI_Model {
       return $users;  
     }
 
+    function get_all_users_responsables(){
+      $this->db->from('user');
+      $this->db->join('tiporeclamo', 'tiporeclamo.id_responsable = user.id', 'inner');
+      $this->db->group_by('apellido');     
+      $this->db->order_by('user.apellido', 'ASC');
+      $users = $this->db->get()->result();
+      return $users;  
+    }
+
     public function update_tagline( $user_id, $tagline ) {
       $data = array('tagline'=>$tagline);
       $result = $this->db->update('user', $data, array('id'=>$user_id));

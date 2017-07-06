@@ -119,6 +119,7 @@ class Main_secretary_coord extends CI_Controller{
       $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_for_secretary_by_mutiples_sectores('estado',$info['status_filter_selector'], $array_sectores, $info['desde'], $info['hasta'], $info['reclamoType_filter_selector'], $info['sector_filter_selector'], $info['responsable_filter_selector'], $info['nro_rec'], $info['apellido'], $info['dni'] );
     } 
 
+    $new_data['info'] = $info;
     $new_data['query_tipo_reclamo'] = $this->reclamo_m->get_responsables_y_oficinas_by_id_tipo_reclamo($new_data['array_id_tipo_reclamo']);
     //$info['responsable_filter_selector'] = '';
 

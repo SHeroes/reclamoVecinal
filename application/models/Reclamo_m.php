@@ -235,6 +235,52 @@ class Reclamo_m extends CI_Model {
 
   }
 
+  function get_all_reclamos_for_supervisor($column,$value,$sector_filter,$fecha_desde, $fecha_hasta, $typeReclamo, $responsable_id, $nro_rec, $apellido, $dni){
+    $cond_str = '';
+    $value != '' ? $cond_str = " AND reclamos.".$column." = '".$value."' " : $cond_str = "  AND reclamos.estado != 'Solucionado'  ";
+
+    $cond_str = $cond_str .$this->armar_filtro_vecino($cond_str, $nro_rec, $apellido, $dni);    
+    $cond_str = $cond_str . $this->armar_Str_Cond_Fechas_Tipo_Reclamo($cond_str, $fecha_desde, $fecha_hasta, $typeReclamo);
+
+
+    if ($responsable_id != ''){
+      $cond_str = $cond_str . " AND tiporeclamo.id_responsable = '" . $responsable_id ."' ";
+    }
+
+    if ($sector_filter == ''){
+      $string_sectores = " ";
+    } else {
+      $this->load->model('sector_m');
+      $sector_response = $this->sector_m->get_all_sector_by_father_id($sector_filter);
+      $array_sectores = $sector_response[0];
+
+      $string_sectores = " AND ( ";
+
+      foreach ($array_sectores as $row => $value) {
+        $string_sectores = $string_sectores. " sectores.id_sector = '" .$array_sectores->id_sector ."' OR ";
+      }
+      $string_sectores = $string_sectores .' sectores.id_sector = '. $sector_filter .' ) ';
+      
+    }
+
+    $str_query = 'SELECT id_reclamo, reclamos.id_vecino, codigo_reclamo, fecha_alta_reclamo, barrios.barrio ,calles.calle, domicilio.altura , tiporeclamo.titulo , tiporeclamo.tiempo_respuesta_hs , domicilio_restringido,  estado, comentarios, molestar_dia_hs
+    FROM reclamos, domicilio, tiporeclamo, calles, barrios, usuariosxsector, sectores , vecino
+    WHERE reclamos.id_tipo_reclamo = tiporeclamo.id_tipo_reclamo
+    AND reclamos.id_vecino = vecino.id_vecino
+    AND tiporeclamo.id_responsable = usuariosxsector.id_usuario'.
+    $string_sectores . '
+    AND usuariosxsector.id_sector = sectores.id_sector
+    AND reclamos.id_dom_reclamo = domicilio.id_domicilio
+    AND domicilio.id_calle = calles.id_calle
+    AND domicilio.id_barrio = barrios.id_barrio '. $cond_str .'
+    ORDER BY fecha_alta_reclamo ASC;';
+
+    $query = $this->db->query($str_query);
+    
+    return $query->result_array();
+
+  }
+
   /* ES PARA LAS SECRETARIAS porque solo aparecen los reclamos de la oficina a la que pertenece el usuario */
   function get_all_reclamos_for_secretary_by($column,$value, $id_sec,$fecha_desde, $fecha_hasta, $typeReclamo, $sector_filter, $responsable_id, $nro_rec, $apellido, $dni){
     $cond_str = '';
