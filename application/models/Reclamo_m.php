@@ -252,14 +252,19 @@ class Reclamo_m extends CI_Model {
     } else {
       $this->load->model('sector_m');
       $sector_response = $this->sector_m->get_all_sector_by_father_id($sector_filter);
-      $array_sectores = $sector_response[0];
-
-      $string_sectores = " AND ( ";
-
-      foreach ($array_sectores as $row => $value) {
-        $string_sectores = $string_sectores. " sectores.id_sector = '" .$array_sectores->id_sector ."' OR ";
+      //print_r($sector_response);
+      if (!empty($sector_response)) {
+     // list is empty.
+        $array_sectores = $sector_response[0];
+        $string_sectores = " AND ( ";
+        foreach ($array_sectores as $row => $value) {
+          $string_sectores = $string_sectores. " sectores.id_sector = '" .$array_sectores->id_sector ."' OR ";
+        }
+        $string_sectores = $string_sectores .' sectores.id_sector = '. $sector_filter .' ) ';
+      } else {
+        $string_sectores = ' AND sectores.id_sector = '. $sector_filter .' ';
       }
-      $string_sectores = $string_sectores .' sectores.id_sector = '. $sector_filter .' ) ';
+
       
     }
 
