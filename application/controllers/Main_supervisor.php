@@ -173,7 +173,8 @@ class Main_supervisor extends CI_Controller{
       if( !isset($info['reclamoType_filter_selector']))   $info['reclamoType_filter_selector'] = '';
       if( !isset($info['desde']))                         $info['desde'] = '';
       if( !isset($info['hasta']))                         $info['hasta'] = '';
-      if( !isset($info['sector_filter_selector']))        $info['sector_filter_selector'] = '';
+      if( !isset($info['sector_filter_selector_of']))     $info['sector_filter_selector_of'] = '';
+      if( !isset($info['sector_filter_selector_sec']))    $info['sector_filter_selector_sec'] = '';
       if( !isset($info['responsable_filter_selector']))   $info['responsable_filter_selector'] = '';
       if( !isset($info['nro_rec']))                       $info['nro_rec'] = '';
       if( !isset($info['apellido']))                      $info['apellido'] = '';
@@ -183,7 +184,8 @@ class Main_supervisor extends CI_Controller{
       $info['reclamoType_filter_selector'] = '';
       $info['desde'] = '';
       $info['hasta'] = '';
-      $info['sector_filter_selector'] = '';
+      $info['sector_filter_selector_of'] = '';
+      $info['sector_filter_selector_sec'] = '';
       $info['responsable_filter_selector'] = '';
       $info['nro_rec'] = '';
       $info['apellido'] = '';
@@ -193,9 +195,10 @@ class Main_supervisor extends CI_Controller{
     $new_data['info'] = $info;
     $new_data['query_responsable'] = $this->user_m->get_all_users_responsables();
     $new_data['query_tipos_reclamo'] = $this->reclamo_tipo_m->get_all_tipo_reclamos();
-    $new_data['query_sectores'] = $this->sector_m->get_all_sectores();
+    $new_data['query_secretarias'] = $this->sector_m->get_all_sector_by_type('Secretaria');
+    $new_data['query_oficinas'] = $this->sector_m->get_all_sector_by_type('Oficina');
 
-    $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_for_supervisor('estado',$info['status_filter_selector'], $info['sector_filter_selector'], $info['desde'], $info['hasta'], $info['reclamoType_filter_selector'], $info['responsable_filter_selector'], $info['nro_rec'], $info['apellido'], $info['dni'] );
+    $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_for_supervisor('estado',$info['status_filter_selector'], $info['sector_filter_selector_of'],$info['sector_filter_selector_sec'], $info['desde'], $info['hasta'], $info['reclamoType_filter_selector'], $info['responsable_filter_selector'], $info['nro_rec'], $info['apellido'], $info['dni'] );
 
     $this->load->view('main_supervisor',$this->data);
     $this->load->view('reclamos_supervisor',$new_data);

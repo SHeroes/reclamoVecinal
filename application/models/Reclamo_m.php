@@ -235,10 +235,10 @@ class Reclamo_m extends CI_Model {
 
   }
 
-  function get_all_reclamos_for_supervisor($column,$value,$sector_filter,$fecha_desde, $fecha_hasta, $typeReclamo, $responsable_id, $nro_rec, $apellido, $dni){
+  function get_all_reclamos_for_supervisor($column,$value,$of_filter, $sec_filter,$fecha_desde, $fecha_hasta, $typeReclamo, $responsable_id, $nro_rec, $apellido, $dni){
     $cond_str = '';
     $value != '' ? $cond_str = " AND reclamos.".$column." = '".$value."' " : $cond_str = "  AND reclamos.estado != 'Solucionado'  ";
-
+    
     $cond_str = $cond_str .$this->armar_filtro_vecino($cond_str, $nro_rec, $apellido, $dni);    
     $cond_str = $cond_str . $this->armar_Str_Cond_Fechas_Tipo_Reclamo($cond_str, $fecha_desde, $fecha_hasta, $typeReclamo);
 
@@ -247,26 +247,28 @@ class Reclamo_m extends CI_Model {
       $cond_str = $cond_str . " AND tiporeclamo.id_responsable = '" . $responsable_id ."' ";
     }
 
-    if ($sector_filter == ''){
-      $string_sectores = " ";
-    } else {
+    $string_sectores = " ";
+    if ($of_filter != ''){
+      $string_sectores = " AND sectores.id_sector = '" .$of_filter ."' ";
+    } else if ($sec_filter!=""){    
       $this->load->model('sector_m');
-      $sector_response = $this->sector_m->get_all_sector_by_father_id($sector_filter);
+      $sector_response = $this->sector_m->get_all_sector_by_father_id($sec_filter);
       //print_r($sector_response);
       if (!empty($sector_response)) {
      // list is empty.
-        $array_sectores = $sector_response[0];
+        //$array_sectores = $sector_response[0];
         $string_sectores = " AND ( ";
-        foreach ($array_sectores as $row => $value) {
-          $string_sectores = $string_sectores. " sectores.id_sector = '" .$array_sectores->id_sector ."' OR ";
+        foreach ($sector_response as $row => $value) {
+          $string_sectores = $string_sectores. " sectores.id_sector = '" .$sector_response[$row]->id_sector ."' OR ";
         }
-        $string_sectores = $string_sectores .' sectores.id_sector = '. $sector_filter .' ) ';
+        $string_sectores = $string_sectores .' sectores.id_sector = '. $sec_filter .' ) ';
       } else {
-        $string_sectores = ' AND sectores.id_sector = '. $sector_filter .' ';
+        //Si eligiera solo la secretaria y no tiene ninguna oficina dependiente entonces pone los que corresponde a la secretaria
+        $string_sectores = ' AND sectores.id_sector = '. $sec_filter .' ';
       }
-
-      
     }
+
+    //print_r($string_sectores);
 
     $str_query = 'SELECT id_reclamo, reclamos.id_vecino, codigo_reclamo, fecha_alta_reclamo, barrios.barrio ,calles.calle, domicilio.altura , tiporeclamo.titulo , tiporeclamo.tiempo_respuesta_hs , domicilio_restringido,  estado, comentarios, molestar_dia_hs
     FROM reclamos, domicilio, tiporeclamo, calles, barrios, usuariosxsector, sectores , vecino
@@ -302,7 +304,6 @@ class Reclamo_m extends CI_Model {
     if ($sector_filter != ''){
       $cond_str = $cond_str . " AND sectores.id_sector = '". $sector_filter ."' ";
     }
-
 
     $str_query = 'SELECT id_reclamo, reclamos.id_vecino, codigo_reclamo, fecha_alta_reclamo, barrios.barrio ,calles.calle, domicilio.altura , tiporeclamo.titulo , tiporeclamo.tiempo_respuesta_hs , domicilio_restringido,  estado, comentarios, molestar_dia_hs
     FROM reclamos, domicilio, tiporeclamo, calles, barrios, usuariosxsector, sectores, vecino

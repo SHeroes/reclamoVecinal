@@ -3,28 +3,27 @@
     <div class="col-md-12">
 
 <form action="#" id="state_filter" method="POST" >
-      <div class="col-sm-3">
+      <div class="col-sm-2">
         <p><input type="text" id="apellido" name="apellido" class="input-form" placeholder="Apellido..."></p>
         <p><input type="int" id="dni" name="dni" class="input-form" placeholder="DNI..."></p>
         <p><input type="text" id="nro_rec" name="nro_rec" class="input-form" placeholder="Nº Reclamo"></p>
       </div>
-      <div class="col-sm-3">    
+      <div class="col-sm-4">    
         <p>desde: <input type="text" class="input-fecha desde" name="desde" id="datepicker" size="15"></p>
         <p>hasta: <input type="text" class="input-fecha hasta" name="hasta" id="datepicker2" size="15"></p>
-        <p><select type="text" class="span4" name="sector_filter_selector" id="sector_filter_selector" style="margin-right: 30px;">
-        <option class="sector_filter" value="">Elegir Sector... </option>
+        <p><select type="text" class="span4" name="sector_filter_selector_sec" id="sector_filter_selector_sec" style="margin-right: 30px;">
+        <option class="sector_filter secretaria" value="">Elegir Secretaria... </option>
         <?php
-        foreach ($query_sectores as $row ) {
-          $str = '<option class="sector_filter" value="'. $row->id_sector . '">'. $row->denominacion .'</option>';
+        foreach ($query_secretarias as $row ) {
+          $str = '<option class="sector_filter secretaria" value="'. $row->id_sector . '">'. $row->denominacion .'</option>';
           echo $str;
         }?>
         </select></p>
 
-        <input type="submit" class="span4" value="Filtrar">
-        <p></p> 
       </div>  
 
       <div class="col-sm-6">
+        <div class="col-sm-3">
         <p><select type="text" class="span4" name="status_filter_selector" id="status_filter_selector" style="margin-right: 30px;">
             <option id="estado-vacio_filter" value="">Elegir Estado... </option>
             <option id="iniciado_filter" value="Iniciado">Iniciado</option>
@@ -33,9 +32,23 @@
             <option id="resolucion_filter" value="En resolución">En resolución</option>
             <option id="solucionado_filter" value="Solucionado">Solucionado</option>
             <option id="gestionado_filter" value="Gestionado">Gestionado</option>
-        </select>
+        </select></p>
+        </div>
+        <div class="col-sm-3">
+        <p><select type="text" class="span4" name="responsable_filter_selector" id="responsable_filter_selector" style="margin-right: 30px;">
+        <option class="responsable_filter" value="">Elegir Responsable... </option>
+        <?php
+        
+        foreach ($query_responsable as $row) {
+          $string_2 = '<option class="sector_filter" value="'. $row->id_responsable . '">'. $row->apellido .' '. $row->nombre .'</option>';
+          echo $string_2;
+        }
+        
+        ?>
+        </select></p>        
+        </div>
 
-        <p><select type="text" class="span4" name="reclamoType_filter_selector" id="reclamoType_filter_selector" style="margin-right: 30px;">
+        <select type="text" class="span4" name="reclamoType_filter_selector" id="reclamoType_filter_selector" style="margin-right: 30px;">
         <option id="typeReclamo-vacio_filter" value="">Elegir Tipo de Reclamo... </option>
         <?php
         
@@ -47,17 +60,18 @@
         ?>
         </select></p>
 
-        <p><select type="text" class="span4" name="responsable_filter_selector" id="responsable_filter_selector" style="margin-right: 30px;">
-        <option class="responsable_filter" value="">Elegir Responsable... </option>
+        <p><select type="text" class="span4" name="sector_filter_selector_of" id="sector_filter_selector_of" style="margin-right: 30px;">
+        <option class="sector_filter oficina " value="">Elegir Oficina... </option>
         <?php
-        
-        foreach ($query_responsable as $row) {
-          $string_2 = '<option class="sector_filter" value="'. $row->id_responsable . '">'. $row->apellido .' '. $row->nombre .'</option>';
-          echo $string_2;
-        }
-        
-        ?>
+        foreach ($query_oficinas as $row ) {
+          $str = '<option class="sector_filter" value="'. $row->id_sector . '">'. $row->denominacion .'</option>';
+          echo $str;
+        }?>
         </select></p>
+
+        <input type="submit" class="span4" value="Filtrar">
+        <p></p> 
+        
       </div>
     </form>
 
@@ -130,7 +144,6 @@
     </p>
   </div> 
 
-
 <?php echo '<script src="'. base_url() .'assets/js/show_reclamos_operator.js"></script>'; ?>
 <?php echo '<script src="'. base_url() .'assets/js/reclamos_reitero.js"></script>'; ?>
 <?php echo '<script src="'. base_url() .'assets/js/ver_imagenes_reclamo.js"></script>'; ?>
@@ -147,9 +160,42 @@
   document.getElementById('datepicker').value = "<?php echo $info['desde']; ?>";
 
   document.getElementById('datepicker2').value = "<?php echo $info['hasta']; ?>";
-  document.getElementById('sector_filter_selector').value = "<?php echo $info['sector_filter_selector']; ?>";
+  document.getElementById('sector_filter_selector_sec').value = "<?php echo $info['sector_filter_selector_sec']; ?>";
+  document.getElementById('sector_filter_selector_of').value = "<?php echo $info['sector_filter_selector_of']; ?>";
+
   document.getElementById('status_filter_selector').value = "<?php echo $info['status_filter_selector']; ?>";
   document.getElementById('reclamoType_filter_selector').value = "<?php echo $info['reclamoType_filter_selector']; ?>";
   document.getElementById('responsable_filter_selector').value = "<?php echo $info['responsable_filter_selector']; ?>";
-          
+ 
+$(document).ready(function(){
+  var id_sec_selected = $("#sector_filter_selector_sec option:selected" ).attr("value");
+  $("#sector_filter_selector_sec").change(function() {
+    id_sec_selected = $("#sector_filter_selector_sec option:selected" ).attr("value");
+      actualizar_oficinas(id_sec_selected);
+   });
+});
+
+  function actualizar_oficinas(id_sec){
+    var dataToSearch = { id_secretaria: id_sec  };
+    $.ajax({
+     type: "post",
+     url: "/index.php/common_links_ajax/oficinas_por_id_secretaria",
+     cache: false,    
+     data: dataToSearch,
+     success: secretary_ch,
+     error: function(){      
+      alert('Error while request..');
+     }
+    }); 
+  }
+
+  function secretary_ch(response){
+    $("#sector_filter_selector_of").html("");
+    var data = JSON.parse( response );
+    var str =  '<option class="sector_filter" value="">Elegir Oficina</option>';
+    $.each(data, function(i, item) {
+        str = str + '<option class="sector_filter" value="'+ data[i].id_sector + '">'+ data[i].denominacion +'</option>';
+    });
+    $("#sector_filter_selector_of").html(str);
+  }
 </script>
