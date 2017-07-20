@@ -51,7 +51,7 @@
 
 
     <?php if(isset($tipo_reclamos_filtrados)){
-        echo '<table class="table"><thead class="thead-inverse">        <tr>
+        echo '<table class="table"><thead class="thead-inverse">        <tr id="header-table">
         <th>Titulo</th><th>Descripcion</th><th>Tiempo respuesta hs</th><th>Dependencia</th></tr>        </thead><tbody>';
          foreach( $tipo_reclamos_filtrados as $reclamo){
           echo  '<tr><th scope="row" class="tipo_reclamo_row btn btn-primary" value="'. $reclamo->id_tipo_reclamo.'">'. $reclamo->titulo .'</th>'.

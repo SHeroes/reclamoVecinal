@@ -3,7 +3,7 @@
       <h1> Feriados del Año en curso en Adelante </h1>
       <h4>Todos los Sabados y Domingo ya se consideran no laborales</h4>
       <?php
-        echo '<table class="table"><thead class="thead-inverse">        <tr>
+        echo '<table class="table"><thead class="thead-inverse">        <tr id="header-table">
           <th>Año</th><th>Mes</th><th>Dia</th><th>fecha</th>
           </tr></thead><tbody>';
 

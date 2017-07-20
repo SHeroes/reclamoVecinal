@@ -21,7 +21,7 @@
       <div class="col-sm-12">
       <h1> Usuarios Existentes</h1>
       <?php
-        echo '<table class="table"><thead class="thead-inverse">        <tr>
+        echo '<table class="table"><thead class="thead-inverse">        <tr id="header-table">
           <th>email</th><th>Nombre</th><th>Apellido</th><th>Nivel de Acceso</th>
           </tr></thead><tbody>';
         foreach( $all_users as $usuario){

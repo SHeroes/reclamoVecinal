@@ -92,15 +92,6 @@ tr.reclamo_row.reitero5 {
     border: none;
 }
 
-.upload-form {
-    
-}
-
-#img-box{
-    /* text-align: center; */
-
-}
-
 .reporte_global_sec, .reporte_global, .tbl-reclamos-tr{
     background-color: rgb(249, 198, 52);
     font-size: 18px;
@@ -120,3 +111,13 @@ tr.reclamo_row.reitero5 {
 .tbl-ofi-glob-tr {
     background-color: lightgrey;
 }
+
+tr#header-table.fixed{
+    position: fixed;
+    top: 0px;
+}
+
+tr#header-table{
+    background: orange;
+}
+    

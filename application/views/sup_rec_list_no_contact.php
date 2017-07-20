@@ -11,7 +11,7 @@
 id_reclamo, codigo_reclamo, fecha_alta_reclamo, titulo, sec_1.denominacion oficina_nombre, sec_2.denominacion secretaria_nombre , tiempo_respuesta_hs, estado
 */
 
-      echo '<table class="table"><thead class="thead-inverse">        <tr>
+      echo '<table class="table"><thead class="thead-inverse">        <tr id="header-table">
       <th>Código Reclamo</th><th>Fecha Alta</th><th> Título </th><th> Secretaria </th><th> Sector </th><th>Rta. hs</th><th>Estado</th></tr>        </thead><tbody>';
       foreach ($reclamos_list_no_contactados as $rec) {
         echo  '<tr class="reclamo_row"><th scope="row" class="" id_reclamo="'.$rec['id_reclamo'].'">'.
@@ -30,3 +30,5 @@ id_reclamo, codigo_reclamo, fecha_alta_reclamo, titulo, sec_1.denominacion ofici
 
       ?>
 </div>
+
+<?php echo '<script src="'. base_url() .'assets/js/header-table.js"></script>'; ?> 

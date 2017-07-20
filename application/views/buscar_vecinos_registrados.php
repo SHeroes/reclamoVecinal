@@ -15,7 +15,7 @@
       $this->view('registrar_vecino_nuevo');
     } else {
       echo '<h1> Vecinos Filtrados</h1>';
-      echo '<table class="table"><thead class="thead-inverse">        <tr>
+      echo '<table class="table"><thead class="thead-inverse">        <tr id="header-table">
       <th>DNI</th><th>Apellido</th><th>Nombre</th><th>Domicilio</th><th>mail</th><th>otros</th>       </tr>        </thead><tbody>';
       foreach( $vecinos_filtrados as $vecino){
         echo  '<tr class="vecinos_filtrados"><th scope="row" id-value="'.$vecino->id_vecino .'">'. $vecino->DNI.'</th>'.
@@ -48,7 +48,7 @@
   </form>
   <?php if(isset($vecinos_filtrados[0])) {
     echo '<h1> Vecinos Seleccionado</h1>';
-    echo '<table class="table"><thead class="thead-inverse">        <tr>
+    echo '<table class="table"><thead class="thead-inverse">        <tr id="header-table">
     <th>DNI</th><th>Apellido</th><th>Nombre</th><th>Domicilio</th><th>mail</th><th>otros</th>       </tr>        </thead><tbody>';
     foreach( $vecinos_filtrados as $vecino){
       echo  '<tr><th scope="row">'. $vecino->DNI.'</th>'.

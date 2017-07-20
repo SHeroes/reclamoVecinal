@@ -2,7 +2,7 @@
     <div class="container">
       <h1> Sectores Existentes</h1>
       <?php
-        echo '<table class="table"><thead class="thead-inverse">        <tr>
+        echo '<table class="table"><thead class="thead-inverse">        <tr id="header-table">
           <th>#id</th><th>Denominación del Sector</th><th>Tipo Sector</th><th>id Dependencia</th><th>Fecha Creacion</th>       </tr>        </thead><tbody>';
         foreach( $array_sectores as $sector){
           echo  '<tr><th scope="row">'. $sector->id_sector .'</th>'.

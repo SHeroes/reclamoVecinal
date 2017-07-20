@@ -65,8 +65,8 @@
     <?php 
   
     if(count($reclamos_list) > 0){
-      echo '<table class="table"><thead class="thead-inverse">        <tr>
-      <th>Código Reclamo</th><th>Fecha Alta</th><th>Estado</th><th>Barrio</th><th>Calle</th><th>Nº</th><th>Título</th><th>Rta. hs</th><th>Comentarios</th><th>Observaciones</th><th>Vecino</th><th>Fotos</th> </tr>        </thead><tbody>';
+      echo '<table class="table"><thead class="thead-inverse">        <tr id="header-table">
+      <th>Código Reclamo</th><th>Fecha Alta</th><th>Estado</th><th>Barrio</th><th>Calle</th><th>Nº</th><th>Título</th><th>Rta. hs</th><th>CAV</th><th>Obs.</th><th>Vecino</th><th>Fotos</th> </tr>        </thead><tbody>';
       foreach ($reclamos_list as $rec) {
         $visualizacion = '';
         $mostrarEstado = $rec['estado'];
@@ -142,4 +142,4 @@
 <link rel="stylesheet" href="<?php echo base_url();?>assets/js/vendor/jquery-ui/jquery-ui.css">
 <script src="<?php echo base_url();?>assets/js/vendor/jquery-ui/jquery-ui.js"></script>
 <?php echo '<script src="'. base_url() .'assets/js/show_calendar.js"></script>'; ?> 
-
+<?php echo '<script src="'. base_url() .'assets/js/header-table.js"></script>'; ?> 

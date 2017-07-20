@@ -76,8 +76,8 @@
     <?php
 
     if(count($reclamos_list) > 0){
-      echo '<table class="table"><thead class="thead-inverse">        <tr>
-      <th>Código Reclamo</th><th>Fecha Alta</th><th>Barrio</th><th>Calle</th><th>Nº</th><th>Título</th><th>Rta. hs</th><th>Estado</th><th>Comentarios</th><th>Observaciones</th><th>Vecino</th><th>Fotos</th>  </tr>        </thead><tbody>';
+      echo '<table class="table"><thead class="thead-inverse">        <tr id="header-table">
+      <th>Código Reclamo</th><th>Fecha Alta</th><th>Barrio</th><th>Calle</th><th>Nº</th><th>Título</th><th>Rta. hs</th><th>Estado</th><th>CAV</th><th>Obs.</th><th>Vecino</th><th>Fotos</th>  </tr>        </thead><tbody>';
       foreach ($reclamos_list as $rec) {
         echo  '<tr class="reclamo_row">
                 <th scope="row" class="" horario="-'.$rec['molestar_dia_hs'].'" id_reclamo="'.$rec['id_reclamo'].'"value="'. $rec['id_vecino'].' ">'. $rec['codigo_reclamo'] .'</th>'.
@@ -151,7 +151,7 @@
 <link rel="stylesheet" href="<?php echo base_url();?>assets/js/vendor/jquery-ui/jquery-ui.css">
 <script src="<?php echo base_url();?>assets/js/vendor/jquery-ui/jquery-ui.js"></script>
 <?php echo '<script src="'. base_url() .'assets/js/show_calendar.js"></script>'; ?> 
-
+<?php echo '<script src="'. base_url() .'assets/js/header-table.js"></script>'; ?> 
 
 <?php 
 // Array ( [apellido] => [dni] => [nro_rec] => [desde] => [hasta] => [sector_filter_selector] => 17 [status_filter_selector] => [reclamoType_filter_selector] => [responsable_filter_selector] => )

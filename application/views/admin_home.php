@@ -1,6 +1,6 @@
       <h1> Secretarías Existentes</h1>
       <?php 
-        echo '<table class="table"><thead class="thead-inverse">        <tr>
+        echo '<table class="table"><thead class="thead-inverse">        <tr id="header-table">
           <th>#id</th><th>Secretaria</th><th>Id Secretario</th>        </tr>        </thead><tbody>';
         foreach( $data_array as $secretaria){
           echo  '<tr><th scope="row">'. $secretaria->id_secretaria .'</th>'.

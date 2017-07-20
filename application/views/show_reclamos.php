@@ -1,20 +1,6 @@
 <div class="container-fluid">
   <h1> Reclamos Existentes</h1>
     <div class="col-md-12">
-
-    <!-- FILTRO POR ESTADO  esta funcionando ok se quita por pedido
-    <form action="#" id="state_filter" method="POST" >
-        <p><select type="text" class="span4" name="status_filter_selector" id="status_filter_selector" style="margin-right: 30px;">
-            <option id="estado-vacio_filter" value="">Elegir Estado... </option>
-            <option id="iniciado_filter" value="Iniciado">Iniciado</option>
-            <option id="visto_filter" value="Visto">Visto</option>
-            <option id="contactado_filter" value="Contactado">Contactado</option>
-            <option id="resolucion_filter" value="En resolución">En resolución</option>
-            <option id="solucionado_filter" value="Solucionado">Solucionado</option>
-            <option id="gestionado_filter" value="Gestionado">Gestionado</option>
-        </select>  <input type="submit" class="span4" value="Filtrar"></p>
-    </form>
-    -->
     <form action="#" id="Apellido_filter" method="POST" >
     	<p>
     		<input type="text" name="Apellido_filter_sel" class="input-form" placeholder="Apellido...">
@@ -37,8 +23,8 @@
     <?php 
 
     if($reclamos_list != ''){
-      echo '<table class="table"><thead class="thead-inverse">        <tr>
-      <th>Código Reclamo</th><th>Fecha Alta</th><th>Título</th><th>Reitero</th><th>Rta. hs</th><th>Dirección Reclamo</th><th>Estado</th><th>Comentarios</th><th>Observaciones</th><th>Vecino</th><th>Apellido</th><th>DNI</th><th>Imagenes</th><th></th></tr>        </thead><tbody>';
+      echo '<table class="table"><thead class="thead-inverse">        <tr id="header-table">
+      <th>Código Reclamo</th><th>Fecha Alta</th><th>Título</th><th>Reitero</th><th>Rta. hs</th><th>Dirección Reclamo</th><th>Estado</th><th>CAV</th><th>Obs.</th><th>Vecino</th><th>Apellido</th><th>DNI</th><th>Imagenes</th><th></th></tr>        </thead><tbody>';
       foreach ($reclamos_list as $rec) {
         echo  '<tr class="reclamo_row"><th scope="row" class="" id_reclamo="'.$rec['id_reclamo'].'"value="'. $rec['id_vecino'].' ">'. $rec['codigo_reclamo'] .'</th>'. '<td>'.$rec['fecha_alta_reclamo'].'</td>'.
             '<td>'.$rec['titulo'].'</td>'.

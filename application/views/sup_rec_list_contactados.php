@@ -5,7 +5,7 @@
     <?php if(isset($reclamos_list_contactados)){
       //print_r($reclamos_list_contactados);
 
-      echo '<table class="table"><thead class="thead-inverse">        <tr>
+      echo '<table class="table"><thead class="thead-inverse">        <tr id="header-table">
       <th>Código Reclamo</th><th>Fecha Alta</th><th> Título </th><th> Sector </th><th>Estado</th><th>Tel.</th>
       <th>Horarios para llamar:</th><th>Apellido , Nombre </th><th>Verificación</th><th>Obs.</th></tr>        </thead><tbody>';
       foreach ($reclamos_list_contactados as $rec) {
@@ -42,3 +42,4 @@
 
 
 <?php echo '<script src="'. base_url() .'assets/js/show_contactados.js"></script>'; ?>
+<?php echo '<script src="'. base_url() .'assets/js/header-table.js"></script>'; ?> 

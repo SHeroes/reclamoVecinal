@@ -219,7 +219,7 @@ $(document).ready(function(){
   function mostrar_observaciones(response){
     var data = JSON.parse(response);
     var inicio = '';  var titulo = ''; var cuerpo = ''; var fin = ''; var fecha = ''; var autor = ''; 
-    $("#ver-obs").dialog({ position: 'top' });
+    $("#ver-obs").dialog();
        var htmlString = '<div class="">';
        $.each( data, function( key1, elem ) {
           inicio = '<div class="observacion-item"><div class=obs-title>Observacion</div>';
@@ -232,7 +232,7 @@ $(document).ready(function(){
     htmlString = htmlString + '</div>';
 
     $(".ui-dialog").width(500);
-    $( "#ver-obs" ).html(htmlString);          
+    $( "#ver-obs" ).html(htmlString);        
   }
 
   $(".info-vecino").click(function() {

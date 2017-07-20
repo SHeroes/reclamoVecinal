@@ -66,7 +66,7 @@
 
       <h1> Tipos de Reclamos Existentes</h1>
       <?php
-        echo '<table class="table"><thead class="thead-inverse">        <tr>
+        echo '<table class="table"><thead class="thead-inverse">        <tr id="header-table">
           <th>#id</th><th>Titulo</th><th>descripción</th><th>#id Responsable</th><th>Respuesta (hs.)</th><th>Estado</th>       </tr>        </thead><tbody>';
         foreach( $tipos_reclamos as $tipo_reclamo){
           echo  '<tr><th scope="row">'. $tipo_reclamo->id_tipo_reclamo .'</th>'.
