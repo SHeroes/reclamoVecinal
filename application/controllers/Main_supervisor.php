@@ -222,4 +222,23 @@ class Main_supervisor extends CI_Controller{
     }
   }
 
+
+  public function reasignacion_reclamo(){
+    $info = $this->input->post(null,true);
+          print_r($info);
+    if( count($info) ) {
+      $this->load->model('reclamo_m');
+      $id_new_tipo_reclamo =  $this->input->post('id_new_tipo_reclamo');
+      $id_reclamo =  $this->input->post('id_reclamo');
+
+      
+      $returnOK = false;
+      $returnOK = $this->reclamo_m->reasignar_reclamo($id_reclamo, $id_new_tipo_reclamo);
+      
+    }
+    if ( $returnOK ) {
+      echo 'Reasignado Correctamente';
+    }
+  }
+
 }

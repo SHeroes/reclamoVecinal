@@ -48,6 +48,7 @@
             <option id="resolucion_filter" value="En resolución">En resolución</option>
             <option id="solucionado_filter" value="Solucionado">Solucionado</option>
             <option id="gestionado_filter" value="Gestionado">Gestionado</option>
+            <option id="reasignacion_filter" value="En Reasignacion">En Reasignacion</option>
         </select>
 
         <p><select type="text" class="span4" name="reclamoType_filter_selector" id="reclamoType_filter_selector" style="margin-right: 30px;">
@@ -76,7 +77,7 @@
 
     if(count($reclamos_list) > 0){
       echo '<table class="table"><thead class="thead-inverse">        <tr>
-      <th>Código Reclamo</th><th>Fecha Alta</th><th>Barrio</th><th>Calle</th><th>Nº</th><th>Título</th><th>Rta. hs</th><th>Estado</th><th>Comentarios</th><th>Observaciones</th><th>Vecino</th> </tr>        </thead><tbody>';
+      <th>Código Reclamo</th><th>Fecha Alta</th><th>Barrio</th><th>Calle</th><th>Nº</th><th>Título</th><th>Rta. hs</th><th>Estado</th><th>Comentarios</th><th>Observaciones</th><th>Vecino</th><th>Fotos</th>  </tr>        </thead><tbody>';
       foreach ($reclamos_list as $rec) {
         echo  '<tr class="reclamo_row">
                 <th scope="row" class="" horario="-'.$rec['molestar_dia_hs'].'" id_reclamo="'.$rec['id_reclamo'].'"value="'. $rec['id_vecino'].' ">'. $rec['codigo_reclamo'] .'</th>'.
@@ -90,6 +91,8 @@
             '<td class="comentario" comentario="'.$rec['comentarios'].'"><div class="btn btn-info">Ver</div></td>'.
             '<td class="observacion" id_reclamo="'.$rec['id_reclamo'].'"><div class="btn btn-success ver">Ver</div></td>';
           if ($rec['domicilio_restringido'] == 0) echo '<td><div class="btn btn-info info-vecino" dom-res="0">Ver</div></td>'; else echo '<td></td>';
+          if ($rec['flag_imagenes']) echo '<td><div class="btn btn-success sh-img" id_reclamo="'.$rec['id_reclamo'].'" >Ver</div></td>';
+            else echo '<td></td>';
         }
         echo '  </tbody></table>'; 
     }
@@ -121,6 +124,7 @@
         <option id="resolucion" value="En resolución">En resolución</option>
         <option id="solucionado" value="Solucionado">Solucionado</option>
         <option id="gestionado" value="Gestionado">Gestionado</option>
+        <option id="reasignacion" value="En Reasignacion">En Reasignacion</option>
     </select></p>
     <div class="btn btn-primary">Aceptar</div>
   </div>
@@ -131,10 +135,18 @@
       <form action="javascript:editar_observacion();" id="obs-form" method="POST" ><p><textarea type="text" class="span4" name="observacion_input" id="observacion-input" rows="8" cols="50" placeholder="" ></textarea></p><p><input type="hidden" name="id_rec" id="id-rec" class="span4" value=""></p><p><input type="submit" class="span4" value="Enviar"></p></form>
     </p>
   </div> 
+  
+  <div id="img-box" class="ui-widget-content" style="display: none;" title="Fotos del Reclamo">
+    <p>
+      
+    </p>
+  </div> 
+
 
 
 <?php echo '<script src="'. base_url() .'assets/js/show_secretary_coord.js"></script>'; ?>
 
+<?php echo '<script src="'. base_url() .'assets/js/ver_imagenes_reclamo.js"></script>'; ?>
 
 <link rel="stylesheet" href="<?php echo base_url();?>assets/js/vendor/jquery-ui/jquery-ui.css">
 <script src="<?php echo base_url();?>assets/js/vendor/jquery-ui/jquery-ui.js"></script>

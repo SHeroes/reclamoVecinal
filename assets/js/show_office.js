@@ -132,6 +132,9 @@ $(document).ready(function(){
             $("option#gestionado").show();
             $("#state").show();
             break;
+        case 'En Reasignacion':
+              $("#state").dialog('close');
+             alert("El Supervisor del CAV se encargará de reasignar el reclamo al sector que corresponda");
         case 'Solucionado':
             break;
         case 'Gestionado':

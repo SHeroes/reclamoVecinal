@@ -130,7 +130,7 @@ class Reclamo_m extends CI_Model {
 
   function get_all_reclamos_con_vecino_by($column,$value){
 
-    $value != '' ? $cond_str = " AND ".$column." = '".$value."' " : $cond_str = " AND estado != 'Solucionado' ";
+    $value != '' ? $cond_str = " AND ".$column." = '".$value."' " : $cond_str = " AND reclamos.estado != 'Solucionado' AND reclamos.estado != 'Gestionado'  ";
     if ($column != 'estado'){ $cond_str = " AND ".$column." LIKE '%".$value."%'" ;}
 
     $str_query = 'SELECT id_reclamo, vecino.id_vecino, codigo_reclamo, fecha_alta_reclamo, tiporeclamo.titulo , tiempo_respuesta_hs , domicilio_restringido,  estado,comentarios, Apellido, DNI, reitero, flag_imagenes, calles.calle , domicilio.altura
@@ -149,7 +149,7 @@ class Reclamo_m extends CI_Model {
   /* ES PARA LAS OFICINIAS porque solo aparecen los reclamos de la oficina a la que pertenece el usuario */
   function get_all_reclamos_for_office($column,$value, $id_sec, $fecha_desde, $fecha_hasta, $typeReclamo, $nro_rec, $apellido, $dni){
     $cond_str = '';
-    $value != '' ? $cond_str = " AND reclamos.".$column." = '".$value."' " : $cond_str = " AND reclamos.estado != 'Solucionado' ";
+    $value != '' ? $cond_str = " AND reclamos.".$column." = '".$value."' " : $cond_str = " AND reclamos.estado != 'Solucionado' AND reclamos.estado != 'Gestionado' ";
 
     $cond_str = $cond_str .$this->armar_filtro_vecino($cond_str, $nro_rec, $apellido, $dni);
     $cond_str = $cond_str .$this->armar_Str_Cond_Fechas_Tipo_Reclamo($cond_str, $fecha_desde, $fecha_hasta, $typeReclamo);
@@ -198,7 +198,7 @@ class Reclamo_m extends CI_Model {
 
   function get_all_reclamos_for_secretary_by_mutiples_sectores($column,$value, $array_sectores,$fecha_desde, $fecha_hasta, $typeReclamo, $sector_filter, $responsable_id, $nro_rec, $apellido, $dni){
     $cond_str = '';
-    $value != '' ? $cond_str = " AND reclamos.".$column." = '".$value."' " : $cond_str = "  AND reclamos.estado != 'Solucionado'  ";
+    $value != '' ? $cond_str = " AND reclamos.".$column." = '".$value."' " : $cond_str = "  AND reclamos.estado != 'Solucionado' AND reclamos.estado != 'Gestionado' ";
 
     $cond_str = $cond_str .$this->armar_filtro_vecino($cond_str, $nro_rec, $apellido, $dni);    
     $cond_str = $cond_str . $this->armar_Str_Cond_Fechas_Tipo_Reclamo($cond_str, $fecha_desde, $fecha_hasta, $typeReclamo);
@@ -217,7 +217,7 @@ class Reclamo_m extends CI_Model {
       $string_sectores = $string_sectores .' false ) ';
     }
 
-    $str_query = 'SELECT id_reclamo, reclamos.id_vecino, codigo_reclamo, fecha_alta_reclamo, barrios.barrio ,calles.calle, domicilio.altura , tiporeclamo.titulo , tiporeclamo.tiempo_respuesta_hs , domicilio_restringido,  estado, comentarios, molestar_dia_hs
+    $str_query = 'SELECT id_reclamo, reclamos.id_vecino, codigo_reclamo, fecha_alta_reclamo, barrios.barrio ,calles.calle, domicilio.altura , tiporeclamo.titulo , tiporeclamo.tiempo_respuesta_hs , domicilio_restringido,  estado, comentarios, molestar_dia_hs, flag_imagenes
     FROM reclamos, domicilio, tiporeclamo, calles, barrios, usuariosxsector, sectores , vecino
     WHERE reclamos.id_tipo_reclamo = tiporeclamo.id_tipo_reclamo
     AND reclamos.id_vecino = vecino.id_vecino
@@ -237,7 +237,7 @@ class Reclamo_m extends CI_Model {
 
   function get_all_reclamos_for_supervisor($column,$value,$of_filter, $sec_filter,$fecha_desde, $fecha_hasta, $typeReclamo, $responsable_id, $nro_rec, $apellido, $dni){
     $cond_str = '';
-    $value != '' ? $cond_str = " AND reclamos.".$column." = '".$value."' " : $cond_str = "  AND reclamos.estado != 'Solucionado'  ";
+    $value != '' ? $cond_str = " AND reclamos.".$column." = '".$value."' " : $cond_str = "  AND reclamos.estado != 'Solucionado' AND reclamos.estado != 'Gestionado' ";
     
     $cond_str = $cond_str .$this->armar_filtro_vecino($cond_str, $nro_rec, $apellido, $dni);    
     $cond_str = $cond_str . $this->armar_Str_Cond_Fechas_Tipo_Reclamo($cond_str, $fecha_desde, $fecha_hasta, $typeReclamo);
@@ -291,7 +291,8 @@ class Reclamo_m extends CI_Model {
   /* ES PARA LAS SECRETARIAS porque solo aparecen los reclamos de la oficina a la que pertenece el usuario */
   function get_all_reclamos_for_secretary_by($column,$value, $id_sec,$fecha_desde, $fecha_hasta, $typeReclamo, $sector_filter, $responsable_id, $nro_rec, $apellido, $dni){
     $cond_str = '';
-    $value != '' ? $cond_str = " AND reclamos.".$column." = '".$value."' " : $cond_str = "  AND reclamos.estado != 'Solucionado'  ";
+    $value != '' ? $cond_str = " AND reclamos.".$column." = '".$value."' " : $cond_str = "  AND reclamos.estado != 'Solucionado' AND reclamos.estado != 'Gestionado'  
+ ";
     $cond_str = $cond_str .$this->armar_filtro_vecino($cond_str, $nro_rec, $apellido, $dni);  
     /*  yo ya tengo mi id de sector, entonces busco los reclamos de los responsable de mi sector */
 
@@ -305,7 +306,7 @@ class Reclamo_m extends CI_Model {
       $cond_str = $cond_str . " AND sectores.id_sector = '". $sector_filter ."' ";
     }
 
-    $str_query = 'SELECT id_reclamo, reclamos.id_vecino, codigo_reclamo, fecha_alta_reclamo, barrios.barrio ,calles.calle, domicilio.altura , tiporeclamo.titulo , tiporeclamo.tiempo_respuesta_hs , domicilio_restringido,  estado, comentarios, molestar_dia_hs
+    $str_query = 'SELECT id_reclamo, reclamos.id_vecino, codigo_reclamo, fecha_alta_reclamo, barrios.barrio ,calles.calle, domicilio.altura , tiporeclamo.titulo , tiporeclamo.tiempo_respuesta_hs , domicilio_restringido,  estado, comentarios, molestar_dia_hs, flag_imagenes
     FROM reclamos, domicilio, tiporeclamo, calles, barrios, usuariosxsector, sectores, vecino
     WHERE reclamos.id_tipo_reclamo = tiporeclamo.id_tipo_reclamo
     AND reclamos.id_vecino = vecino.id_vecino
@@ -477,6 +478,16 @@ class Reclamo_m extends CI_Model {
             group by  localidades ';
     $query = $this->db->query($str);
     return $query->result_array();      
+  }
+
+  function reasignar_reclamo($id_reclamo, $id_new_tipo_reclamo){
+
+    $this->db->set('estado', 'Iniciado');
+    $this->db->set('id_tipo_reclamo', $id_new_tipo_reclamo);
+    $this->db->where('id_reclamo', $id_reclamo);
+    $this->db->update('reclamos');
+
+    return true;      
   }
 
 /* ------------------------*/

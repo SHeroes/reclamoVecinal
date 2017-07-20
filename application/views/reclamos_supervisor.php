@@ -32,6 +32,7 @@
             <option id="resolucion_filter" value="En resolución">En resolución</option>
             <option id="solucionado_filter" value="Solucionado">Solucionado</option>
             <option id="gestionado_filter" value="Gestionado">Gestionado</option>
+            <option id="reasignacion_filter" value="En Reasignacion">En Reasignacion</option> 
         </select></p>
         </div>
         <div class="col-sm-3">
@@ -53,7 +54,7 @@
         <?php
         
         foreach ($query_tipos_reclamo as $row => $value) {
-            $str_1 = '<option id="typeReclamo-vacio_filter" value="'.$value->id_tipo_reclamo. '">'. $value->titulo.' - '. $value->denominacion.'</option>';
+            $str_1 = '<option id="typeReclamo-vacio_filter" value="'.$value->id_tipo_reclamo. '">'. $value->titulo.'</option>';
             echo $str_1;
         }
         
@@ -79,7 +80,7 @@
 
     if(count($reclamos_list) > 0){
       echo '<table class="table"><thead class="thead-inverse">        <tr>
-      <th>Código Reclamo</th><th>Fecha Alta</th><th>Barrio</th><th>Calle</th><th>Nº</th><th>Título</th><th>Rta. hs</th><th>Estado</th><th>Comentarios</th><th>Observaciones</th><th>Vecino</th> </tr>        </thead><tbody>';
+      <th>Código Reclamo</th><th>Fecha Alta</th><th>Barrio</th><th>Calle</th><th>Nº</th><th>Título</th><th>Rta. hs</th><th>Estado</th><th>Reasignable</th><th>Comentarios</th><th>Observaciones</th><th>Vecino</th> </tr>        </thead><tbody>';
       foreach ($reclamos_list as $rec) {
         echo  '<tr class="reclamo_row">
                 <th scope="row" class="" horario="-'.$rec['molestar_dia_hs'].'" id_reclamo="'.$rec['id_reclamo'].'"value="'. $rec['id_vecino'].' ">'. $rec['codigo_reclamo'] .'</th>'.
@@ -89,7 +90,8 @@
             '<td>'.$rec['altura'].'</td>'.
             '<td>'.$rec['titulo'].'</td>'.
             '<td>'.$rec['tiempo_respuesta_hs'].'</td>'.
-            '<td class="state supervisor officer" id_reclamo="'.$rec['id_reclamo'].'"><div class="">'.$rec['estado'].'</div></td>'.
+            '<td class="state-supervisor" id_reclamo="'.$rec['id_reclamo'].'">'. $rec['estado'].'</td>'.
+            '<td> <div class="reasignar btn btn-warning" id_reclamo="'.$rec['id_reclamo'].'">Reasignar</div></td>'.
             '<td class="comentario" comentario="'.$rec['comentarios'].'"><div class="btn btn-info">Ver</div></td>'.
             '<td class="observacion" id_reclamo="'.$rec['id_reclamo'].'"><div class="btn btn-success ver">Ver</div></td>';
           if ($rec['domicilio_restringido'] == 0) echo '<td><div class="btn btn-info info-vecino" dom-res="0">Ver</div></td>'; else echo '<td></td>';
@@ -138,6 +140,27 @@
     </p>
   </div> 
 
+  <div id="reasignacion-data" class="dialog-box" style="display: none;" title="Reasignacion de reclamo">
+    <p class="box_rec_title">Reclamo a reasignar: <b></b></p>
+    <p>
+      <form action="javascript:reasignacion_reclamo();" id="reasignacion-form" method="POST" >
+        <p><input type="hidden" name="id-reclamo" id="id-rec-reasig" class="span4" value=""></p>
+        <select type="text" class="span4" name="reclamoType_filter_selector" id="reclamoType_box_dialog" style="margin-right: 30px;">
+          <option id="typeReclamo-vacio_filter" value="">Elegir El Nuevo Tipo de Reclamo... </option>
+          <?php
+          
+          foreach ($query_tipos_reclamo as $row => $value) {
+              $str_1 = '<option id="typeReclamo-vacio_filter" value="'.$value->id_tipo_reclamo. '">'. $value->titulo.'</option>';
+              echo $str_1;
+          }
+          
+          ?>
+        </select></p>        
+        <p><input type="submit" class="span4" value="Reasignar Reclamo"></p>
+      </form>
+    </p>
+  </div> 
+
   <div id="img-box" class="ui-widget-content" style="display: none;" title="Fotos del Reclamo">
     <p>
       
@@ -146,6 +169,7 @@
 
 <?php echo '<script src="'. base_url() .'assets/js/show_reclamos_operator.js"></script>'; ?>
 <?php echo '<script src="'. base_url() .'assets/js/reclamos_reitero.js"></script>'; ?>
+<?php echo '<script src="'. base_url() .'assets/js/reclamos_reasignacion.js"></script>'; ?>
 <?php echo '<script src="'. base_url() .'assets/js/ver_imagenes_reclamo.js"></script>'; ?>
 
 <link rel="stylesheet" href="<?php echo base_url();?>assets/js/vendor/jquery-ui/jquery-ui.css">

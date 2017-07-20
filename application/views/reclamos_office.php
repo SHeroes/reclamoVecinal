@@ -39,6 +39,7 @@
               <option id="resolucion_filter" value="En resolución">En resolución</option>
               <option id="solucionado_filter" value="Solucionado">Solucionado</option>
               <option id="gestionado_filter" value="Gestionado">Gestionado</option>
+              <option id="reasignacion" value="En Reasignacion">En Reasignacion</option> 
           </select>  </p>
 
 
@@ -116,6 +117,7 @@
         <option id="resolucion" value="En resolución">En resolución</option>
         <option id="solucionado" value="Solucionado">Solucionado</option>
         <option id="gestionado" value="Gestionado">Gestionado</option>
+        <option id="reasignacion" value="En Reasignacion">En Reasignacion</option>
     </select></p>
     <div class="btn btn-primary">Aceptar</div>
   </div>
