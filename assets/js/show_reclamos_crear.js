@@ -79,24 +79,83 @@
         $(".filtro-secretaria").show();
     }); 
   };
-   
-   $(".calle").keyup(function(){
-    elemento = $(this);
-    if(elemento.val().length>3){
-      var dataToSearch = {
-          searchCalle: elemento.val()
-        };
-    $.ajax({
-     type: "post",
-     url: "/index.php/main_operator/search_calle",
-     cache: false,    
-     data: dataToSearch,
-     success: calle_encontrada,
-     error: function(){      
-      alert('Error while request..');
-     }
+ 
+  var focusedElement = false;
+  var flagCalleSeleccionada = false;
+
+    $(".calle").bind("keydown", function(event) {
+      flagCalleSeleccionada = false;
+      var DOM = $(this).parents("p").next();    
+        if(event.which == 9 && focusedElement) {
+            event.preventDefault();
+            //alert("TAB dETECTED");
+            //que meta el vlaor del focus como click
+            var val = focusedElement.attr("value");
+            hiddenElement = $(elemento.next());
+            hiddenElement.attr("value", val);
+
+            elemento.val(focusedElement.html());
+            DOM.hide();
+            focusedElement = false;
+            flagCalleSeleccionada = true;
+            //console.log(DOM.next());  
+        }
     });
+
+   $(".calle").keyup(function(ev){
+    elemento = $(this);
+    var resultados = elemento.parents("p").next().children('.result');
+    var keyCode = ev.keyCode || ev.which; 
+    console.log(keyCode);
+    if (keyCode == 40) {
+      ev.preventDefault(); 
+//      console.log("Avanzo uno");
+          if(focusedElement){
+    //        console.log(focusedElement);
+            focusedElement.removeClass('hover');
+            focusedElement = focusedElement.next();
+            focusedElement.addClass('hover');
+          }
+          else{ 
+      //      console.log(elemento);
+            focusedElement = resultados.first();
+            focusedElement.addClass('hover');
+          }
+      return false;
+    } else if (keyCode == 38) {
+      ev.preventDefault(); 
+          if(focusedElement){
+  //          console.log(focusedElement);
+            focusedElement.removeClass('hover');
+            focusedElement = focusedElement.prev();
+            focusedElement.addClass('hover');
+          }
+          else{ 
+            focusedElement = resultados.last();
+            focusedElement.addClass('hover');
+            //console.log(focusedElement);
+          }
+      return false;
     }
+
+    else {
+          if(elemento.val().length>3 && !flagCalleSeleccionada){
+            focusedElement = false;
+            var dataToSearch = {
+                searchCalle: elemento.val()
+              };
+          $.ajax({
+           type: "post",
+           url: "/index.php/main_operator/search_calle",
+           cache: false,    
+           data: dataToSearch,
+           success: calle_encontrada,
+           error: function(){      
+            alert('Error while request..');
+           }
+          });
+          }
+    } 
     return false;
   });
 

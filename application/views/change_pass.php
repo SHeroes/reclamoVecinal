@@ -46,6 +46,11 @@ tr.vecinos_filtrados{
 .calle.input-search-result div:hover{
   font-weight: 600;
 }
+
+.calle.input-search-result .hover{
+  font-weight: 600;
+}
+
 .no-visto{
   visibility: hidden;
 }
