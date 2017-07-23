@@ -110,8 +110,8 @@
     </div>
     <div class="col-sm-6" id="reclamo-data">
       <h3>Datos para Reclamo</h3>
-      Vecino que realiza el Reclamo:   <?php echo $name_vecino; ?>
-
+      <p>Vecino que realiza el Reclamo:   <b><?php echo $name_vecino; ?></b></p>
+      <p>Tipo de reclamo seleccionado:   <b id="tipo_reclamo_seleccionado"></b></p>
       <p><input hidden  type="text" class="span4 id_vecino more-reg" name="id_vecino" value="<?php echo $id_vecino; ?>" id=""></p>
       <p><input hidden  type="text" class="span4 name_vecino more-reg" name="name_vecino" value="<?php echo $name_vecino; ?>" id=""></p>
       <p><textarea rows="2" cols="50" type="text" class="span4 more-reg" name="molestar_dia_hs" id="molestar_dia_hs" placeholder="Días y horarios en que puede ser molestado " ></textarea></p>

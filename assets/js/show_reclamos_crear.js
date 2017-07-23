@@ -188,6 +188,12 @@
       hiddenElement.attr("value", val);
       $(".reclamo-form").show();
       //alert("Se seleccionó el tipo de reclamo: " + elementoClickeado.html());
+      $(".reclamo-form").show();
+
+      //elementoClickeado.addClass('info');
+
+      $('html,body').animate({scrollTop: $(".reclamo-form").offset().top});
+      $("#tipo_reclamo_seleccionado").html(elementoClickeado.html());
   });
 
 });
