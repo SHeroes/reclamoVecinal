@@ -120,4 +120,7 @@ tr#header-table.fixed{
 tr#header-table{
     background: orange;
 }
-    
+
+.reporte .table thead.thead-inverse{
+    cursor: pointer;
+}

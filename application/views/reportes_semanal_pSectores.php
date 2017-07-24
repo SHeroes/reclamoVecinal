@@ -4,7 +4,7 @@
       <div class="container">
        <div class="row">
 
-            <div class="col-md-12" style="margin-top: 50px; background-color: white;">
+            <div class="col-md-12 reporte" style="margin-top: 50px; background-color: white;">
 
 
 
@@ -64,3 +64,4 @@
 
 
 <?php $this->load->view('footer_base'); ?>
+<?php echo '<script src="'. base_url() .'assets/js/reportes.js"></script>'; ?>

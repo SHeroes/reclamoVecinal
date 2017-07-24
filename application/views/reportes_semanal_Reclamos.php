@@ -4,7 +4,7 @@
       <div class="container">
        <div class="row">
 
-            <div class="col-md-12" style="margin-top: 50px;">
+            <div class="col-md-12 reporte" style="margin-top: 50px;">
                   <?php
                   // print_r($reporte_reclamos);
 
@@ -35,3 +35,4 @@
 
 
 <?php $this->load->view('footer_base'); ?>
+<?php echo '<script src="'. base_url() .'assets/js/reportes.js"></script>'; ?>
