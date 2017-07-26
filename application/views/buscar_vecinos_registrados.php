@@ -1,13 +1,23 @@
   <h1> Buscar Vecinos Registrados según:</h1>
+  <div class="col-sm-12">
   <form action="show_main" id="vecinos-dni-form" method="POST" >
-  <p><input type="text" class="span4" name="DNI_filter" id="DNI_filter" placeholder="DNI a buscar..." ></p>
-  <p><input type="submit" class="span4" value="Buscar"></p>
+  <div class="col-sm-4">
+      <p><input type="text" class="span4 form-control" name="DNI_filter" id="DNI_filter" placeholder="DNI a buscar..." ></p>
+   </div>
+   <div class="col-sm-4">
+    <p><input type="submit" class="span4 btn" value="Buscar"></p>
+   </div>
   </form>
+  </div>
+  <div class="col-sm-12">
   <form action="show_main" method="POST" >
-  <p><input type="text" class="span4" name="Apellido_filter" id="Apellido_filter" placeholder="Apellido a buscar..." ></p>
-  <p><input type="submit" class="span4" value="Buscar"></p>
+   <div class="col-sm-4">
+  <p><input type="text" class="span4 form-control" name="Apellido_filter" id="Apellido_filter" placeholder="Apellido a buscar..." ></p>   </div>
+   <div class="col-sm-4">
+  <p><input type="submit" class="span4 btn" value="Buscar"></p>
+     </div>
   </form>
-
+  </div>
   <?php if($vecinos_filtrados != '') {
 
     if( count($vecinos_filtrados) == 0){
@@ -22,7 +32,7 @@
               '<td>'.$vecino->Apellido.'</td>'.
               '<td>'.$vecino->Nombre.'</td>'.
               '<td>'.$vecino->calle . $vecino->altura.'</td>'.
-              '<td>'.$vecino->mail.'</td>';
+              '<td>'.$vecino->mail.'</td><td></td>';
       }
       echo '  </tbody></table>';
     }
@@ -32,35 +42,3 @@
   }
   ?>
   <br></br>
-
-
-
-  <?php /*
-
-  <h1> Buscar Vecinos Registrados según:</h1>
-  <form action="show_vecinos" method="POST" >
-  <p><input type="text" class="span4" name="DNI_filter" id="DNI_filter" placeholder="DNI a buscar..." ></p>
-  <p><input type="submit" class="span4" value="Buscar"></p>
-  </form>
-  <form action="show_vecinos" method="POST" >
-  <p><input type="text" class="span4" name="Apellido_filter" id="Apellido_filter" placeholder="Apellido a buscar..." ></p>
-  <p><input type="submit" class="span4" value="Buscar"></p>
-  </form>
-  <?php if(isset($vecinos_filtrados[0])) {
-    echo '<h1> Vecinos Seleccionado</h1>';
-    echo '<table class="table"><thead class="thead-inverse">        <tr id="header-table">
-    <th>DNI</th><th>Apellido</th><th>Nombre</th><th>Domicilio</th><th>mail</th><th>otros</th>       </tr>        </thead><tbody>';
-    foreach( $vecinos_filtrados as $vecino){
-      echo  '<tr><th scope="row">'. $vecino->DNI.'</th>'.
-            '<td>'.$vecino->Apellido.'</td>'.
-            '<td>'.$vecino->Nombre.'</td>'.
-            '<td>'.$vecino->calle . $vecino->altura.'</td>'.
-            '<td>'.$vecino->mail.'</td>';
-    }
-    echo '  </tbody></table>';
-  }else {
-    echo '<h2>No se han encontrado vecinos seleccionados</h2>';
-  }?>
-  <br></br>
-
-  */ ?>

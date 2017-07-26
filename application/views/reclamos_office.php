@@ -19,19 +19,19 @@
     <form action="#" id="state_filter" method="POST" >
 
         <div class="col-sm-3">
-          <p><input type="text" name="apellido" class="input-form" placeholder="Apellido..."></p>
-          <p><input type="int" name="dni" class="input-form" placeholder="DNI..."></p>
-          <p><input type="text" name="nro_rec" class="input-form" placeholder="Nº Reclamo"></p>
+          <p><input type="text" name="apellido" class="input-form form-control" placeholder="Apellido..."></p>
+          <p><input type="int" name="dni" class="input-form form-control" placeholder="DNI..."></p>
+          <p><input type="text" name="nro_rec" class="input-form form-control" placeholder="Nº Reclamo"></p>
         </div>
         <div class="col-sm-3">
-          <p>desde: <input type="text" class="input-fecha desde" name="desde" id="datepicker" size="15"></p>
-          <p>hasta: <input type="text" class="input-fecha hasta" name="hasta" id="datepicker2" size="15"></p>  
-          <input type="submit" class="span4" value="Filtrar">
+          <p><input type="text" placeholder="desde:" class="input-fecha desde form-control" name="desde" id="datepicker" size="15"></p>
+          <p><input type="text" placeholder="hasta:" class="input-fecha hasta form-control" name="hasta" id="datepicker2" size="15"></p>  
+          <input type="submit" class="span4 btn" value="Filtrar">
           <p></p> 
         </div>        
 
         <div class="col-sm-6">
-          <p><select type="text" class="span4" name="status_filter_selector" id="status_filter_selector" style="margin-right: 30px;">
+          <p><select type="text" class="span4 form-control" name="status_filter_selector" id="status_filter_selector" style="margin-right: 30px;">
               <option id="estado-vacio_filter" value="">Elegir Estado... </option>
               <option id="iniciado_filter" value="Iniciado">Iniciado</option>
               <option id="visto_filter" value="Visto">Visto</option>            
@@ -43,7 +43,7 @@
           </select>  </p>
 
 
-          <p><select type="text" class="span4" name="reclamoType_filter_selector" id="reclamoType_filter_selector" style="margin-right: 30px;">
+          <p><select type="text" class="span4 form-control" name="reclamoType_filter_selector" id="reclamoType_filter_selector" style="margin-right: 30px;">
               <option id="typeReclamo-vacio_filter" value="">Elegir Tipo de Reclamo... </option>
               <?php
               

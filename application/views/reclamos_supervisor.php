@@ -4,14 +4,14 @@
 
 <form action="#" id="state_filter" method="POST" >
       <div class="col-sm-2">
-        <p><input type="text" id="apellido" name="apellido" class="input-form" placeholder="Apellido..."></p>
-        <p><input type="int" id="dni" name="dni" class="input-form" placeholder="DNI..."></p>
-        <p><input type="text" id="nro_rec" name="nro_rec" class="input-form" placeholder="Nº Reclamo"></p>
+        <p><input type="text" id="apellido" name="apellido" class="input-form form-control" placeholder="Apellido..."></p>
+        <p><input type="int" id="dni" name="dni" class="input-form form-control" placeholder="DNI..."></p>
+        <p><input type="text" id="nro_rec" name="nro_rec" class="input-form form-control" placeholder="Nº Reclamo"></p>
       </div>
       <div class="col-sm-4">    
-        <p>desde: <input type="text" class="input-fecha desde" name="desde" id="datepicker" size="15"></p>
-        <p>hasta: <input type="text" class="input-fecha hasta" name="hasta" id="datepicker2" size="15"></p>
-        <p><select type="text" class="span4" name="sector_filter_selector_sec" id="sector_filter_selector_sec" style="margin-right: 30px;">
+        <p><input type="text" class="input-fecha desde form-control" placeholder="desde:" name="desde" id="datepicker" size="15"></p>
+        <p><input type="text" class="input-fecha hasta form-control"  placeholder="hasta: " name="hasta" id="datepicker2" size="15"></p>
+        <p><select type="text" class="span4 form-control" name="sector_filter_selector_sec" id="sector_filter_selector_sec" style="margin-right: 30px;">
         <option class="sector_filter secretaria" value="">Elegir Secretaria... </option>
         <?php
         foreach ($query_secretarias as $row ) {
@@ -23,33 +23,9 @@
       </div>  
 
       <div class="col-sm-6">
-        <div class="col-sm-3">
-        <p><select type="text" class="span4" name="status_filter_selector" id="status_filter_selector" style="margin-right: 30px;">
-            <option id="estado-vacio_filter" value="">Elegir Estado... </option>
-            <option id="iniciado_filter" value="Iniciado">Iniciado</option>
-            <option id="visto_filter" value="Visto">Visto</option>
-            <option id="contactado_filter" value="Contactado">Contactado</option>
-            <option id="resolucion_filter" value="En resolución">En resolución</option>
-            <option id="solucionado_filter" value="Solucionado">Solucionado</option>
-            <option id="gestionado_filter" value="Gestionado">Gestionado</option>
-            <option id="reasignacion_filter" value="En Reasignacion">En Reasignacion</option> 
-        </select></p>
-        </div>
-        <div class="col-sm-3">
-        <p><select type="text" class="span4" name="responsable_filter_selector" id="responsable_filter_selector" style="margin-right: 30px;">
-        <option class="responsable_filter" value="">Elegir Responsable... </option>
-        <?php
-        
-        foreach ($query_responsable as $row) {
-          $string_2 = '<option class="sector_filter" value="'. $row->id_responsable . '">'. $row->apellido .' '. $row->nombre .'</option>';
-          echo $string_2;
-        }
-        
-        ?>
-        </select></p>        
-        </div>
 
-        <select type="text" class="span4" name="reclamoType_filter_selector" id="reclamoType_filter_selector" style="margin-right: 30px;">
+
+        <select type="text" class="span4 form-control" name="reclamoType_filter_selector" id="reclamoType_filter_selector" style="margin-right: 30px;">
         <option id="typeReclamo-vacio_filter" value="">Elegir Tipo de Reclamo... </option>
         <?php
         
@@ -61,7 +37,7 @@
         ?>
         </select></p>
 
-        <p><select type="text" class="span4" name="sector_filter_selector_of" id="sector_filter_selector_of" style="margin-right: 30px;">
+        <p><select type="text" class="span4 form-control" name="sector_filter_selector_of" id="sector_filter_selector_of" style="margin-right: 30px;">
         <option class="sector_filter oficina " value="">Elegir Oficina... </option>
         <?php
         foreach ($query_oficinas as $row ) {
@@ -70,12 +46,38 @@
         }?>
         </select></p>
 
-        <input type="submit" class="span4" value="Filtrar">
-        <p></p> 
+        <div class="col-sm-4">
+        <p><select type="text" class="span4 form-control" name="status_filter_selector" id="status_filter_selector" style="margin-right: 30px;">
+            <option id="estado-vacio_filter" value="">Elegir Estado... </option>
+            <option id="iniciado_filter" value="Iniciado">Iniciado</option>
+            <option id="visto_filter" value="Visto">Visto</option>
+            <option id="contactado_filter" value="Contactado">Contactado</option>
+            <option id="resolucion_filter" value="En resolución">En resolución</option>
+            <option id="solucionado_filter" value="Solucionado">Solucionado</option>
+            <option id="gestionado_filter" value="Gestionado">Gestionado</option>
+            <option id="reasignacion_filter" value="En Reasignacion">En Reasignacion</option> 
+        </select></p>
+        </div>
+        <div class="col-sm-4">
+        <p><select type="text" class="span4 form-control" name="responsable_filter_selector" id="responsable_filter_selector" style="margin-right: 30px;">
+        <option class="responsable_filter" value="">Elegir Responsable... </option>
+        <?php
+        
+        foreach ($query_responsable as $row) {
+          $string_2 = '<option class="sector_filter" value="'. $row->id_responsable . '">'. $row->apellido .' '. $row->nombre .'</option>';
+          echo $string_2;
+        }
+        
+        ?>
+        </select></p>        
+        </div>
+        <div class="col-sm-4">
+          <input type="submit" class="span4 btn" value="Filtrar">
+        </div>
+        
         
       </div>
     </form>
-
     <?php 
 
     if(count($reclamos_list) > 0){

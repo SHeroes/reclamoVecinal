@@ -124,3 +124,7 @@ tr#header-table{
 .reporte .table thead.thead-inverse{
     cursor: pointer;
 }
+
+.reclamo_row.greySelected{
+    background-color: darkgrey;
+}

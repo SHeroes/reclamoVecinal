@@ -1,29 +1,38 @@
 <div class="container-fluid">
   <h1> Reclamos Existentes</h1>
-    <div class="col-md-12">
+    <div class="col-sm-12">
+    <div class="col-sm-4">
     <form action="#" id="Apellido_filter" method="POST" >
-    	<p>
-    		<input type="text" name="Apellido_filter_sel" class="input-form" placeholder="Apellido...">
-    		<input type="submit" class="span4" value="Filtrar">
-    	</p>
+    	<div class="col-sm-8">
+    		<input type="text" name="Apellido_filter_sel" class="form-control" placeholder="Apellido...">
+    	</div><div class="col-sm-4">
+      	<input type="submit" class="span4 btn" value="Filtrar">
+    	</div>
     </form>
+    </div>
+    <div class="col-sm-4">
     <form action="#" id="DNI_filter" method="POST" >
-    	<p>
-    		<input type="int" name="DNI_filter_sel" class="input-form" placeholder="DNI...">
-    		<input type="submit" class="span4" value="Filtrar">
-    	</p>
+    	<div class="col-sm-8">
+    		<input type="int" name="DNI_filter_sel" class="form-control" placeholder="DNI...">
+      </div><div class="col-sm-4">
+    		<input type="submit" class="span4 btn" value="Filtrar">
+    	</div>
     </form>
+    </div>
+    <div class="col-sm-4">
     <form action="#" id="num_reclamo_filter" method="POST" >
-    	<p>
-    		<input type="text" name="num_reclamo_sel" class="input-form" placeholder="Nº Reclamo">
-    		<input type="submit" class="span4" value="Filtrar">
-    	</p>
+    	<div class="col-sm-8">
+    		<input type="text" name="num_reclamo_sel" class="form-control" placeholder="Nº Reclamo">
+      </div><div class="col-sm-4">
+    		<input type="submit" class="span4 btn" value="Filtrar">
+    	</div>
     </form>
-
+    </div>
+    <br>
     <?php 
 
     if($reclamos_list != ''){
-      echo '<table class="table"><thead class="thead-inverse">        <tr id="header-table">
+      echo '<table class="table" style="margin-top: 40px; "><thead class="thead-inverse">        <tr id="header-table">
       <th>Código Reclamo</th><th>Fecha Alta</th><th>Título</th><th>Reitero</th><th>Rta. hs</th><th>Dirección Reclamo</th><th>Estado</th><th>CAV</th><th>Obs.</th><th>Vecino</th><th>Apellido</th><th>DNI</th><th>Imagenes</th><th></th></tr>        </thead><tbody>';
       foreach ($reclamos_list as $rec) {
         echo  '<tr class="reclamo_row"><th scope="row" class="" id_reclamo="'.$rec['id_reclamo'].'"value="'. $rec['id_vecino'].' ">'. $rec['codigo_reclamo'] .'</th>'. '<td>'.$rec['fecha_alta_reclamo'].'</td>'.

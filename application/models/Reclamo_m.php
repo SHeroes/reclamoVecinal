@@ -119,7 +119,7 @@ class Reclamo_m extends CI_Model {
   function update_reitero_reclamo($num_reitero,$id_reclamo, $str_comentario){
     $num_reitero++;
     $fecha_reitero = date('Y-m-d H:i:s',time());
-    $str_comentario = $str_comentario . "\n --- \n Reitero de Reclamo: " . $fecha_reitero . "\n --- \n";
+    $str_comentario = $str_comentario . "<br>--- \n Reitero Reclamo: --- <br>" . $fecha_reitero . "<br>\n";
 
     $this->db->set('reitero', $num_reitero);
     $this->db->set('comentarios', $str_comentario);

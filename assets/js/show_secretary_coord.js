@@ -32,10 +32,12 @@ $(document).ready(function(){
     $("#comments-data").dialog();
     $("#comments-data").html(comment);
     $("#comments-data").show();
+    $(this).parents(".reclamo_row").addClass("greySelected");
   });
 
 
   $(".observacion .btn-success.ver").click(function() {
+      $(this).parents(".reclamo_row").addClass("greySelected");
       var id_reclamo = $(this).parents("tr").children("th").attr("id_reclamo");
       var dataToSearch = {
         id_reclamo: id_reclamo
@@ -72,6 +74,7 @@ $(document).ready(function(){
   }
 
   $(".info-vecino").click(function() {
+    $(this).parents(".reclamo_row").addClass("greySelected");
       el = $(this)
       if ( el.attr("dom-res") == 0 ) {
         var id_vecino = el.parents("tr.reclamo_row").children("th").attr("value");

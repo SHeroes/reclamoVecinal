@@ -60,9 +60,6 @@ class Main_operator extends CI_Controller{
 
     $new_data['secretarias'] = $this->sector_m->get_all_sector_by_type('Secretaria');
     $new_data['oficinas'] = $this->sector_m->get_all_sector_by_type('Oficina');
-
-    $this->load->model('vecino_m');
-    
     $new_data['vecinos_filtrados'] = '';
     $new_data['id_vecino'] = '';
     $new_data['name_vecino'] = '';
