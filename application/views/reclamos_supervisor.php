@@ -46,7 +46,7 @@
         }?>
         </select></p>
 
-        <div class="col-sm-4">
+        <div class="col-sm-3">
         <p><select type="text" class="span4 form-control" name="status_filter_selector" id="status_filter_selector" style="margin-right: 30px;">
             <option id="estado-vacio_filter" value="">Elegir Estado... </option>
             <option id="iniciado_filter" value="Iniciado">Iniciado</option>
@@ -58,7 +58,7 @@
             <option id="reasignacion_filter" value="En Reasignacion">En Reasignacion</option> 
         </select></p>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
         <p><select type="text" class="span4 form-control" name="responsable_filter_selector" id="responsable_filter_selector" style="margin-right: 30px;">
         <option class="responsable_filter" value="">Elegir Responsable... </option>
         <?php
@@ -71,13 +71,17 @@
         ?>
         </select></p>        
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <input type="submit" class="span4 btn" value="Filtrar">
         </div>
-        
+<div class="col-sm-3">
+          <a type="button" class="span4 btn btn-primary export" href="javascript:download_tabla_CSV()" target="new_blank">Descargar Tabla</a>
+        </div>        
         
       </div>
     </form>
+        
+
     <?php 
 
     if(count($reclamos_list) > 0){
@@ -85,18 +89,18 @@
       <th>Código Reclamo</th><th>Fecha Alta</th><th>Barrio</th><th>Calle</th><th>Nº</th><th>Título</th><th>Rta. hs</th><th>Estado</th><th>Reasignable</th><th>CAV</th><th>Obs.</th><th>Vecino</th> </tr>        </thead><tbody>';
       foreach ($reclamos_list as $rec) {
         echo  '<tr class="reclamo_row">
-                <th scope="row" class="" horario="-'.$rec['molestar_dia_hs'].'" id_reclamo="'.$rec['id_reclamo'].'"value="'. $rec['id_vecino'].' ">'. $rec['codigo_reclamo'] .'</th>'.
-            '<td>'.$rec['fecha_alta_reclamo'].'</td>'.
-            '<td><div>'.$rec['barrio'].'</div></td>'.
-            '<td>'.$rec['calle'].'</td>'.
-            '<td>'.$rec['altura'].'</td>'.
-            '<td>'.$rec['titulo'].'</td>'.
-            '<td>'.$rec['tiempo_respuesta_hs'].'</td>'.
-            '<td class="state-supervisor" id_reclamo="'.$rec['id_reclamo'].'">'. $rec['estado'].'</td>'.
-            '<td> <div class="reasignar btn btn-warning" id_reclamo="'.$rec['id_reclamo'].'">Reasignar</div></td>'.
-            '<td class="comentario" comentario="'.$rec['comentarios'].'"><div class="btn btn-info">Ver</div></td>'.
-            '<td class="observacion" id_reclamo="'.$rec['id_reclamo'].'"><div class="btn btn-success ver">Ver</div></td>';
-          if ($rec['domicilio_restringido'] == 0) echo '<td><div class="btn btn-info info-vecino" dom-res="0">Ver</div></td>'; else echo '<td></td>';
+                <th scope="row" class="CSV" horario="-'.$rec['molestar_dia_hs'].'" id_reclamo="'.$rec['id_reclamo'].'"value="'. $rec['id_vecino'].' ">'. $rec['codigo_reclamo'] .'</th>'.
+            '<td class="CSV">'.$rec['fecha_alta_reclamo'].'</td>'.
+            '<td class="CSV">'.$rec['barrio'].'</td>'.
+            '<td class="CSV">'.$rec['calle'].'</td>'.
+            '<td class="CSV">'.$rec['altura'].'</td>'.
+            '<td class="CSV">'.$rec['titulo'].'</td>'.
+            '<td class="CSV">'.$rec['tiempo_respuesta_hs'].'</td>'.
+            '<td class="state-supervisor CSV" id_reclamo="'.$rec['id_reclamo'].'">'. $rec['estado'].'</td>'.
+            '<td> <div class="reasignar btn btn-warning CSV" id_reclamo="'.$rec['id_reclamo'].'">Reasignar</div></td>'.
+            '<td class="comentario" comentario="'.$rec['comentarios'].'"><div class="btn btn-info CSV">Ver</div></td>'.
+            '<td class="observacion" id_reclamo="'.$rec['id_reclamo'].'"><div class="btn btn-success ver CSV">Ver</div></td>';
+          if ($rec['domicilio_restringido'] == 0) echo '<td><div class="btn btn-info info-vecino CSV" dom-res="0">Ver</div></td>'; else echo '<td></td>';
         }
         echo '  </tbody></table>'; 
     }
@@ -201,7 +205,95 @@ $(document).ready(function(){
     id_sec_selected = $("#sector_filter_selector_sec option:selected" ).attr("value");
       actualizar_oficinas(id_sec_selected);
    });
+
+  // PARA EL DOWNLOAD CSV
+  var tableInfoHead = "";
+    $("#header-table.clone th").each(function(el,index){
+    tableInfoHead = tableInfoHead + $(this).html()+'";"';
+  });
+  function exportTableToCSV($table, filename) {
+
+    var $rows = $table.find('tr:has(td)'),
+
+      // Temporary delimiter characters unlikely to be typed by keyboard
+      // This is to avoid accidentally splitting the actual contents
+      tmpColDelim = String.fromCharCode(11), // vertical tab character
+      tmpRowDelim = String.fromCharCode(0), // null character
+
+      // actual delimiter characters for CSV format
+      colDelim = '";"',
+      rowDelim = '"\r\n"',
+
+      // Grab text from table into CSV formatted string
+      BOM = "\uFEFF"; 
+      //var csvContent = BOM + csvContent;
+      csv =  BOM + '"'+ tableInfoHead + rowDelim + $rows.map(function(i, row) {
+        var $row = $(row),
+          $cols = $row.find('.CSV');
+
+        return $cols.map(function(j, col) {
+          var $col = $(col),
+            text = $col.text();
+
+          return text.replace(/"/g, '""'); // escape double quotes
+
+        }).get().join(tmpColDelim);
+
+      }).get().join(tmpRowDelim)
+      .split(tmpRowDelim).join(rowDelim)
+      .split(tmpColDelim).join(colDelim) + '"';
+
+    // Deliberate 'false', see comment below
+    if (false && window.navigator.msSaveBlob) {
+
+      var blob = new Blob([decodeURIComponent(csv)], {
+        type: 'text/csv;charset=utf8'
+      });
+
+      // Crashes in IE 10, IE 11 and Microsoft Edge
+      // See MS Edge Issue #10396033
+      // Hence, the deliberate 'false'
+      // This is here just for completeness
+      // Remove the 'false' at your own risk
+      window.navigator.msSaveBlob(blob, filename);
+
+    } else if (window.Blob && window.URL) {
+      // HTML5 Blob     
+      //console.log(csv);   
+      var blob = new Blob([csv], {
+        type: 'text/csv;charset=utf-8'
+      });
+      var csvUrl = URL.createObjectURL(blob);
+
+      $(this)
+        .attr({
+          'download': filename,
+          'href': csvUrl
+        });
+    } else {
+      // Data URI 
+      var csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);
+      $(this)
+        .attr({
+          'download': filename,
+          'href': csvData,
+          'target': '_blank'
+        });
+    }
+  }
+
+  // This must be a hyperlink
+  $(".export").on('click', function(event) {
+    // CSV
+    var args = [$('table.table'), 'export.csv'];
+
+    exportTableToCSV.apply(this, args);
+
+    // If CSV, don't do event.preventDefault() or return false
+    // We actually need this to be a typical hyperlink
+  });
 });
+
 
   function actualizar_oficinas(id_sec){
     var dataToSearch = { id_secretaria: id_sec  };
@@ -226,4 +318,6 @@ $(document).ready(function(){
     });
     $("#sector_filter_selector_of").html(str);
   }
+
+
 </script>

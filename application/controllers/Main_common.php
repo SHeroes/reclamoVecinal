@@ -28,4 +28,5 @@ class Main_common extends CI_Controller{
 		$query = $this->vecino_m->get_vecino_info($id_vecino);
 		echo json_encode ($query);
 	}
+
 }
