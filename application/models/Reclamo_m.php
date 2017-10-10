@@ -37,6 +37,8 @@ class Reclamo_m extends CI_Model {
     isset($userData['molestar_al_tel_fijo']) ?  $data3['molestar_al_tel_fijo'] = true :  $data3['molestar_al_tel_fijo'] = false;
     isset($userData['molestar_al_tel_mov']) ?   $data3['molestar_al_tel_mov'] = true :   $data3['molestar_al_tel_mov'] = false;
     isset($userData['molestar_al_dom']) ?       $data3['molestar_al_domicilio'] = true : $data3['molestar_al_domicilio'] = false;
+    isset($userData['redes_sociales']) ?        $data3['redes_sociales'] = true :        $data3['redes_sociales'] = false;
+
     $data3['comentarios'] = $userData['comentarios'];
 
     $currentYear =  date('Y');

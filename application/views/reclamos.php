@@ -122,7 +122,8 @@
       <p><input type="checkbox" class="more-reg form-check-input" name="molestar_al_tel_mov" value="true" >Se lo puede molestar al tel. movil</p>
       <p><input type="checkbox" class="more-reg form-check-input" name="molestar_al_dom" value="true" >Se lo puede molestar al domicilio</p>
       <p><input type="checkbox" class="more-reg form-check-input" name="domicilio_restringido" value="true" >Si el vecino no quiere que se puedan ver sus datos</p>
-      
+      <p><input type="checkbox" class="more-reg form-check-input" name="redes_sociales" value="true" >Contactado por Redes Sociales</p>
+
     <!-- upload img // -->
       <p></p>
       <p><textarea class="more-reg form-control" rows="6" cols="50" type="text" name="comentarios" placeholder="comentarios"></textarea></p>

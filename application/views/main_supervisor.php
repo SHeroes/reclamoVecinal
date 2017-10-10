@@ -33,6 +33,7 @@
                       <li><a href="../Reportes/show_reportes_pSector" target="_blank">Generar Reporte por Sector</a></li>
                       <li><a href="../Reportes/show_reportes_Reclamos" target="_blank">Generar Reporte Reclamos</a></li>
                       <li><a href="../Reportes/show_reportes_localidades" target="_blank">Generar Reporte por Localidades</a></li>
+                      <li><a href="../Reportes/show_reportes_composicion_sectores" target="_blank">Reporte de Composicion de Sectores</a></li>
                     </ul>
                   </li>
                   <li class="dropdown hidden">

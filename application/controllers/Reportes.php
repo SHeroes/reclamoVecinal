@@ -109,4 +109,35 @@ class Reportes extends CI_Controller{
 		$this->load->view('footer',$this->data);
 	}
 
+	function show_reportes_composicion_sectores() {  
+
+		switch ($this->session->userdata('perfil_level')){
+		    case 0:
+		        break;
+		    case 4: 
+		        break;            
+		    case 5: 
+		        break;
+		    default :
+		    	$this->load->view('restricted',$this->data);
+		    return;
+		}
+
+		$this->load->model('reportes_m');
+
+		$new_data['reporte_secretarias'] = $this->reportes_m->get_reporte_composicion_secretaria();
+		$new_data['reporte_oficinas'] = $this->reportes_m->get_reporte_composicion_oficinas();
+
+/*
+		echo '<pre>';
+		print_r($new_data['reporte_oficinas']);
+		echo '</pre>';
+		die();*/
+		$this->load->view('reportes_composicion_sectores',$new_data);
+		$this->load->view('footer',$this->data);
+	}
+
+
+
+
 }

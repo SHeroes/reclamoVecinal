@@ -100,15 +100,36 @@ tr.reclamo_row.reitero5 {
     padding: 10px;
 }
 
+.reporte_composicion_ofi{
+    background-color: rgb(249, 198, 152);
+    font-size: 18px;
+    font-weight: bolder;
+    font-style: italic;
+    padding: 10px;
+    margin-top: 50px;
+}
+
+.thead-rep-tipo-rec{
+
+}
+
+tr.lightGrey{
+    background-color: #86c6e5;
+}
+.reporte-treclamo{
+
+}
+.table.reporte-treclamo{
+    margin: 0px;
+}
+.table.reporte-treclamo .tbl-sec-glob-tr{
+    background-color: white;
+}
+
 .reporte_global{
     margin-top: 20px;
 }
-
-.tbl-sec-glob-tr{
-    background-color: lightgrey;    
-}
-
-.tbl-ofi-glob-tr {
+.tbl-sec-glob-tr, .tbl-ofi-glob-tr {
     background-color: lightgrey;
 }
 

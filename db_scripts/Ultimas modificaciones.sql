@@ -28,3 +28,10 @@ ADD COLUMN `flag_imagenes` BIT(1) NULL DEFAULT b'0' AFTER `reitero`;
 ALTER TABLE `dbcav`.`upload_x_reclamo` 
 CHANGE COLUMN `file_name` `file_name` TEXT NOT NULL ;
 
+/* 
+AGOSTO 	2017
+*/
+
+ALTER TABLE `dbcav`.`reclamos` 
+ADD COLUMN `redes_sociales` BIT(1) NOT NULL DEFAULT b'0' AFTER `fecha_visto`,
+ADD COLUMN `reclamoscol` VARCHAR(45) NULL AFTER `flag_imagenes`;
