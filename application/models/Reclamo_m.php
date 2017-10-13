@@ -151,8 +151,17 @@ class Reclamo_m extends CI_Model {
   /* ES PARA LAS OFICINIAS porque solo aparecen los reclamos de la oficina a la que pertenece el usuario */
   function get_all_reclamos_for_office($column,$value, $id_sec, $fecha_desde, $fecha_hasta, $typeReclamo, $nro_rec, $apellido, $dni){
     $cond_str = '';
-    $value != '' ? $cond_str = " AND reclamos.".$column." = '".$value."' " : $cond_str = " AND reclamos.estado != 'Solucionado' AND reclamos.estado != 'Gestionado' ";
+    if ($value != '' or $fecha_desde != '' or $fecha_hasta != '' or $typeReclamo != '' or $nro_rec != '' or $apellido != '' or $dni != ''){
+      if ($value != '' ) $cond_str = " AND reclamos.".$column." = '".$value."' ";
+      //print_r($cond_str);
+    }else{
+      $cond_str = " AND reclamos.estado != 'Solucionado' AND reclamos.estado != 'Gestionado' ";
+      //print_r($cond_str);
+    }
 
+    /*
+    $value != '' ? $cond_str = " AND reclamos.".$column." = '".$value."' " : $cond_str = " AND reclamos.estado != 'Solucionado' AND reclamos.estado != 'Gestionado' ";
+    */
     $cond_str = $cond_str .$this->armar_filtro_vecino($cond_str, $nro_rec, $apellido, $dni);
     $cond_str = $cond_str .$this->armar_Str_Cond_Fechas_Tipo_Reclamo($cond_str, $fecha_desde, $fecha_hasta, $typeReclamo);
 
@@ -200,7 +209,17 @@ class Reclamo_m extends CI_Model {
 
   function get_all_reclamos_for_secretary_by_mutiples_sectores($column,$value, $array_sectores,$fecha_desde, $fecha_hasta, $typeReclamo, $sector_filter, $responsable_id, $nro_rec, $apellido, $dni){
     $cond_str = '';
+    if ($value != '' or $fecha_desde != '' or $fecha_hasta != '' or $typeReclamo != '' or $nro_rec != '' or $apellido != '' or $dni != '' or $sector_filter != '' or $responsable_id != '' or $nro_rec != ''){
+      if ($value != '' ) $cond_str = " AND reclamos.".$column." = '".$value."' ";
+      //print_r($cond_str);
+    }else{
+      $cond_str = " AND reclamos.estado != 'Solucionado' AND reclamos.estado != 'Gestionado' ";
+      //print_r($cond_str);
+    }
+
+    /*
     $value != '' ? $cond_str = " AND reclamos.".$column." = '".$value."' " : $cond_str = "  AND reclamos.estado != 'Solucionado' AND reclamos.estado != 'Gestionado' ";
+    */
 
     $cond_str = $cond_str .$this->armar_filtro_vecino($cond_str, $nro_rec, $apellido, $dni);    
     $cond_str = $cond_str . $this->armar_Str_Cond_Fechas_Tipo_Reclamo($cond_str, $fecha_desde, $fecha_hasta, $typeReclamo);
@@ -208,7 +227,7 @@ class Reclamo_m extends CI_Model {
     if ($responsable_id != ''){
       $cond_str = $cond_str . " AND tiporeclamo.id_responsable = '" . $responsable_id ."' ";
     }
-
+//print_r($cond_str);
     if ($sector_filter != ''){
       $string_sectores = " AND sectores.id_sector = '".$sector_filter."' ";
     } else {
@@ -239,8 +258,18 @@ class Reclamo_m extends CI_Model {
 
   function get_all_reclamos_for_supervisor($column,$value,$of_filter, $sec_filter,$fecha_desde, $fecha_hasta, $typeReclamo, $responsable_id, $nro_rec, $apellido, $dni){
     $cond_str = '';
+    if ($value != '' or $fecha_desde != '' or $fecha_hasta != '' or $typeReclamo != '' or $nro_rec != '' or $apellido != '' or $dni != ''){
+      if ($value != '' ) $cond_str = " AND reclamos.".$column." = '".$value."' ";
+      //print_r($cond_str);
+    }else{
+      $cond_str = " AND reclamos.estado != 'Solucionado' AND reclamos.estado != 'Gestionado' ";
+      //print_r($cond_str);
+    }
+
+
+    /*
     $value != '' ? $cond_str = " AND reclamos.".$column." = '".$value."' " : $cond_str = "  AND reclamos.estado != 'Solucionado' AND reclamos.estado != 'Gestionado' ";
-    
+    */
     $cond_str = $cond_str .$this->armar_filtro_vecino($cond_str, $nro_rec, $apellido, $dni);    
     $cond_str = $cond_str . $this->armar_Str_Cond_Fechas_Tipo_Reclamo($cond_str, $fecha_desde, $fecha_hasta, $typeReclamo);
 
@@ -293,8 +322,17 @@ class Reclamo_m extends CI_Model {
   /* ES PARA LAS SECRETARIAS porque solo aparecen los reclamos de la oficina a la que pertenece el usuario */
   function get_all_reclamos_for_secretary_by($column,$value, $id_sec,$fecha_desde, $fecha_hasta, $typeReclamo, $sector_filter, $responsable_id, $nro_rec, $apellido, $dni){
     $cond_str = '';
+    if ($value != '' or $fecha_desde != '' or $fecha_hasta != '' or $typeReclamo != '' or $nro_rec != '' or $apellido != '' or $dni != '' or $sector_filter != '' or $responsable_id !='' or $nro_rec != ''){
+      if ($value != '' ) $cond_str = " AND reclamos.".$column." = '".$value."' ";
+      //print_r($cond_str);
+    }else{
+      $cond_str = " AND reclamos.estado != 'Solucionado' AND reclamos.estado != 'Gestionado' ";
+      //print_r($cond_str);
+    }
+
+    /*
     $value != '' ? $cond_str = " AND reclamos.".$column." = '".$value."' " : $cond_str = "  AND reclamos.estado != 'Solucionado' AND reclamos.estado != 'Gestionado'  
- ";
+ ";*/
     $cond_str = $cond_str .$this->armar_filtro_vecino($cond_str, $nro_rec, $apellido, $dni);  
     /*  yo ya tengo mi id de sector, entonces busco los reclamos de los responsable de mi sector */
 
