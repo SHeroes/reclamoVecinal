@@ -44,6 +44,10 @@ class Main_supervisor extends CI_Controller{
         case 5: 
             $this->data['perfil'] = 'Intendente';  
             break;
+        case 13:
+            $this->data['perfil'] = 'Operador Tramites';
+            redirect('/tramites/main_tr_operator');
+            break;               
       }
       return $this->data['perfil_lvl'];
   }

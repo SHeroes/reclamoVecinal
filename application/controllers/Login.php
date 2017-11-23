@@ -19,7 +19,10 @@ class Login extends CI_Controller {
                 break;
                 case 4:
                 redirect('/main_supervisor/show_main');
-                break;                
+                break;  
+                case 13:
+                redirect('/tramites/main_tr_operator');
+                break;               
                 default:
                 $this->load->view('restricted',$data);
                 break;

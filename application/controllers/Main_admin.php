@@ -45,9 +45,31 @@ class Main_admin extends CI_Controller{
         case 5: 
             $this->data['perfil'] = 'Intendente';  
             break;
+        case 13:
+            $this->data['perfil'] = 'Operador Tramites';
+            redirect('/tramites/main_tr_operator');
+            break; 
       }
       return $this->data['perfil_lvl'];
   }
+
+  /* SECCION TRAMITES */
+
+  function pasos_admin_tramites(){
+    if($this->basic_level() != 0) {
+      $this->load->view('restricted',$this->data);
+      return ;
+    }
+    $this->load->view('tramites/main_tr_admin',$this->data);
+    $this->load->view('tramites/show_tr_admin',$this->data);
+    $this->load->view('footer',$this->data);
+  }
+
+  /*
+
+      FIN DE LA SECCION DE TRAMITES
+
+  */
 
   function show_main() {    
     if($this->basic_level() != 0) {

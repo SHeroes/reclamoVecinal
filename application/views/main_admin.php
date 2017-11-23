@@ -48,6 +48,10 @@
                   <li>
                     <a class="btn" href="<?php echo base_url() ?>index.php/login/logout_user"><i class="glyphicon glyphicon-share"></i>Logout</a>          
                   </li>
+                  <li><button>
+                    <a class="btn" href="<?php echo base_url() ?>index.php/main_admin/pasos_admin_tramites"><i class="glyphicon glyphicon-share"></i>Admin Tramites</a></button>          
+                  </li>
+                  
                 </ul>
           </div>
         </div>
