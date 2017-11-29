@@ -54,21 +54,54 @@ class Main_admin extends CI_Controller{
   }
 
   /* SECCION TRAMITES */
-
   function pasos_admin_tramites(){
     if($this->basic_level() != 0) {
       $this->load->view('restricted',$this->data);
       return ;
     }
-    $this->load->view('tramites/main_tr_admin',$this->data);
-    $this->load->view('tramites/show_tr_admin',$this->data);
+    $this->load->model('tramites_m');
+    $this->data['array_pasos']= '';
+    $this->data['array_pasos']= $this->tramites_m->get_all_pasos_by_id_order();
+    $this->load->model('sector_m');
+    $this->data['array_sectores_uso']= $this->sector_m->get_sectors_in_use();
+
+    $this->load->view('tramites/tr_admin_main',$this->data);
+    $this->load->view('tramites/tr_admin_pasos',$this->data);
     $this->load->view('footer',$this->data);
   }
 
+  function formularios_admin_tramites(){
+    if($this->basic_level() != 0) {
+      $this->load->view('restricted',$this->data);
+      return ;
+    }
+    $this->load->model('tramites_m');
+    $this->data['array_pasos']= '';
+    $this->data['array_pasos']= $this->tramites_m->get_all_pasos_by_id_order();
+
+    $this->load->view('tramites/tr_admin_main',$this->data);
+    $this->load->view('tramites/tr_admin_formularios',$this->data);
+    $this->load->view('footer',$this->data);
+  }
+
+  function tipo_tramite_admin_tramites(){
+
+  }
+
+
+  function insertar_paso_tramite(){
+    $data = $this->input->post(null,true);
+    if( count($data) ) {
+      $this->load->model('tramites_m');
+      $saved = $this->tramites_m->insertar_paso_tramite($data);
+    }
+    if ( isset($saved) && $saved ) {
+       //echo "success";
+       redirect('/main_admin/pasos_admin_tramites');
+    }    
+  }
   /*
-
       FIN DE LA SECCION DE TRAMITES
-
   */
 
   function show_main() {    

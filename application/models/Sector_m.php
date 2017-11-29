@@ -44,5 +44,11 @@ class Sector_m extends CI_Model {
 
     }
     
+    function get_sectors_in_use(){
+      $str_query = "select of.id_sector id, sec.denominacion secretaria, of.denominacion oficina from sectores as of, sectores as sec where sec.id_sector = of.id_padre  and of.tipo = 'Oficina' and sec.denominacion != 'SIN USO' order by secretaria asc, oficina asc ; ";
+
+      $query = $this->db->query($str_query);
+      return $query->result_array();
+    }
 
 }

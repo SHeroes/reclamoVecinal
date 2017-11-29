@@ -9,6 +9,27 @@ class Tramites_m extends CI_Model {
       return $tiporeclamo;
     }
 
+    function get_all_pasos(){
+      $this->db->from('tr_paso');
+      $pasos = $this->db->get()->result();
+      return $pasos;
+    }
+
+    function get_all_pasos_by_id_order(){
+      $this->db->from('tr_paso');
+      $this->db->order_by('id', 'desc');
+      $pasos = $this->db->get()->result();
+      return $pasos;
+    }
+
+    function insertar_paso_tramite($info){
+      $data['id_sector'] =          $info['id_sector'];
+      $data['titulo'] =             $info['titulo'];
+      $data['desc'] =               $info['descripcion'];
+      $data['check_list_json'] =     $info['checklist'];      
+
+      return $this->db->insert('tr_paso',$data);      
+    }
 /*
     function get_all_tipo_reclamos(){
       $this->db->from('tiporeclamo');
