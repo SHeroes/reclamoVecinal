@@ -143,7 +143,7 @@ ALTER TABLE `dbcav`.`tr_pasos_x_tramite`
 CHANGE COLUMN `orden` `orden` INT(11) NOT NULL DEFAULT '1' AFTER `tr_paso_id`,
 ADD COLUMN `tiempo_estimado` INT(3) NOT NULL DEFAULT '24' AFTER `orden`;
 
-------------------------------------
+
 /* agregados de checklist */ 
 
 ALTER TABLE `dbcav`.`tr_paso` 
@@ -151,10 +151,7 @@ ADD COLUMN `check_list_json` TEXT NULL DEFAULT NULL AFTER `desc`;
 
 INSERT INTO `dbcav`.`user` (`perfil_level`,`apellido`,`nombre`,`email`,`password`)VALUES('13','Test','Operadortramite','operator_tr','7a52f614ef66df14cc65dc2ef015a281e3fcc079');
 
-/* estaba de mas */
 
-ALTER TABLE `dbcav`.`tr_tipo_tramite` 
-DROP COLUMN `tr_checklist_id`;
 
 
 ALTER TABLE `dbcav`.`tr_paso` 
@@ -176,6 +173,17 @@ ADD CONSTRAINT `sector_x_paso`
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
+  
+  ALTER TABLE `dbcav`.`tr_formularios` 
+ADD COLUMN `file_name` TEXT NOT NULL AFTER `id`;
+
+ALTER TABLE `dbcav`.`tr_pasos_x_tramite` 
+RENAME TO  `dbcav`.`tr_pasos_x_tipo_tramite` ;
+
+INSERT INTO `dbcav`.`tr_grupos` (`id`, `nombre`) VALUES ('1', 'Vecino');
+INSERT INTO `dbcav`.`tr_grupos` (`id`, `nombre`) VALUES ('2', 'Comercio');
+INSERT INTO `dbcav`.`tr_grupos` (`id`, `nombre`) VALUES ('3', 'Transporte');
+INSERT INTO `dbcav`.`tr_grupos` (`id`, `nombre`) VALUES ('4', 'Tramites Sociales');
 
 
 

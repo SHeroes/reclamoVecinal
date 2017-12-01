@@ -85,8 +85,62 @@ class Main_admin extends CI_Controller{
   }
 
   function tipo_tramite_admin_tramites(){
+    if($this->basic_level() != 0) {
+      $this->load->view('restricted',$this->data);
+      return ;
+    }
+    $this->load->model('tramites_m');
+    $this->data['array_pasos']= '';
+    $this->data['array_pasos']= $this->tramites_m->get_all_pasos_by_id_order();
+    $this->data['grupos'] = '';
+    $this->data['grupos'] = $this->tramites_m->get_all_grupos();
 
+    $this->load->view('tramites/tr_admin_main',$this->data);
+    $this->load->view('tramites/tr_admin_armar_ttr',$this->data);
+    $this->load->view('footer',$this->data);
   }
+
+  function insertar_tipo_tramite(){
+    if($this->basic_level() != 0) {
+      $this->load->view('restricted',$this->data);
+      return ;
+    }
+    $this->load->model('tramites_m');
+    $data = $this->input->post(null,true);
+    $array_id_ubicacion = array();
+    $array_id_tiempo = array();    
+    $array_info = array();
+    foreach ($data as $key => $value) {
+        $substr = substr($key, 0, 15);
+        if ($key!='titulo' and $key != 'descripcion' and $key != 'grupo' and $substr != 'tiempo_estimado' and $value != ''){
+            //array_push($array_ids, $key);
+            $obj_dupla = new stdClass();
+            $obj_dupla->id = $key; 
+            $obj_dupla->ubicacion = $value;
+            array_push($array_id_ubicacion, $obj_dupla);
+        } else if ($substr == 'tiempo_estimado' and $value != ''){
+            $obj = new stdClass();
+            $obj->id = substr($key, 15); 
+            $obj->tiempo = $value;
+            array_push($array_id_tiempo, $obj);
+        } else if($key == 'titulo' or $key == 'descripcion' or $key == 'grupo'){
+            $array_info[$key]=$value;
+        }
+    }
+    /*
+    ?><pre><?php     print_r($array_id_ubicacion);    ?></pre><pre><?php    print_r($array_id_tiempo);
+    ?></pre><pre><?php  print_r($array_info);    ?></pre><?php    
+    */
+
+    if( count($data) ) { 
+      $saved = $this->tramites_m->insertar_tipo_tramite($array_id_ubicacion,$array_id_tiempo,$array_info);
+    }
+    if ( isset($saved) && $saved ) {
+      //echo "success";
+      redirect('/main_admin/tipo_tramite_admin_tramites');
+    }
+  }
+
 
 
   function insertar_paso_tramite(){

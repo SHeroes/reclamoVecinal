@@ -22,6 +22,30 @@ class Tramites_m extends CI_Model {
       return $pasos;
     }
 
+    function insertar_tipo_tramite($array_id_ubicacion,$array_id_tiempo,$array_info){
+      $max = count($array_id_ubicacion);
+      $data['titulo'] =                $array_info['titulo'];
+      $data['desc'] =                  $array_info['descripcion'];
+      $data['tr_grupo_id'] =           $array_info['grupo']; 
+      
+      $this->db->insert('tr_tipo_tramite',$data);
+      $id_tipo_tramite = $this->db->insert_id();
+
+      for($i = 0; $i<$max; $i++){
+        $data2['tr_tipo_tramite_id']= $id_tipo_tramite;
+        $data2['tr_paso_id']= $array_id_ubicacion[$i]->id;
+        $data2['orden']= $array_id_ubicacion[$i]->ubicacion;
+        foreach ($array_id_tiempo as $key => $value) {
+          if($value->id == $i){
+            $data2['tiempo_estimado']= $value->tiempo;    
+          }
+        }
+
+        $this->db->insert('tr_pasos_x_tipo_tramite',$data2);
+      }
+      return $max;
+    }
+
     function insertar_paso_tramite($info){
       $data['id_sector'] =          $info['id_sector'];
       $data['titulo'] =             $info['titulo'];
@@ -30,6 +54,23 @@ class Tramites_m extends CI_Model {
 
       return $this->db->insert('tr_paso',$data);      
     }
+
+    function insert_formulario($info_form){
+      $data['tr_paso_id'] =       $info_form['id_paso'];
+      $data['file_name'] =        $info_form['file_name'];
+      $data['codigo_interno'] =   $info_form['cod_int'] ;
+      $data['titulo'] =           $info_form['titulo'];
+      $data['desc'] =             $info_form['descripcion'];
+      
+      return $this->db->insert('tr_formularios',$data);
+    }
+
+    function get_all_grupos(){
+      $this->db->from('tr_grupos');
+      $grupos = $this->db->get()->result();
+      return $grupos;
+    }
+
 /*
     function get_all_tipo_reclamos(){
       $this->db->from('tiporeclamo');

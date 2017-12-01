@@ -23,3 +23,27 @@
     border-left: solid 2px;
     border-right: solid 2px;
 }
+
+#paso-selector{
+    cursor: pointer;
+}
+
+h8{
+    font-style: italic;
+    font-size: 11px;
+    color: red;
+}
+
+.list-pasos div{
+    border: solid 1px;
+    background-color: bisque;
+}
+
+#inputs-tipo-tramite{
+    margin-top: 60px;
+}
+
+#inputs-tipo-tramite button{
+    margin-top: 70px;
+    /* float: right; */
+}

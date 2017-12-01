@@ -1,28 +1,23 @@
 <?php //echo '<script src="'. base_url() .'assets/js/show_reclamos_crear.js"></script>'; ?>
 <div class="container-fluid">
-<h1>Creación de Pasos para Los Trámites</h1>
+
 
   <div class="col-sm-12">
 
-    <div class="col-sm-4">
-        formularios
+    <div class="col-sm-2">
     </div> 
-    <div id="columna-pasos-hechos" class="col-sm-8">
+    <div id="columna-pasos-hechos" class="col-sm-8"><h1>Pasos creados ordenados por creacion</h1>
       <?php 
-      echo '<h3>Pasos actuales los ultimo 10 creados recientemente</h3>';
+      echo '<h3>Elegir el paso que debe tener asociados el/los formularios a subir</h3>';
+      //print_r($array_pasos);
       //print_r($array_pasos);
       $max = sizeof($array_pasos);
-      if($max > 10){$max = 10;}
+      //if($max > 10){$max = 10;}
       for($i=0;$i<$max;$i++){
-        ?><div class="col-sm-12 header">
+        ?><div id="paso-selector" class="col-sm-12 header" <?php echo 'value="'.$array_pasos[$i]->id.'"';?>      >
             <div class="col-sm-4"><?php echo $array_pasos[$i]->titulo; ?></div>
             <div class="col-sm-8"><?php echo $array_pasos[$i]->desc; ?></div>
           </div><?php
-          $json = $array_pasos[$i]->check_list_json;   //var_dump(json_decode($json, true));
-          $checkListArray = json_decode($json, true);          //print_r($checkListArray['checklist']); 
-          foreach ($checkListArray['checklist'] as $key => $value) {
-            echo '<div class="col-sm-12 ck-list">'.$value.'</div>';
-          }
       }
       ?>
     </div>
@@ -34,6 +29,14 @@
 
 <script>
 $(document).ready(function() {
+  $("#paso-selector").click(function() {
+    var a = parseInt($(this).attr("value"));
+    //alert(valor);
+    //alert(a);
+    var urlActual = '/index.php/tramites/upload_tr_formulario';
+    //alert(urlActual+"?id-paso="+a);
+    window.location.replace(urlActual+"?id-paso="+a);
+  })
 });
 
 

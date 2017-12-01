@@ -20,8 +20,8 @@
       echo '</select>';
       ?>
       <br>
-      <p><input type="text" class="form-control" name="titulo" size="30" placeholder="Título"></p>
-      <p><textarea type="text" class="form-control" name="descripcion" cols="30" rows="5" placeholder="Descripción"></textarea></p>
+      <p><input type="text" class="form-control" name="titulo" size="30" placeholder="Título" required></p>
+      <p><textarea type="text" class="form-control" name="descripcion" cols="30" rows="5" placeholder="Descripción" required></textarea></p>
       <p><input name="checklist" id="checklist-hide" type="hidden" class="form-control checklist" placeholder="checklist-ocultar" cols="60" rows="2"></p>
       <br></br>
       <p>CHECKLIST QUE DEBE CUMPLIRSE PARA COMPLETAR EL PASO: </p>
