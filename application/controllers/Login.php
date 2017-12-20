@@ -19,7 +19,10 @@ class Login extends CI_Controller {
                 break;
                 case 4:
                 redirect('/main_supervisor/show_main');
-                break;  
+                break;
+                case 12:
+                redirect('/tramites/main_tr_vecino');
+                break;               
                 case 13:
                 redirect('/tramites/main_tr_operator');
                 break;               

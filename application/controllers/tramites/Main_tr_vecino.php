@@ -14,38 +14,40 @@ class Main_tr_vecino extends CI_Controller{
     
     /*
 		if( !$this->session->userdata('isLoggedIn') ) {
-	    redirect('/login/show_login');   
-      //print_r("hola");
+	    redirect('/login/show_login');
+      print_r("hola");
 		}
     */
-    
+
+        
 	}
 
   public function index()
   {
-    /*
-    if($this->basic_level() != 13) {
-      $this->load->view('restricted',$this->data);
-      return ;
+    $info = $this->input->post(null,true);
+    if( !isset($info['id_vecino']) ){
+      // no se recibio post 
+      redirect('/tramites/Main_tr_vecino/select_Vecino');
+    }else{
+      // muestro las opciones para que elijan los tramites
+
+      $this->load->model('tramites_m');
+      $new_data['id_vecino'] = $info['id_vecino']; 
+      $new_data['tramites_list'] = 'TRAMITES ARRAY';    
+      
+      $this->load->view('tramites/tr_vecino_main',$this->data);
+      $this->load->view('tramites/show_tr_vecino',$new_data);
+      $this->load->view('tramites/tr_footer_base',$this->data);
     }
-*/
-    //$id_sector = $this->details->id_sector;
-    /*
-    $id_sector = $this->session->id_sector;
-    $new_data['tramites_list'] = '';
-    $new_data['user_enable'] = 'officer';
-    $new_data['list_reclaim_type'] = array();
+  }
 
-    $this->load->model('reclamo_tipo_m');
-*/
+  public function select_Vecino(){
+    //print_r("aca se debe mostrar la lista de seleccino de vecino por DNI");
+    $this->load->view('tramites/tr_vecino_main',$this->data);
+  }
 
-
-    $this->load->model('tramites_m');
-    $new_data['tramites_list'] = 'TRAMITES ARRAY';    
-    
-    $this->load->view('tramites/main_tr_vecino',$this->data);
-    //$this->load->view('tramites/show_tr_vecino',$new_data);
-    $this->load->view('tramites/footer_base_tr',$this->data);
+  public function create_Vecino(){
+    print_r("aca se debe mostrar el formulario para crear vecino por DNI");
   }
 
 }

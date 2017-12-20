@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="<?php echo base_url();?>assets/css/tr_eche_vecino.css">
   <!--<link rel="stylesheet" href="<?php /*echo base_url();*/?>/assets/css/bootstrap-responsive.min.css">-->
-  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/main.css">
+  <!-- <link rel="stylesheet" href="<?php // echo base_url();?>assets/css/main.css"> -->
   <!-- <script src="<?php // echo base_url();?>assets/js/vendor/jquery-3.1.1.min"></script> -->
 <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script> -->
 <script>window.jQuery || document.write('<script src="<?php echo base_url();?>assets/js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
@@ -30,29 +30,25 @@
 <div class="container">
     <div class="title-site">
       <div id="title-cav">
-        <h2 style="    float: left;">Centro de Atención al Vecino</h2>
-         <h4 style="    float: right;">Av. Sofia Terrero de Santamarina 455, Monte Grande, Buenos Aires<br>
-            estebanecheverria.gob.ar<t></t>011 4290-6800</h4>
+        <div class="row">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-2"><h2>Centro de Atención al Vecino</h2></div>
+          <div class="col-sm-6 social">
+           <h4>Av. Sofia Terrero de Santamarina 455, Monte Grande, Buenos Aires<br>
+              estebanecheverria.gob.ar  011 4290-6800</h4>
+          </div>
+          <div class="iconos col-sm-2">
+            <div class="icono">
+                <a class="addthis_button_more" title="Compartir" target="_blank" href="#">
+                    <img title="Redes" src="http://www.lanus.gob.ar/img/layout/icn-redes.png">
+                </a>
+            </div>
+            <div class="icono"><a href="http://www.lanus.gob.ar/contacto"><img title="Contacto" src="http://www.lanus.gob.ar/img/layout/icn-contacto.png"></a></div>
+          </div>
+        </div>
       </div>  
     </div>  
 
-
-      <div class="main-box">
-          <div class="top-head clearfix">
-              <a class="logo-head" href="/"></a>
-              <div class="social clearfix">
-
-                  <div class="iconos">
-                      <div class="icono">
-                          <a class="addthis_button_more" title="Compartir" target="_blank" href="#">
-                              <img title="Redes" src="http://www.lanus.gob.ar/img/layout/icn-redes.png">
-                          </a>
-                      </div>
-                      <div class="icono"><a href="http://www.lanus.gob.ar/contacto"><img title="Contacto" src="http://www.lanus.gob.ar/img/layout/icn-contacto.png"></a></div>
-                  </div>
-              </div>
-          </div>
-      </div>
 
 <!-- este div que cierra el conteiner esta en el footer  </div>
 -->
