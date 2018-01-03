@@ -2,7 +2,7 @@
 
   <?php if($vecinos_filtrados != '') {
     if( count($vecinos_filtrados) == 0){
-      echo '<h2>el vecino no esta registrado</h2>';
+      echo '<h2>Usted no esta registrado dentro del CAV</h2>';
       $this->view('tramites/registrar_vecino_nuevo');
     } else {
       echo '<h1> Vecinos Filtrados</h1>';

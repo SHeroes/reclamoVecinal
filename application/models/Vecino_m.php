@@ -50,10 +50,8 @@ class Vecino_m extends CI_Model {
   }
 
   function create_vecino($userData){
-
-
     // create_domicilio //
-    if ($userData['id_domicilio'] == null){ 
+    if (!isset($userData['id_domicilio']) or $userData['id_domicilio'] == null ) { 
       $data2['id_calle'] =    (int) $userData['calle_id'];
       $data2['altura'] =      (int) $userData['altura'];
       $data2['entrecalle1_id'] = (int) $userData['entrecalle1_id'];

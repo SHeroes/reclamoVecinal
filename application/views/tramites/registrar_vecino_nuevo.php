@@ -13,20 +13,6 @@
       <div class="col-sm-6 domicilio-data">
         <h4> Datos del Domicilio </h4>
         
-       <!--
-        <p><select type="text" class="span4 form-control" name="id_domicilio" id="id_domicilio" placeholder="id_domicilio">
-            
-          <option value="">si el domicilio ya existe seleccionarlo</option>
-            <?php 
-            /* foreach( $all_domicilios as $domicilio){
-            echo  '<option value="'. $domicilio->id_domicilio .'">'. $domicilio->calle .'  ' .  $domicilio->altura . '</option>';
-            }
-            */
-            ?>
-            </select>
-        </p>
-         si el domicilio ya existe seleccionarlo. Ej: un pariente del mismo domicilio ya se encuentra registrado 
-      -->
         <p><input type="text" class="span4 calle input-form  form-control" name="calle" id="calle" placeholder="calle" autocomplete="off" required>
             <input type="text" hidden class="hidden_id calles calle-principal" name="calle_id" value="">
         </p>
@@ -43,7 +29,7 @@
            <input type="text" hidden class="hidden_id calles" name="entrecalle2_id" value="">
         </p>
         <div class="calle input-search-result" ></div>
-
+        <p>Seleccione el Barrio al que pertenece</p>
         <p><select type="text" class="span4 required form-control" name="id_barrio" id="id_barrio" placeholder="id_barrio" autocomplete="off" required></p>
           <?php foreach( $all_barrios as $barrio){
           echo  '<option value="'. $barrio->id_barrio .'">'. $barrio->barrio. '</option>';

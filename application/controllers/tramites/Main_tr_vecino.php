@@ -10,16 +10,7 @@ class Main_tr_vecino extends CI_Controller{
    );
 
 	public function __construct(){
-		parent::__construct();
-    
-    /*
-		if( !$this->session->userdata('isLoggedIn') ) {
-	    redirect('/login/show_login');
-      print_r("hola");
-		}
-    */
-
-        
+		parent::__construct();        
 	}
 
   public function index()
@@ -40,19 +31,6 @@ class Main_tr_vecino extends CI_Controller{
       $this->load->view('tramites/tr_footer_base',$this->data);
     }
   }
-
-/*
-  public function select_Vecino(){
-    $this->load->view('tramites/tr_vecino_main',$this->data);
-    print_r("aca se debe mostrar la lista de seleccino de vecino por DNI");
-    
-    $this->load->model('vecino_m');
-
-
-    $this->load->view('tramites/tr_vecino_show',$new_data);
-    $this->load->view('tramites/tr_footer_base',$this->data);    
-  }
-*/
 
   function select_Vecino(){
     $this->load->model('domicilio_m');
@@ -118,6 +96,25 @@ class Main_tr_vecino extends CI_Controller{
 
   }
 
+  function search_calle(){
+    $this->load->model('domicilio_m');
+    $search =  $this->input->post('searchCalle');    
+    $query = $this->domicilio_m->get_calle($search);
+    echo json_encode ($query);
+  }
+
+
+
+
+  function search_domicilio_by_id_vecino(){
+    
+    $this->load->model('domicilio_m');
+    $id_vecino =  $this->input->post('id_vecino');
+    $info = $this->domicilio_m->buscar_info_domicilio_by_id_vecino($id_vecino);
+    echo json_encode ($info);
+    
+  }
+
 
   function insert_vecino() {
     echo '<script src="'. base_url() .'assets/js/vendor/jquery-1.9.0.min.js"></script>';
@@ -141,11 +138,14 @@ class Main_tr_vecino extends CI_Controller{
         <script>
         $(document).ready(function(){
           $("form#form-id-vecino-creado").submit(function(){
-              alert("Se ha Registrado al Vecino:'. $name_vecino .'correctamente, Se procede a la toma del reclamo");
+                  
           });
           $("form#form-id-vecino-creado").submit();
         });
         </script>';
+
+//alert("'. $name_vecino . 'Se ha registrado correctamente");
+
 
        //redirect('main_operator/show_main');
         //http://cav.gob/index.php/Main_tr_vecino/show_main

@@ -123,8 +123,7 @@ tr.reclamo_row.reitero5 {
 }
 
 .iconos{
-    border-left: 1px solid #9f9f9f; 
-     
+    border-left: 1px solid #9f9f9f;    
 }
 
 .social h4 {
@@ -139,4 +138,65 @@ tr.reclamo_row.reitero5 {
 }
 .icono{
     float: left;
+}
+
+.vecinos_filtrados th{
+    cursor: pointer;
+}
+
+.vecinos_filtrados td{
+    cursor: pointer;
+}
+
+.main-box .alert{
+    padding: 0px;
+}
+
+.alert .fa-exclamation {
+    border-radius: 50%;
+    background: #ed1b2f;
+    font-size: 4em;
+    color: #FFFFFF;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    padding: 3px;
+    border: 3px solid #FFFFFF;
+    position: absolute;
+    z-index: 1;
+    top: -6px;
+    left: -10px;
+}
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.alert p {
+    background: #ed1b2f;
+    padding: 0px 15px;
+    color: #FFFFFF;
+    font-size: 1.6em;
+    line-height: 1.6em;
+    font-weight: 200;
+    text-transform: uppercase;
+    width: 99%;
+    height: 33px;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.fa-exclamation:before {
+    content: "\f12a";
+}
+
+.nombre-vecino{
+    padding-top: 10px;
+    padding-left: 10px;
+    font-family: cursive;
+    border: solid 1px;
+    background-color: darkgrey;
 }

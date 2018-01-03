@@ -1,5 +1,5 @@
 <?php $this->load->view('tramites/tr_header_vecino'); ?>
-  <div class="navbar navbar-default">
+<!-- <div class="navbar navbar-default"> -->
     <div class="navbar-inner">
       <div class="container-fluid">
       <!-- notepad esta esta barra de bkp -->
@@ -10,6 +10,6 @@
       <!--/.container-fluid -->
     </div>
     <!--/.navbar-inner -->
-  </div>
+<!-- </div> -->
   <!--/.navbar -->
-  <?php $this->load->view('change_pass'); ?>
+  <?php // $this->load->view('change_pass'); ?>

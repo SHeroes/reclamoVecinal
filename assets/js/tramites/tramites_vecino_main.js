@@ -100,7 +100,7 @@
               };
           $.ajax({
            type: "post",
-           url: "/index.php/main_operator/search_calle",
+           url: "/index.php/tramites/Main_tr_vecino/search_calle",
            cache: false,    
            data: dataToSearch,
            success: calle_encontrada,
@@ -147,41 +147,7 @@
     });
   };
 
-  var DOM_elem_Required = $("#usar_domicilio_vecino").parents("#domicilio-reclamo-data").children("p").children(".required");
-  $("#usar_domicilio_vecino").change(function(){
-    if($("#usar_domicilio_vecino").prop( "checked" )){
-        var id_vecino = $($(".id_vecino").get(0)).val();
-        var dataToSearch = { id_vecino: id_vecino };
-        $.ajax({
-         type: "post",
-         url: "/index.php/main_operator/search_domicilio_by_id_vecino",
-         cache: false,    
-         data: dataToSearch,
-         success: domicilio_vecino_encontrado,
-         error: function(){      
-          alert('Error while request..');
-         }
-        }); 
-        DOM_elem_Required.each(function( index ) {
-          $(this).prop('required',false);
-          $(this).prop('disabled',true);
-          //$("#columna_electrica").prop('disabled',true);
-        }); 
-    }else{
-        DOM_elem_Required.each(function( index ) {
-          $(this).prop('required',true);
-          $(this).prop('disabled',false);
-          //$("#columna_electrica").prop('disabled',false);
-        });
-        $("#calle").val('');
-        $("#altura_inicio").val('');
-        $("#altura_fin").val('');
-        $("#entrecalle1").val('');
-        $("#entrecalle2").val('');
-        $("#id_barrio").val('');
-        $("#columna_electrica").val('');
-    }
-  });
+
 
   function domicilio_vecino_encontrado(response){
     var obj = JSON.parse(response);
@@ -201,7 +167,7 @@
       hiddenElement.attr("value", val);
       $(".reclamo-form").show();
       //alert("Se seleccionó el tipo de reclamo: " + elementoClickeado.html());
-      $(".reclamo-form").show();
+      //$(".reclamo-form").show();
 
       //elementoClickeado.addClass('info');
 
