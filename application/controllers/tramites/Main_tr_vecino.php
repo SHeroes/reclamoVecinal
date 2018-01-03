@@ -85,15 +85,13 @@ class Main_tr_vecino extends CI_Controller{
       } else { //NO HAY FILTRADOS TODAVIA, posiblemente un acceso mal por url
           redirect('tramites/Main_tr_vecino/select_Vecino');
       }
-
     } else { //NO HAY FILTRADOS TODAVIA
       redirect('tramites/Main_tr_vecino/select_Vecino');
     }
-
+    //  $new_data tiene la info del vecino seleccionado
     $this->load->view('tramites/tr_vecino_main',$this->data);
     $this->load->view('tramites/tr_vecino_chose_tramite',$new_data);
     $this->load->view('tramites/tr_footer_base',$this->data);
-
   }
 
   function search_calle(){
@@ -103,16 +101,11 @@ class Main_tr_vecino extends CI_Controller{
     echo json_encode ($query);
   }
 
-
-
-
   function search_domicilio_by_id_vecino(){
-    
     $this->load->model('domicilio_m');
     $id_vecino =  $this->input->post('id_vecino');
     $info = $this->domicilio_m->buscar_info_domicilio_by_id_vecino($id_vecino);
-    echo json_encode ($info);
-    
+    echo json_encode ($info);   
   }
 
 
@@ -143,9 +136,7 @@ class Main_tr_vecino extends CI_Controller{
           $("form#form-id-vecino-creado").submit();
         });
         </script>';
-
 //alert("'. $name_vecino . 'Se ha registrado correctamente");
-
 
        //redirect('main_operator/show_main');
         //http://cav.gob/index.php/Main_tr_vecino/show_main

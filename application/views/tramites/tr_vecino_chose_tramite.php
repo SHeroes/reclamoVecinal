@@ -11,7 +11,7 @@
   <div class="main-box">
       <div class="alert clearfix">
         <!-- <span class="fa fa-exclamation"></span> -->
-        <p><b>!</b> El Centro de Atención al Vecino (CAV) funciona de lunes a viernes de 7:30 a 12:30.</p>
+        <p><b style="font-size: 25px;">!</b> El Centro de Atención al Vecino (CAV) funciona de lunes a viernes de 7:30 a 12:30.</p>
       </div>
   </div>
 
