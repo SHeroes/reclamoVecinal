@@ -32,8 +32,8 @@
       <div id="title-cav">
         <div class="row">
           <div class="col-sm-2"></div>
-          <div class="col-sm-2"><h2>Centro de Atención al Vecino</h2></div>
-          <div class="col-sm-6 social">
+          <div class="col-sm-3"><h2>Centro de Atención al Vecino</h2></div>
+          <div class="col-sm-5 social">
            <h4>Av. Sofia Terrero de Santamarina 455, Monte Grande, Buenos Aires<br>
               estebanecheverria.gob.ar  011 4290-6800</h4>
           </div>

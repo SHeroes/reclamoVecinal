@@ -105,7 +105,21 @@ tr.reclamo_row.reitero5 {
 
 
 #title-cav h2{
-    font-size: 1em;
+    font-size: 25px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+#title-cav h4{
+    
+}
+
+#title-cav .iconos{
+    margin-top: 30px;
+}
+
+#title-cav .social{
+    margin-top: 20px;
 }
 
 .iconos{
