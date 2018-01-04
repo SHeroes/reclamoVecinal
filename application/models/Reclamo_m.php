@@ -40,7 +40,8 @@ class Reclamo_m extends CI_Model {
     isset($userData['redes_sociales']) ?        $data3['redes_sociales'] = true :        $data3['redes_sociales'] = false;
 
     $data3['comentarios'] = $userData['comentarios'];
-
+    //$data3['observaciones'] = '';
+     isset($userData['domicilio_restringido']) ? $data3['domicilio_restringido'] = true : $data3['domicilio_restringido'] = false ;
     $currentYear =  date('Y');
 
     
@@ -53,8 +54,7 @@ class Reclamo_m extends CI_Model {
     $int_reclamo = 10001 + $cantidad_reclamos_delAnio;
     $cod_reclamo = '00' . $int_reclamo . '/' . $currentYear;
     $data3['codigo_reclamo'] = $cod_reclamo;
-    //$data3['observaciones'] = '';
-     isset($userData['domicilio_restringido']) ? $data3['domicilio_restringido'] = true : $data3['domicilio_restringido'] = false ;
+
 
     $idReclamogregado = $this->db->insert('reclamos',$data3);
 
