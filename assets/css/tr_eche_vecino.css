@@ -108,6 +108,10 @@ tr.reclamo_row.reitero5 {
     font-size: 25px;
     margin-top: 25px;
     margin-bottom: 25px;
+    font-family: inherit;
+    margin-left: -35px;
+    font-style: inherit;
+    font-weight: 100;
 }
 
 #title-cav h4{
@@ -199,4 +203,30 @@ tr.reclamo_row.reitero5 {
     font-family: cursive;
     border: solid 1px;
     background-color: darkgrey;
+}
+.calle.input-search-result{
+  background-color: #dfdcbf;
+  margin-bottom: 10px;
+}
+.calle.input-search-result div{
+      border-bottom: 1px solid white;
+}
+.calle.input-search-result div:hover{
+  font-weight: 600;
+}
+
+.calle.input-search-result .hover{
+  font-weight: 600;
+}
+.container h1, .container h2{
+    font-family: monospace;
+    font-style: italic;
+    font-weight: 600;
+    margin: 20px 10px;
+}
+.container h1{
+
+}
+.container h2{
+
 }

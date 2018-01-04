@@ -12,7 +12,7 @@
         echo  '<tr class="vecinos_filtrados"><th scope="row" id-value="'.$vecino->id_vecino .'">'. $vecino->DNI.'</th>'.
               '<td>'.$vecino->Apellido.'</td>'.
               '<td>'.$vecino->Nombre.'</td>'.
-              '<td>'.$vecino->calle . $vecino->altura.'</td>'.
+              '<td>'.$vecino->calle .'  '. $vecino->altura.'</td>'.
               '<td>'.$vecino->mail.'</td><td></td>';
       }
       echo '  </tbody></table>';
