@@ -15,22 +15,41 @@ class Main_tr_vecino extends CI_Controller{
 
   public function index()
   {
-    $info = $this->input->post(null,true);
-    if( !isset($info['id_vecino']) ){
-      // no se recibio post 
-      redirect('/tramites/Main_tr_vecino/select_Vecino');
-    }else{
-      // muestro las opciones para que elijan los tramites
-
-      $this->load->model('tramites_m');
-      $new_data['id_vecino'] = $info['id_vecino']; 
-      $new_data['tramites_list'] = 'TRAMITES ARRAY';    
-      
-      $this->load->view('tramites/tr_vecino_main',$this->data);
-      //$this->load->view('tramites/show_tr_vecino',$new_data);
-      $this->load->view('tramites/tr_footer_base',$this->data);
-    }
+    redirect('/tramites/Main_tr_vecino/select_Vecino');
   }
+
+  function show_ttr(){
+    $get = $this->input->get(null,true);
+    if(!isset($get['id_vecino']) OR !isset($get['ttr'])){
+      redirect('/tramites/Main_tr_vecino/select_Vecino');
+    }
+    print_r("show_ttr");
+  }
+
+  function show_group(){
+    $get = $this->input->get(null,true);
+    if(!isset($get['id_vecino']) OR !isset($get['grupo'])){
+      redirect('/tramites/Main_tr_vecino/select_Vecino');
+    }
+    print_r("show_group");   
+  }
+
+  function show_organismos(){
+    $get = $this->input->get(null,true);
+    if(!isset($get['id_vecino'])){
+      redirect('/tramites/Main_tr_vecino/select_Vecino');
+    }
+        print_r("show_organismos");   
+  }
+
+  function show_temas(){
+    $get = $this->input->get(null,true);
+    if(!isset($get['id_vecino'])){
+      redirect('/tramites/Main_tr_vecino/select_Vecino');
+    }
+            print_r("show_temas");
+  }
+
 
   function select_Vecino(){
     $this->load->model('domicilio_m');
@@ -59,10 +78,6 @@ class Main_tr_vecino extends CI_Controller{
 
   function show_main() {
 
-    $this->load->model('sector_m');
-    $this->load->model('domicilio_m');
-    $this->load->model('vecino_m');
-
     $new_data['vecinos_filtrados'] = '';
   
     $new_data['id_vecino'] = '';
@@ -89,9 +104,17 @@ class Main_tr_vecino extends CI_Controller{
       redirect('tramites/Main_tr_vecino/select_Vecino');
     }
     //  $new_data tiene la info del vecino seleccionado
+    $this->load->model('tramites_m');
+    $ttr = $new_data['tipoTramites'] = $this->tramites_m->get_all_tipo_tramites_order_by_grupo();
+    
+    $new_data['grupos'] = $this->tramites_m->get_all_grupos();
+  //  print_r($new_data['grupos']);
+
+
+
     $this->load->view('tramites/tr_vecino_main',$this->data);
     $this->load->view('tramites/tr_vecino_chose_tramite',$new_data);
-    $this->load->view('tramites/tr_footer_base',$this->data);
+    $this->load->view('tramites/tr_footer',$this->data);
   }
 
   function search_calle(){

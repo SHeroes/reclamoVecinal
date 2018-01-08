@@ -39,11 +39,11 @@
           </div>
           <div class="iconos col-sm-2">
             <div class="icono">
-                <a class="addthis_button_more" title="Compartir" target="_blank" href="#">
-                    <img title="Redes" src="http://www.lanus.gob.ar/img/layout/icn-redes.png">
+                <a class="addthis_button_more" title="Compartir" target="_blank" href="/index.php/tramites/Main_tr_vecino/redes">
+                    <img title="Redes" src="/assets/img/icn-redes.png">
                 </a>
             </div>
-            <div class="icono"><a href="http://www.lanus.gob.ar/contacto"><img title="Contacto" src="http://www.lanus.gob.ar/img/layout/icn-contacto.png"></a></div>
+            <div class="icono"><a href="/index.php/tramites/Main_tr_vecino/contacto"><img title="Contacto" src="/assets/img/icn-contacto.png"></a></div>
           </div>
         </div>
       </div>  

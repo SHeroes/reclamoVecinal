@@ -144,6 +144,10 @@ tr.reclamo_row.reitero5 {
     float: left;
 }
 
+tr.vecinos_filtrados:hover{
+    color:red;
+    font-weight: bold;
+}
 .vecinos_filtrados th{
     cursor: pointer;
 }
@@ -229,4 +233,102 @@ tr.reclamo_row.reitero5 {
 }
 .container h2{
 
+}
+
+#tramite-selector-bar{
+    position: absolute;
+    left: 0px;
+    padding: 20px;
+    padding-left: 15%;
+    background-color: #eceded;
+    width: 100%;
+}
+#tramite-selector-bar-space{
+    margin-top: 73px;
+}
+
+#tramite-selector-bar .link-orange a{
+    background-color: #f1592a;
+    text-decoration: none;
+    font-size: 14px;
+    /* text-transform: capitalize; */
+    color: white;
+    /* padding: 10px; */
+    /* margin-top: 20px; */
+    position: relative;
+    top: 9px;
+    padding: 5px 30px;
+}
+
+#selector_ttr select{
+    text-transform: uppercase;
+    /* font-weight: 600; */
+    color: black;
+}
+
+.vecino_chose_tramite .heading h4{
+    font-size: 24px;
+    background-color: darkred;
+    color: white;
+    border-radius: 10px;
+    padding: 5px 5px 5px 15px;
+}
+
+.vecino_chose_tramite .heading a{
+    color: white;
+    font-family: sans-serif;
+}
+
+.vecino_chose_tramite .heading a:hover{
+    color: lightgray;
+    text-decoration: none;
+}
+
+
+.glyphicon.Vecino:before {
+    content: "\e008";
+}
+.glyphicon.Comercio:before {
+    content: "\e148";
+}
+.glyphicon.Transporte:before {
+    content: "\e108";
+}
+.glyphicon.Sociales:before {
+    content: "\e135";
+}
+
+ul.grup-tramite-list{
+
+}
+ul.grup-tramite-list li{
+    padding: 9px;
+    font-size: 22px;
+}
+ul.grup-tramite-list a{
+    color: grey;
+    font-size: 22px;
+    font-family: monospace;
+    text-decoration: unset;
+    text-transform: uppercase;    
+}
+ul.grup-tramite-list a:hover{
+    color:black;
+}
+
+
+
+
+
+footer{
+    position: absolute;
+    left: 0px;
+    padding: 20px;
+    padding-left: 15%;
+    background-color: #404041;
+    width: 100%;
+}
+
+footer .textwidget{
+    color:white;
 }

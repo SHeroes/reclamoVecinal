@@ -3,10 +3,23 @@
 
 class Tramites_m extends CI_Model {
 
+    function get_all_grupos(){
+      $this->db->from('tr_grupos');
+      $grupos = $this->db->get()->result();
+      return $grupos;
+    }
+    
     function get_all_tipo_tramites(){
       $this->db->from('tr_tipo_tramite');
-      $tiporeclamo = $this->db->get()->result();
-      return $tiporeclamo;
+      $tipo_tramites = $this->db->get()->result();
+      return $tipo_tramites;
+    }
+
+    function get_all_tipo_tramites_order_by_grupo(){
+      $this->db->from('tr_tipo_tramite');
+      $this->db->order_by('tr_grupo_id', 'asc');
+      $tipo_tramites = $this->db->get()->result();
+      return $tipo_tramites;
     }
 
     function get_all_pasos(){
@@ -65,11 +78,6 @@ class Tramites_m extends CI_Model {
       return $this->db->insert('tr_formularios',$data);
     }
 
-    function get_all_grupos(){
-      $this->db->from('tr_grupos');
-      $grupos = $this->db->get()->result();
-      return $grupos;
-    }
 
 /*
     function get_all_tipo_reclamos(){
