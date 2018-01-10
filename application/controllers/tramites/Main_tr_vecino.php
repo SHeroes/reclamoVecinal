@@ -18,13 +18,45 @@ class Main_tr_vecino extends CI_Controller{
     redirect('/tramites/Main_tr_vecino/select_Vecino');
   }
 
+
+
+
+
   function show_ttr(){
     $get = $this->input->get(null,true);
     if(!isset($get['id_vecino']) OR !isset($get['ttr'])){
       redirect('/tramites/Main_tr_vecino/select_Vecino');
     }
-    print_r("show_ttr");
+
+    $ttr_id = $get['ttr'];
+    $this->load->model('tramites_m');
+    $new_data['id_vecino'] = $get['id_vecino'];
+    $new_data['ttr'] = $get['ttr'];
+    $new_data['ttr_data'] = $this->tramites_m->get_ttr_by_id($ttr_id);
+    
+    //pasos que corresponden al tramite elegido  
+    $new_data['pasos'] = $this->tramites_m->get_pasos_by_ttr_id($ttr_id);
+
+    //formularios que corresponden al tramite elegido
+    $new_data['formularios'] = $this->tramites_m->get_formularios_by_ttrId($ttr_id);
+
+
+    $this->load->view('tramites/tr_vecino_main',$this->data);
+    $this->load->view('tramites/tr_show_ttr',$new_data);
+    $this->load->view('tramites/tr_footer',$this->data);
   }
+
+
+
+
+
+
+
+
+
+
+
+
 
   function show_group(){
     $get = $this->input->get(null,true);
@@ -131,6 +163,16 @@ class Main_tr_vecino extends CI_Controller{
     echo json_encode ($info);   
   }
 
+  function inciar_tramite(){
+    $id_vecino =  $this->input->post('id_vecino');
+    $ttr =  $this->input->post('ttr');
+    $this->load->model('tramites_m');
+    $info = $this->tramites_m->insertar_tramite($id_vecino,$ttr);
+    echo ' <script>
+          alert("tramite inciado - Nro: ' .$info .'.           Ahora dirijase a la oficina correspondiente");
+        </script>';
+    redirect('tramites/Main_tr_vecino/select_Vecino');
+  }
 
   function insert_vecino() {
     echo '<script src="'. base_url() .'assets/js/vendor/jquery-1.9.0.min.js"></script>';

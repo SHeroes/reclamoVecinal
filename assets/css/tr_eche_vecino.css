@@ -316,9 +316,80 @@ ul.grup-tramite-list a:hover{
     color:black;
 }
 
+.show-ttr h2, .show-ttr h3{
+    color: #de1f49;
+    font-weight: 800;
+    font-family: sans-serif;
+    font-style: initial;    
+}
+.show-ttr h3{
+    font-size: 30px;
+}
 
+.show-ttr h2{
+    font-size: 38px;
+    margin: 20px 0 20px 0;
+    text-transform: capitalize;
+}
+.show-ttr h4{
+    
+}
 
+.paso-paso .num{
+    background: #de1f49;
+    border-radius: 50%;
+    padding: 9px;
+    color: #FFFFFF;
+    width: 47px;
+    font-size: 2em;
+    line-height: 1em;
+    font-weight: 900;
+    height: 47px;
+    text-align: center;
+    float: left;
+    margin: 0 10px 10px 0;
+}
 
+.paso-paso .paso-titulos{
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.paso-paso .paso-content{
+    font-size: 18px;
+    font-style: italic;
+}
+
+.paso-paso .checklist{
+    margin-top: 10px;
+    font-family: monospace;
+    margin-left: 70px;
+}
+.paso-paso span{
+    margin-left: 70px;
+}
+.paso-paso h6{
+    margin-left: 70px;
+    color: black;
+    font-weight: bold;
+}
+.paso-paso a{
+    color: #AAA;
+}
+
+.paso {
+    margin: 5px 0px 25px 0px;
+    border-bottom: solid 1px #888;
+    padding-bottom: 10px;
+}
+
+#form-iniciarTramite{
+    margin: 40px 0px 30px 10px;
+}
+#form-iniciarTramite .btn{
+    margin: 40px 0px 40px 40px;
+}
 
 footer{
     position: absolute;

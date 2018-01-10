@@ -3,12 +3,46 @@
 
 class Tramites_m extends CI_Model {
 
+    function get_pasos_by_ttr_id($ttr_id){
+      $str_query = "
+      SELECT * 
+      FROM tr_tipo_tramite ttr, tr_pasos_x_tipo_tramite pxt, tr_paso, sectores
+      WHERE ttr.id = pxt.tr_tipo_tramite_id AND
+          tr_paso.id = pxt.tr_paso_id AND
+          sectores.id_sector = tr_paso.id_sector AND
+              ttr.id = '".$ttr_id."'
+      ORDER BY orden asc";
+      $query = $this->db->query($str_query);
+
+      return $query->result_array();
+    }
+
+    function get_formularios_by_ttrId($ttr_id){
+      $str_query = "
+      SELECT tr_formularios.*
+      FROM tr_pasos_x_tipo_tramite pxt, tr_paso, tr_formularios
+      WHERE  pxt.tr_tipo_tramite_id = '".$ttr_id."' AND
+          tr_paso.id = pxt.tr_paso_id AND
+      tr_formularios.tr_paso_id = tr_paso.id
+      ";
+      $query = $this->db->query($str_query);
+
+      return $query->result_array();     
+    }
+
+    function get_ttr_by_id($ttr_id){
+      $this->db->from('tr_tipo_tramite');
+      $this->db->where('id',$ttr_id);
+      $info = $this->db->get()->result();
+      return $info;
+    }
+
     function get_all_grupos(){
       $this->db->from('tr_grupos');
       $grupos = $this->db->get()->result();
       return $grupos;
     }
-    
+
     function get_all_tipo_tramites(){
       $this->db->from('tr_tipo_tramite');
       $tipo_tramites = $this->db->get()->result();
@@ -33,6 +67,16 @@ class Tramites_m extends CI_Model {
       $this->db->order_by('id', 'desc');
       $pasos = $this->db->get()->result();
       return $pasos;
+    }
+
+    function insertar_tramite($id_vecino, $ttr){
+      $data['id_vecino'] =          $id_vecino;
+      $data['pasos_completados'] =  0;
+      $data['obs'] = '';
+      $data['tr_tipo_tramite_id'] =    $ttr;      
+      $data['tr_fecha_tramite'] = date('Y-m-d H:i:s',time());
+      $this->db->insert('tr_tramite',$data);
+      return $id_tipo_tramite = $this->db->insert_id();
     }
 
     function insertar_tipo_tramite($array_id_ubicacion,$array_id_tiempo,$array_info){

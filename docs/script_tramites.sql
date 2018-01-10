@@ -185,5 +185,13 @@ INSERT INTO `dbcav`.`tr_grupos` (`id`, `nombre`) VALUES ('2', 'Comercio');
 INSERT INTO `dbcav`.`tr_grupos` (`id`, `nombre`) VALUES ('3', 'Transporte');
 INSERT INTO `dbcav`.`tr_grupos` (`id`, `nombre`) VALUES ('4', 'Tramites Sociales');
 
+/* 10/01/2018				*/
+
+ALTER TABLE `dbcav`.`tr_tramite` 
+CHANGE COLUMN `desc` `obs` TEXT NULL DEFAULT NULL ;
+
+ALTER TABLE `dbcav`.`tr_tramite` 
+ADD COLUMN `tr_fecha_tramite` DATETIME NOT NULL AFTER `tr_tipo_tramite_id`;
+
 
 
