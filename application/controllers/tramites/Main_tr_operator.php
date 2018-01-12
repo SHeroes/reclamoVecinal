@@ -21,25 +21,16 @@ class Main_tr_operator extends CI_Controller{
 
   public function index()
   {
+
     if($this->basic_level() != 13) {
       $this->load->view('restricted',$this->data);
       return ;
     }
 
-    //$id_sector = $this->details->id_sector;
-    /*
-    $id_sector = $this->session->id_sector;
-    $new_data['tramites_list'] = '';
-    $new_data['user_enable'] = 'officer';
-    $new_data['list_reclaim_type'] = array();
-
-    $this->load->model('reclamo_tipo_m');
-*/
-
     $this->load->model('tramites_m');
     $new_data['tramites_list'] = 'TRAMITES ARRAY';    
-    $this->load->view('tramites/main_tr_office',$this->data);
-    $this->load->view('tramites/show_tr_office',$new_data);
+    $this->load->view('tramites/tr_office_main',$this->data);
+    $this->load->view('tramites/tr_office_show',$new_data);
     $this->load->view('footer_base',$this->data);
 
   }
@@ -72,7 +63,8 @@ class Main_tr_operator extends CI_Controller{
             redirect('/main_supervisor/show_main'); 
             break;            
         case 5: 
-            $this->data['perfil'] = 'Intendente';  
+            $this->data['perfil'] = 'Intendente';
+            //no esta hecho el perfil de intendente todavia
             break;
         case 13: // OPARADOR TRAMITES
             $this->data['perfil'] = 'Operador Tramites';

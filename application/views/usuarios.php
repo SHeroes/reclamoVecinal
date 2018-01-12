@@ -63,6 +63,7 @@
                 <option value="3">Operador</option>
                 <option value="4">Supervisor del CAV</option>
                 <option value="5">Intendente</option>
+                <option value="13">Operador Tramites</option>                
               </select>
             </p>
             <p><input type="password" class="span4" name="password" id="password" placeholder="Password"></p>
@@ -107,7 +108,9 @@
                 <option value="1">Secretario</option>
                 <option value="2">Usuario Oficina</option>
                 <option value="3">Operador</option>
-                <option value="4">Intendente</option>
+                <option value="4">Supervisor del CAV</option>
+                <option value="5">Intendente</option>
+                <option value="13">Operador Tramites</option>
               </select>
             </p>
             <p><input type="password" class="span4 required" name="password" id="password" placeholder="Password" required></p>

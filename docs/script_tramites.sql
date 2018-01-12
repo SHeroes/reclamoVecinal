@@ -194,4 +194,9 @@ ALTER TABLE `dbcav`.`tr_tramite`
 ADD COLUMN `tr_fecha_tramite` DATETIME NOT NULL AFTER `tr_tipo_tramite_id`;
 
 
+ALTER TABLE `dbcav`.`tr_tramite` 
+ADD COLUMN `pasos_totales_al_incio` INT(1) NOT NULL AFTER `pasos_completados`,
+ADD COLUMN `tr_fecha_cierre` DATETIME NULL DEFAULT NULL AFTER `tr_fecha_tramite`;
+
+
 

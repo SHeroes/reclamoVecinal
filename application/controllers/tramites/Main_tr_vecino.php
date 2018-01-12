@@ -170,8 +170,8 @@ class Main_tr_vecino extends CI_Controller{
     $info = $this->tramites_m->insertar_tramite($id_vecino,$ttr);
     echo ' <script>
           alert("tramite inciado - Nro: ' .$info .'.           Ahora dirijase a la oficina correspondiente");
+          window.location.replace("select_Vecino"); 
         </script>';
-    redirect('tramites/Main_tr_vecino/select_Vecino');
   }
 
   function insert_vecino() {
