@@ -86,11 +86,12 @@
 
     if(count($reclamos_list) > 0){
       echo '<table class="table"><thead class="thead-inverse">        <tr id="header-table">
-      <th>Código Reclamo</th><th>Fecha Alta</th><th>Barrio</th><th>Calle</th><th>Nº</th><th>Título</th><th>Rta. hs</th><th>Estado</th><th>Reasignable</th><th>CAV</th><th>Obs.</th><th>Vecino</th> </tr>        </thead><tbody>';
+      <th>Código Reclamo</th><th>Fecha Alta</th><th>Localidad</th><th>Barrios</th><th>Calle</th><th>Nº</th><th>Título</th><th>Rta. hs</th><th>Estado</th><th>Reasignable</th><th>CAV</th><th>Obs.</th><th>Vecino</th> </tr>        </thead><tbody>';
       foreach ($reclamos_list as $rec) {
         echo  '<tr class="reclamo_row">
                 <th scope="row" class="CSV" horario="-'.$rec['molestar_dia_hs'].'" id_reclamo="'.$rec['id_reclamo'].'"value="'. $rec['id_vecino'].' ">'. $rec['codigo_reclamo'] .'</th>'.
             '<td class="CSV">'.$rec['fecha_alta_reclamo'].'</td>'.
+            '<td class="CSV">'.$rec['localidades'].'</td>'.
             '<td class="CSV">'.$rec['barrio'].'</td>'.
             '<td class="CSV">'.$rec['calle'].'</td>'.
             '<td class="CSV">'.$rec['altura'].'</td>'.

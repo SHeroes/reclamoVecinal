@@ -301,8 +301,8 @@ class Reclamo_m extends CI_Model {
 
     //print_r($string_sectores);
 
-    $str_query = 'SELECT id_reclamo, reclamos.id_vecino, codigo_reclamo, fecha_alta_reclamo, barrios.barrio ,calles.calle, domicilio.altura , tiporeclamo.titulo , tiporeclamo.tiempo_respuesta_hs , domicilio_restringido,  estado, comentarios, molestar_dia_hs
-    FROM reclamos, domicilio, tiporeclamo, calles, barrios, usuariosxsector, sectores , vecino
+    $str_query = 'SELECT id_reclamo, reclamos.id_vecino, codigo_reclamo, fecha_alta_reclamo,barrios.barrio ,localidades.localidades ,calles.calle, domicilio.altura , tiporeclamo.titulo , tiporeclamo.tiempo_respuesta_hs , domicilio_restringido,  estado, comentarios, molestar_dia_hs
+    FROM reclamos, domicilio, tiporeclamo, calles, localidades, usuariosxsector, sectores , vecino , localidadxcalle, barrios
     WHERE reclamos.id_tipo_reclamo = tiporeclamo.id_tipo_reclamo
     AND reclamos.id_vecino = vecino.id_vecino
     AND tiporeclamo.id_responsable = usuariosxsector.id_usuario'.
@@ -310,7 +310,10 @@ class Reclamo_m extends CI_Model {
     AND usuariosxsector.id_sector = sectores.id_sector
     AND reclamos.id_dom_reclamo = domicilio.id_domicilio
     AND domicilio.id_calle = calles.id_calle
-    AND domicilio.id_barrio = barrios.id_barrio '. $cond_str .'
+    AND domicilio.id_barrio = barrios.id_barrio
+    AND domicilio.id_calle = localidadxcalle.id_calle
+    AND localidadxcalle.id_loc = localidades.id_localidad
+    '. $cond_str .'
     ORDER BY fecha_alta_reclamo ASC;';
 
     $query = $this->db->query($str_query);
