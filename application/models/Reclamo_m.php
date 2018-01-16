@@ -132,7 +132,15 @@ class Reclamo_m extends CI_Model {
 
   function get_all_reclamos_con_vecino_by($column,$value){
 
-    $value != '' ? $cond_str = " AND ".$column." = '".$value."' " : $cond_str = " AND reclamos.estado != 'Solucionado' AND reclamos.estado != 'Gestionado'  ";
+    $arrayName = array();
+
+    //$value != '' ? $cond_str = " AND ".$column." = '".$value."' " : $cond_str = " AND reclamos.estado != 'Solucionado' AND reclamos.estado != 'Gestionado'  ";
+
+    if ($value != '' ){
+      $cond_str = " AND ".$column." = '".$value."' "; }
+    else{
+          return $arrayName;
+     } ;
     if ($column != 'estado'){ $cond_str = " AND ".$column." LIKE '%".$value."%'" ;}
 
     $str_query = 'SELECT id_reclamo, vecino.id_vecino, codigo_reclamo, fecha_alta_reclamo, tiporeclamo.titulo , tiempo_respuesta_hs , domicilio_restringido,  estado,comentarios, Apellido, DNI, reitero, flag_imagenes, calles.calle , domicilio.altura
@@ -141,8 +149,7 @@ class Reclamo_m extends CI_Model {
     AND domicilio.id_domicilio = reclamos.id_dom_reclamo
     AND calles.id_calle = domicilio.id_calle 
     AND reclamos.id_vecino = vecino.id_vecino '. $cond_str .'
-    ORDER BY fecha_alta_reclamo DESC
-    Limit 200; ';
+    ORDER BY fecha_alta_reclamo ASC';
     /* los datos del titular se buscar por ajax al darle click */
 
     $query = $this->db->query($str_query);
@@ -263,8 +270,10 @@ class Reclamo_m extends CI_Model {
       if ($value != '' ) $cond_str = " AND reclamos.".$column." = '".$value."' ";
       //print_r($cond_str);
     }else{
-      $cond_str = " AND reclamos.estado != 'Solucionado' AND reclamos.estado != 'Gestionado' ";
-      //print_r($cond_str);
+
+      // $cond_str = " AND reclamos.estado != 'Solucionado' AND reclamos.estado != 'Gestionado' ";
+       $cond_str = " AND reclamos.estado = 'no quiero ninguno'";
+
     }
 
 
