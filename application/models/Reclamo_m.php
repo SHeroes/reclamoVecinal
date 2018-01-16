@@ -141,7 +141,8 @@ class Reclamo_m extends CI_Model {
     AND domicilio.id_domicilio = reclamos.id_dom_reclamo
     AND calles.id_calle = domicilio.id_calle 
     AND reclamos.id_vecino = vecino.id_vecino '. $cond_str .'
-    ORDER BY fecha_alta_reclamo ASC;';
+    ORDER BY fecha_alta_reclamo DESC
+    Limit 200; ';
     /* los datos del titular se buscar por ajax al darle click */
 
     $query = $this->db->query($str_query);
