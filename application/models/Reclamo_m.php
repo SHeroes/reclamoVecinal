@@ -266,7 +266,7 @@ class Reclamo_m extends CI_Model {
 
   function get_all_reclamos_for_supervisor($column,$value,$of_filter, $sec_filter,$fecha_desde, $fecha_hasta, $typeReclamo, $responsable_id, $nro_rec, $apellido, $dni){
     $cond_str = '';
-    if ($value != '' or $fecha_desde != '' or $fecha_hasta != '' or $typeReclamo != '' or $nro_rec != '' or $apellido != '' or $dni != ''){
+    if ($value != '' or $fecha_desde != '' or $fecha_hasta != '' or $typeReclamo != '' or $nro_rec != '' or $apellido != '' or $dni != '' or $sec_filter != '' or $of_filter != ''){
       if ($value != '' ) $cond_str = " AND reclamos.".$column." = '".$value."' ";
       //print_r($cond_str);
     }else{
