@@ -40,8 +40,8 @@ class Reclamo_m extends CI_Model {
     isset($userData['redes_sociales']) ?        $data3['redes_sociales'] = true :        $data3['redes_sociales'] = false;
 
     $data3['comentarios'] = $userData['comentarios'];
-     isset($userData['domicilio_restringido']) ? $data3['domicilio_restringido'] = true : $data3['domicilio_restringido'] = false ;
 
+     isset($userData['domicilio_restringido']) ? $data3['domicilio_restringido'] = true : $data3['domicilio_restringido'] = false ;
     $currentYear =  date('Y');
 
     
@@ -54,7 +54,6 @@ class Reclamo_m extends CI_Model {
     $int_reclamo = 10001 + $cantidad_reclamos_delAnio;
     $cod_reclamo = '00' . $int_reclamo . '/' . $currentYear;
     $data3['codigo_reclamo'] = $cod_reclamo;
-    //$data3['observaciones'] = '';
 
     $idReclamogregado = $this->db->insert('reclamos',$data3);
 
@@ -132,7 +131,15 @@ class Reclamo_m extends CI_Model {
 
   function get_all_reclamos_con_vecino_by($column,$value){
 
-    $value != '' ? $cond_str = " AND ".$column." = '".$value."' " : $cond_str = " AND reclamos.estado != 'Solucionado' AND reclamos.estado != 'Gestionado'  ";
+    $arrayName = array();
+
+    //$value != '' ? $cond_str = " AND ".$column." = '".$value."' " : $cond_str = " AND reclamos.estado != 'Solucionado' AND reclamos.estado != 'Gestionado'  ";
+
+    if ($value != '' ){
+      $cond_str = " AND ".$column." = '".$value."' "; }
+    else{
+          return $arrayName;
+     } ;
     if ($column != 'estado'){ $cond_str = " AND ".$column." LIKE '%".$value."%'" ;}
 
     $str_query = 'SELECT id_reclamo, vecino.id_vecino, codigo_reclamo, fecha_alta_reclamo, tiporeclamo.titulo , tiempo_respuesta_hs , domicilio_restringido,  estado,comentarios, Apellido, DNI, reitero, flag_imagenes, calles.calle , domicilio.altura
@@ -141,7 +148,7 @@ class Reclamo_m extends CI_Model {
     AND domicilio.id_domicilio = reclamos.id_dom_reclamo
     AND calles.id_calle = domicilio.id_calle 
     AND reclamos.id_vecino = vecino.id_vecino '. $cond_str .'
-    ORDER BY fecha_alta_reclamo ASC;';
+    ORDER BY fecha_alta_reclamo ASC';
     /* los datos del titular se buscar por ajax al darle click */
 
     $query = $this->db->query($str_query);
@@ -258,12 +265,14 @@ class Reclamo_m extends CI_Model {
 
   function get_all_reclamos_for_supervisor($column,$value,$of_filter, $sec_filter,$fecha_desde, $fecha_hasta, $typeReclamo, $responsable_id, $nro_rec, $apellido, $dni){
     $cond_str = '';
-    if ($value != '' or $fecha_desde != '' or $fecha_hasta != '' or $typeReclamo != '' or $nro_rec != '' or $apellido != '' or $dni != ''){
+    if ($value != '' or $fecha_desde != '' or $fecha_hasta != '' or $typeReclamo != '' or $nro_rec != '' or $apellido != '' or $dni != '' or $sec_filter != '' or $of_filter != ''){
       if ($value != '' ) $cond_str = " AND reclamos.".$column." = '".$value."' ";
       //print_r($cond_str);
     }else{
-      $cond_str = " AND reclamos.estado != 'Solucionado' AND reclamos.estado != 'Gestionado' ";
-      //print_r($cond_str);
+
+      // $cond_str = " AND reclamos.estado != 'Solucionado' AND reclamos.estado != 'Gestionado' ";
+       $cond_str = " AND reclamos.estado = 'no quiero ninguno'";
+
     }
 
 
@@ -301,8 +310,8 @@ class Reclamo_m extends CI_Model {
 
     //print_r($string_sectores);
 
-    $str_query = 'SELECT id_reclamo, reclamos.id_vecino, codigo_reclamo, fecha_alta_reclamo, barrios.barrio ,calles.calle, domicilio.altura , tiporeclamo.titulo , tiporeclamo.tiempo_respuesta_hs , domicilio_restringido,  estado, comentarios, molestar_dia_hs
-    FROM reclamos, domicilio, tiporeclamo, calles, barrios, usuariosxsector, sectores , vecino
+    $str_query = 'SELECT id_reclamo, reclamos.id_vecino, codigo_reclamo, fecha_alta_reclamo,barrios.barrio ,localidades.localidades ,calles.calle, domicilio.altura , tiporeclamo.titulo , tiporeclamo.tiempo_respuesta_hs , domicilio_restringido,  estado, comentarios, molestar_dia_hs
+    FROM reclamos, domicilio, tiporeclamo, calles, localidades, usuariosxsector, sectores , vecino , localidadxcalle, barrios
     WHERE reclamos.id_tipo_reclamo = tiporeclamo.id_tipo_reclamo
     AND reclamos.id_vecino = vecino.id_vecino
     AND tiporeclamo.id_responsable = usuariosxsector.id_usuario'.
@@ -310,7 +319,10 @@ class Reclamo_m extends CI_Model {
     AND usuariosxsector.id_sector = sectores.id_sector
     AND reclamos.id_dom_reclamo = domicilio.id_domicilio
     AND domicilio.id_calle = calles.id_calle
-    AND domicilio.id_barrio = barrios.id_barrio '. $cond_str .'
+    AND domicilio.id_barrio = barrios.id_barrio
+    AND domicilio.id_calle = localidadxcalle.id_calle
+    AND localidadxcalle.id_loc = localidades.id_localidad
+    '. $cond_str .'
     ORDER BY fecha_alta_reclamo ASC;';
 
     $query = $this->db->query($str_query);
