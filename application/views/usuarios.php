@@ -66,8 +66,7 @@
                 <option value="13">Operador Tramites</option>                
               </select>
             </p>
-            <p><input type="password" class="span4" name="password" id="password" placeholder="Password"></p>
-            <p><input type="password" class="span4" name="password2" id="password2" placeholder="Confirm Password"></p>
+            <p><input type="password" class="span4 password" name="password"  placeholder="Password"></p>
             
         </div>
         <div class="">
@@ -113,8 +112,7 @@
                 <option value="13">Operador Tramites</option>
               </select>
             </p>
-            <p><input type="password" class="span4 required" name="password" id="password" placeholder="Password" required></p>
-            <p><input type="password" class="span4 required" name="password2" id="password2" placeholder="Confirm Password" required></p>
+            <p><input type="password" class="span4 required password" name="password" placeholder="Password" required></p>
             
         </div>
         <div class="">

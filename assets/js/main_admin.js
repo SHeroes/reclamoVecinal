@@ -68,8 +68,7 @@ $(function () {
         email       : $('#new-user #email').val(),
         perfil_level: $('#new-user #teamId').val(),
         miembro_sector: $('#new-user #miembro_sector').val(),
-        password1   : $('#new-user #password').val(),
-        password2   : $('#new-user #password2').val()
+        password1   : $('#new-user .password').val()
       };
       // TODO: Client-side validation goes here
 
@@ -105,8 +104,7 @@ $(function () {
           email       : $('#mod-user #email').val(),
           perfil_level: $('#mod-user #teamId').val(),
           miembro_sector: $('#mod-user #miembro_sector').val(),
-          password1   : $('#mod-user #password').val(),
-          password2   : $('#mod-user #password2').val()
+          password1   : $('#mod-user .password').val()
         };
         // TODO: Client-side validation goes here
 
