@@ -10,7 +10,7 @@
         <div class="col-sm-4" id="inputs-tipo-tramite">
           <p><input class="form-control" name="titulo" placeholder="titulo" required/></p>
           <p><textarea class="form-control" name="descripcion" placeholder="descripcion" ></textarea> </p>
-          <p><select type="text" class="span4 form-control" name="grupo" id="grupo_selector">        
+          <p><br><b>Grupo al pertenecerá el tipo de tramite: </b></p><p><select type="text" class="span4 form-control" name="grupo" id="grupo_selector">
             <?php 
             foreach($grupos as $grupo_elemento){
               echo  '<option value="'.$grupo_elemento->id.'">'. $grupo_elemento->nombre.'</option>';
