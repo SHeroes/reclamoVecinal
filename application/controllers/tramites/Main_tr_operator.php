@@ -28,12 +28,48 @@ class Main_tr_operator extends CI_Controller{
     }
 
     $this->load->model('tramites_m');
-    $new_data['tramites_list'] = 'TRAMITES ARRAY';    
+    $info = $this->input->post(null,true);
+    if( count($info) ){
+      if( !isset($info['typePaso']))                    $info['typePaso'] = '';
+      if( !isset($info['desde']))                       $info['desde'] = '';
+      if( !isset($info['hasta']))                       $info['hasta'] = '';
+      if( !isset($info['nro_tr']))                      $info['nro_tr'] = '';
+      if( !isset($info['apellido']))                    $info['apellido'] = '';
+      if( !isset($info['dni']))                         $info['dni'] = '';
+    } else {
+      $info['typePaso'] = '';
+      $info['desde'] = '';
+      $info['hasta'] = '';
+      $info['nro_tr'] = '';
+      $info['apellido'] = '';
+      $info['dni'] = '';
+    }
+
+    $new_data['pasos_list'] = $this->tramites_m->get_pasos_by_sector($this->session->id_sector);
+    //print_r($new_data['pasos_list']);
+    $new_data['tramites_list'] = $this->tramites_m->get_all_tramite_for_op($this->session->id_sector,$info['desde'], $info['hasta'], $info['typePaso'], $info['nro_tr'], $info['apellido'], $info['dni'] );
+  
     $this->load->view('tramites/tr_office_main',$this->data);
     $this->load->view('tramites/tr_office_show',$new_data);
     $this->load->view('footer_base',$this->data);
 
   }
+
+
+  public function tratar_paso(){
+    if($this->basic_level() != 13) {
+      $this->load->view('restricted',$this->data);
+      return ;
+    }
+    $this->load->model('tramites_m');
+    $info = $this->input->get(null,true);
+
+    print_r($info);
+    $this->load->view('tramites/tr_office_main',$this->data);
+    $this->load->view('tramites/tr_office_edit_paso',$new_data);
+    $this->load->view('footer_base',$this->data);   
+  }
+
 
   public function basic_level(){
       $this->data['name'] = $this->session->name;

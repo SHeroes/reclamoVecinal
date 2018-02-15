@@ -3,6 +3,34 @@
 
 class Tramites_m extends CI_Model {
 
+    function get_all_tramite_for_op($id_sector, $fecha_desde, $fecha_hasta, $typePaso, $nro_tr, $apellido, $dni){
+      $cond_str = '';
+      $cond_str = $cond_str .$this->armar_filtro_vecino($cond_str, $nro_tr, $apellido, $dni);
+      $cond_str = $cond_str .$this->armar_Str_Cond_Fechas_Tipo_Reclamo($cond_str, $fecha_desde, $fecha_hasta, $typePaso);
+
+      $str_query = "
+      SELECT *, paso.id pasoId , tr.id tramiteId
+      FROM tr_tramite tr, tr_tipo_tramite ttr, tr_pasos_x_tipo_tramite pttr, tr_paso paso, vecino
+      WHERE 
+        paso.id_sector = '".$id_sector."' AND
+        pttr.tr_tipo_tramite_id = tr.tr_tipo_tramite_id AND
+        paso.id = pttr.tr_paso_id AND
+        tr.pasos_completados + 1 = pttr.orden AND 
+        tr.id_vecino = vecino.id_vecino AND 
+        ttr.id = pttr.tr_tipo_tramite_id ".$cond_str."
+        ORDER BY tr.tr_fecha_tramite asc ; ";
+      $all_tramites = $this->db->query($str_query);
+
+      return $all_tramites->result();
+    }
+
+    function get_pasos_by_sector($id_sector){
+      $this->db->from('tr_paso');
+      $this->db->where('id_sector',$id_sector);
+      $info = $this->db->get()->result();
+      return $info;
+    }
+
     function get_pasos_by_ttr_id($ttr_id){
       $str_query = "
       SELECT * 
@@ -70,13 +98,23 @@ class Tramites_m extends CI_Model {
     }
 
     function insertar_tramite($id_vecino, $ttr){
-      $data['id_vecino'] =          $id_vecino;
+      $data['id_vecino'] =  $id_vecino;
       $data['pasos_completados'] =  0;
       $data['obs'] = '';
       $data['tr_tipo_tramite_id'] =    $ttr;      
       $data['tr_fecha_tramite'] = date('Y-m-d H:i:s',time());
+      $data['pasos_totales_al_incio'] = $this->get_cantidad_pasos_totales($ttr);
+
       $this->db->insert('tr_tramite',$data);
       return $id_tipo_tramite = $this->db->insert_id();
+    }
+
+    private function  get_cantidad_pasos_totales($ttr_id){
+      $str_query ="SELECT COUNT(*) as cantidad
+      FROM tr_pasos_x_tipo_tramite
+      WHERE tr_tipo_tramite_id = ".$ttr_id.";";
+      $query = $this->db->query($str_query);
+      return $query->result_array()[0]['cantidad'];       
     }
 
     function insertar_tipo_tramite($array_id_ubicacion,$array_id_tiempo,$array_info){
@@ -122,6 +160,35 @@ class Tramites_m extends CI_Model {
       return $this->db->insert('tr_formularios',$data);
     }
 
+/* ------------------------*/
+/*  FUNCIONES AUXILIARES   */
+/* ------------------------*/
+
+
+  function armar_filtro_vecino($cond_str, $nro_tr, $apellido, $dni){
+    $nro_tr != '' ? $cond_str = $cond_str . " AND tr.id LIKE '%" . $nro_tr ."%'" : '' ;
+    $apellido != '' ? $cond_str = $cond_str . " AND vecino.apellido LIKE '%" . $apellido ."%'" : '' ;
+    $dni != '' ? $cond_str = $cond_str . " AND vecino.dni LIKE '%" . $dni ."%'" : '' ;
+
+    return $cond_str;
+  }
+
+
+  function armar_Str_Cond_Fechas_Tipo_Reclamo($cond_str, $fecha_desde, $fecha_hasta, $typePaso){
+  $filtro_fecha = false;
+  if ( $fecha_desde != '' OR $fecha_hasta != '') $filtro_fecha = true;
+  if ( $fecha_hasta == '') $fecha_hasta = date('Y-m-d'); 
+  if ( $fecha_desde == '') $fecha_desde = '2017-01-10';
+  if ( $filtro_fecha){
+    $cond_str = $cond_str . "AND tr_fecha_tramite between '". $fecha_desde ."' and '".$fecha_hasta."' ";
+  }
+
+  if ($typePaso != ''){
+    $cond_str = $cond_str . "AND tr_paso_id ='". $typePaso ."' ";
+  } 
+
+  return $cond_str;
+  }
 
 /*
     function get_all_tipo_reclamos(){
