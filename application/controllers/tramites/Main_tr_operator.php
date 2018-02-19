@@ -21,12 +21,10 @@ class Main_tr_operator extends CI_Controller{
 
   public function index()
   {
-
     if($this->basic_level() != 13) {
       $this->load->view('restricted',$this->data);
       return ;
     }
-
     $this->load->model('tramites_m');
     $info = $this->input->post(null,true);
     if( count($info) ){
@@ -46,7 +44,6 @@ class Main_tr_operator extends CI_Controller{
     }
 
     $new_data['pasos_list'] = $this->tramites_m->get_pasos_by_sector($this->session->id_sector);
-    //print_r($new_data['pasos_list']);
     $new_data['tramites_list'] = $this->tramites_m->get_all_tramite_for_op($this->session->id_sector,$info['desde'], $info['hasta'], $info['typePaso'], $info['nro_tr'], $info['apellido'], $info['dni'] );
   
     $this->load->view('tramites/tr_office_main',$this->data);
@@ -64,10 +61,20 @@ class Main_tr_operator extends CI_Controller{
     $this->load->model('tramites_m');
     $info = $this->input->get(null,true);
 
-    print_r($info);
+    $new_data['formularios'] = $this->tramites_m->get_formularios_by_ttrId($info['id_ttr']);
+    $new_data['ttr_pasos'] = $this->tramites_m->get_pasos_by_ttr_id($info['id_ttr']);
+    $new_data['ttr_data'] = $this->tramites_m->get_ttr_by_id($info['id_ttr']);
+    $new_data['paso_array'] = array();
+    foreach ($new_data['ttr_pasos'] as $key => $value) {
+      if ($value['tr_paso_id'] = $info['id_paso']){
+        $new_data['paso_array'] = $value;
+      }
+    }
+
+
     $this->load->view('tramites/tr_office_main',$this->data);
     $this->load->view('tramites/tr_office_edit_paso',$new_data);
-    $this->load->view('footer_base',$this->data);   
+    $this->load->view('footer_base',$this->data);
   }
 
 

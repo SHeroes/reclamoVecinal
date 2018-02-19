@@ -1,4 +1,4 @@
-<?php $this->load->view('tramites/tr_header'); ?>
+<?php $this->load->view('tramites/tr_header_office'); ?>
   <div class="navbar navbar-default">
     <div class="navbar-inner">
       <div class="container-fluid">
@@ -10,7 +10,7 @@
                 </a>
                 <ul class="nav navbar-nav">
                   <li class="tomar_reclamos">
-                    <a href="show_main"><i class="glyphicon glyphicon-home"></i>Ver Trámites Asignados a la Oficina </a>
+                    <a href="./"><i class="glyphicon glyphicon-home"></i>Ver Pasos de Trámites Pendientes de la Oficina </a>
                     </li>
   
                   <li>

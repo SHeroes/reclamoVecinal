@@ -2,48 +2,76 @@
 <div class="container-fluid">
 
   <div class="col-sm-12">
-  <h1>Pasos de Trámites pendientes ordenados por fecha: </h1>
-
+        <?php // print_r($paso_array);        ?>
+        <h1 class="tipo-tramite">Tipo tramite: <?php echo $ttr_data[0]->titulo .' - '. $ttr_data[0]->desc; ?></h1>
         <div class="col-sm-8">
-          <div class="col-sm-6">
-            formularios
+          <h2 class="paso-actual-tramite">Paso Actual: <?php echo $paso_array['titulo'] .' - '. $paso_array['desc']; ?></h2>  
+          <div class="col-sm-8">
+            <h3>Checklist del paso a completar: </h3>
+            <?php
+              $data = json_decode($paso_array['check_list_json']);
+              if (count($data->checklist)>0){
+                echo '<div class="checklist">';
+                foreach ($data->checklist as $key => $value) {
+                  $num = $key + 1;
+                  echo $num.' - '.$value.'<br>';
+                }
+                echo '</div>';
+              }          
+            ?>            
           </div>
-          <div class="col-sm-6">
-            chekclit
+          <div class="col-sm-4">
+            formularios</br>
+            <?php    //       print_r($formularios);      
+                foreach ($formularios as $key => $value) {
+                  if ($value['tr_paso_id'] == $paso_array['id']){
+                    echo '<span><a href="/uploads/tr_formularios/'.$value['file_name'].'">'. $value['codigo_interno'].'</a></span>';
+                  }
+                }
+
+                ?>
           </div> 
         </div>        
         <div class="col-sm-4">
-          info de los pasos siguientes
-        </div>
+          <div class="show-ttr col-right">
+            <h3>Todos los Pasos del tramite</h3>
+               <img class="trama" src="/assets/img/trama.svg" alt="">
+            </br>          
+              <?php 
+              echo '<div class="paso-paso">';
+              //print_r($ttr_pasos);
+              foreach ($ttr_pasos as $key => $paso) {
+                echo '<div class="paso">';
+                echo '<div class="num">'.$paso['orden'] .'</div>';
+                echo '<div class="paso-titulos">'.$paso['titulo'].' - Oficina: '.$paso['denominacion'].'</div>';
+                echo '<div class="paso-content">'.$paso['desc'].'</div>';
+                $data = json_decode($paso['check_list_json']);
 
-  <?php
-   /*
-        echo '<table class="table">
-              <thead class="thead-inverse"><tr id="header-table">
-                 <th>Tramite ID</th><th>DNI</th><th>Apellido, Nombre</th><th>email</th><th>tel.</th><th>movil</th>
-                 <th>Fecha inicio</th><th>Pasos completados</th><th>Paso</th><th>Tratar</th>
-              </tr></thead>
-              <tbody>';
-        foreach( $tramites_list as $tramite_paso){
-          echo  '<tr>'.
-                '<th scope="row">'. $tramite_paso->tramiteId .'</th>'.
-                '<td>'.$tramite_paso->DNI.'</td>'.
-                '<td>'.$tramite_paso->Apellido.', '.$tramite_paso->Nombre.'</td>'.
-                '<td>'.$tramite_paso->mail.'</td>'.
-                '<td>'.$tramite_paso->tel_fijo.'</td>'.
-                '<td>'.$tramite_paso->tel_movil.'</td>'.
-                '<td>'.$tramite_paso->tr_fecha_tramite.'</td>'.
-                '<td>'.$tramite_paso->pasos_completados.' de '.$tramite_paso->pasos_totales_al_incio.'</td>'.
-                '<td>'.$tramite_paso->titulo.'</td>'.
-                '<td><a href="main_tr_operator/tratar_paso?id_paso='.$tramite_paso->pasoId.'&id_ttr='.$tramite_paso->tr_tipo_tramite_id.'&id_tr='.$tramite_paso->tramiteId.'&num_pasos_tot='.$tramite_paso->pasos_totales_al_incio.'" class="btn btn-primary" >Editar</a></td>'.
-                '</tr>'
-                ;
-        }
-        echo '</tbody></table>';
-        */
-    ?>
+                if (count($data->checklist)>0){
+                  echo '<div class="checklist">Items a completar para el paso <br>';
+                  foreach ($data->checklist as $key => $value) {
+                    $num = $key + 1;
+                    echo $num.' - '.$value.'<br>';
+                  }
+                  echo '</div>';
+                }
+                $primerFormulario = 0;
+                foreach ($formularios as $key => $value) {
+                  if ($value['tr_paso_id'] == $paso['id']){
+                    if ($primerFormulario == 0){
+                      echo '<h6>Codigo de Formularios asociados al paso para Descargar: </h6>';
+                      $primerFormulario++;
+                    }
+                    echo '<span><a href="/uploads/tr_formularios/'.$value['file_name'].'">'. $value['codigo_interno'].'</a></span></br>';
+                  }
+                }
+                echo '</div>';
+              }
+              echo '</div>';
+              ?>
+        </div>
   </div>
-  <!-- <pre><?php // print_r($tramites_list); ?></pre> -->
+
 </div>
 
 

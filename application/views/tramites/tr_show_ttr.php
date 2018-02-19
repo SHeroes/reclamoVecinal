@@ -51,21 +51,3 @@
 		<input class="btn btn-primary" type="submit" name="" value="Iniciar Tramite">
 	</form>
 </div>
-
-
-	<?php 
-	/*
-
-		print_r($ttr_data);
-		echo '<br>';
-		
-
-		echo '<pre>';
-		print_r($formularios);
-		echo '</pre>';	
-
-		echo '<pre>';
-		print_r($pasos);
-		echo '</pre>';	
-	*/
-	?> 

@@ -45,6 +45,13 @@ class Tramites_m extends CI_Model {
       return $query->result_array();
     }
 
+    function get_formularios_by_tr_paso_id($id_paso){
+      $this->db->from('tr_formularios');
+      $this->db->where('tr_paso_id',$id_paso);
+      $info = $this->db->get()->result();
+      return $info;
+    }
+
     function get_formularios_by_ttrId($ttr_id){
       $str_query = "
       SELECT tr_formularios.*
