@@ -18,7 +18,7 @@
       echo '  </tbody></table>';
     }
   } else {
-    echo '<h1> Ingrese su DNI o apellido para saber si se encuentra registrado</h1>';
+    echo '<h1 class="ed-mob"> Ingrese su DNI o apellido para saber si se encuentra registrado</h1>';
     if ( isset($id_vecino) && ($id_vecino != '') ){
           echo "El vecino seleccionado es:  " . $name_vecino;
     }else{

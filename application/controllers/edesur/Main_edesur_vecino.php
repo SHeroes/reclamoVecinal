@@ -1,6 +1,6 @@
 <?php
 
-class Main_tr_vecino extends CI_Controller{
+class Main_edesur_vecino extends CI_Controller{
 
   var $data = array(
     'perfil' => '' ,
@@ -15,75 +15,14 @@ class Main_tr_vecino extends CI_Controller{
 
   public function index()
   {
-    redirect('/tramites/Main_tr_vecino/select_Vecino');
+    redirect('/edesur/Main_edesur_vecino/select_Vecino');
   }
 
-
-
-
-
-  function show_ttr(){
-    $get = $this->input->get(null,true);
-    if(!isset($get['id_vecino']) OR !isset($get['ttr'])){
-      redirect('/tramites/Main_tr_vecino/select_Vecino');
-    }
-
-    $ttr_id = $get['ttr'];
-    $this->load->model('tramites_m');
-    $new_data['id_vecino'] = $get['id_vecino'];
-    $new_data['ttr'] = $get['ttr'];
-    $new_data['ttr_data'] = $this->tramites_m->get_ttr_by_id($ttr_id);
-    
-    //pasos que corresponden al tramite elegido  
-    $new_data['pasos'] = $this->tramites_m->get_pasos_by_ttr_id($ttr_id);
-
-    //formularios que corresponden al tramite elegido
-    $new_data['formularios'] = $this->tramites_m->get_formularios_by_ttrId($ttr_id);
-
-
-    $this->load->view('tramites/tr_vecino_main',$this->data);
-    $this->load->view('tramites/tr_show_ttr',$new_data);
-    $this->load->view('tramites/tr_footer',$this->data);
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-  function show_group(){
-    $get = $this->input->get(null,true);
-    if(!isset($get['id_vecino']) OR !isset($get['grupo'])){
-      redirect('/tramites/Main_tr_vecino/select_Vecino');
-    }
-    print_r("show_group");   
-  }
-
-  function show_organismos(){
-    $get = $this->input->get(null,true);
-    if(!isset($get['id_vecino'])){
-      redirect('/tramites/Main_tr_vecino/select_Vecino');
-    }
-        print_r("show_organismos");   
-  }
-
-  function show_temas(){
-    $get = $this->input->get(null,true);
-    if(!isset($get['id_vecino'])){
-      redirect('/tramites/Main_tr_vecino/select_Vecino');
-    }
-            print_r("show_temas");
-  }
 
 
   function select_Vecino(){
+
+    
     $this->load->model('domicilio_m');
     $this->load->model('vecino_m');
     
@@ -104,10 +43,12 @@ class Main_tr_vecino extends CI_Controller{
     $new_data['all_localidades'] = $this->domicilio_m->get_all_localidades();
     $new_data['all_barrios'] = $this->domicilio_m->get_all_barrios();
 
-    $this->load->view('tramites/tr_vecino_main',$this->data);
+    $this->load->view('edesur/edesur_vecino_main',$this->data);
     $this->load->view('common/vecinos',$new_data);
-    $this->load->view('tramites/tr_footer_base',$this->data);
+    $this->load->view('edesur/edesur_footer_base',$this->data);
+    
   }
+
 
   function show_main() {
 
@@ -143,11 +84,9 @@ class Main_tr_vecino extends CI_Controller{
     $new_data['grupos'] = $this->tramites_m->get_all_grupos();
   //  print_r($new_data['grupos']);
 
-
-
-    $this->load->view('tramites/tr_vecino_main',$this->data);
-    $this->load->view('tramites/tr_vecino_chose_tramite',$new_data);
-    $this->load->view('tramites/tr_footer',$this->data);
+    $this->load->view('edesur/edesur_vecino_main',$this->data);
+    $this->load->view('edesur/edesur_vecino_crear_rec',$new_data);
+    $this->load->view('edesur/edesur_footer',$this->data);
   }
 
   function search_calle(){
@@ -164,16 +103,6 @@ class Main_tr_vecino extends CI_Controller{
     echo json_encode ($info);   
   }
 
-  function inciar_tramite(){
-    $id_vecino =  $this->input->post('id_vecino');
-    $ttr =  $this->input->post('ttr');
-    $this->load->model('tramites_m');
-    $info = $this->tramites_m->insertar_tramite($id_vecino,$ttr);
-    echo ' <script>
-          alert("tramite inciado - Nro: ' .$info .'.           Ahora dirijase a la oficina correspondiente");
-          window.location.replace("select_Vecino"); 
-        </script>';
-  }
 
   function insert_vecino() {
     echo '<script src="'. base_url() .'assets/js/vendor/jquery-1.9.0.min.js"></script>';
@@ -189,7 +118,7 @@ class Main_tr_vecino extends CI_Controller{
        
        $name_vecino = 'name_vecino';
        $name_vecino = $vecino_info['Apellido'] . ", " . $vecino_info['Nombre'];
-       $pathDestino = '/index.php/tramites/Main_tr_vecino/show_main';
+       $pathDestino = '/index.php/edesur/Main_edesur_vecino/show_main';
 
         echo '<form id="form-id-vecino-creado" action="'.$pathDestino.'" method="POST" >
         <p><input hidden  type="text" class="span4 id_vecino" name="id_vecino" value="'. $saved .'" id=""></p>
