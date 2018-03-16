@@ -101,7 +101,8 @@ class Main_operator extends CI_Controller{
           }
 
           if( count($new_data['vecinos_filtrados']) == 0){
-            $new_data['all_domicilios'] = $this->domicilio_m->get_all_domicilios();
+            //$new_data['all_domicilios'] = $this->domicilio_m->get_all_domicilios();
+            $new_data['all_localidades'] = $this->domicilio_m->get_all_localidades();
             
           }
       }
@@ -137,7 +138,8 @@ class Main_operator extends CI_Controller{
       }
     }
 
-    $new_data['all_domicilios'] = $this->domicilio_m->get_all_domicilios();
+    // $new_data['all_domicilios'] = $this->domicilio_m->get_all_domicilios();
+    $new_data['all_localidades'] = $this->domicilio_m->get_all_localidades();
     $new_data['all_barrios'] = $this->domicilio_m->get_all_barrios();
 
     $this->load->view('main_operator',$this->data);
@@ -234,12 +236,14 @@ class Main_operator extends CI_Controller{
   function insert_vecino() {
     echo '<script src="'. base_url() .'assets/js/vendor/jquery-1.9.0.min.js"></script>';
     $info = $this->input->post(null,true);
+    //print_r($info);
+
     if( count($info) ) {
       $this->load->model('vecino_m');
       $saved = $this->vecino_m->create_vecino($info);
     }
     if ( isset($saved) && $saved ) {
-       echo "vecino agregado exitosamente";
+       echo "Vecino agregado exitosamente";
        $vecino_info = $this->vecino_m->get_vecino_info($saved);
        //print_r($vecino_info);
        
@@ -253,7 +257,7 @@ class Main_operator extends CI_Controller{
         <script>
         $(document).ready(function(){
           $("form#form-id-vecino-creado").submit(function(){
-              alert("Se ha Registrado al Vecino:'. $name_vecino .'correctamente, Se procede a la toma del reclamo");
+              alert("Se ha Registrado al Vecino: '. $name_vecino .' correctamente, Se procede a la toma del reclamo");
           });
           $("form#form-id-vecino-creado").submit();
         });
@@ -261,6 +265,7 @@ class Main_operator extends CI_Controller{
 
        //redirect('main_operator/show_main');
     }
+
   }
 
   function search_calle(){

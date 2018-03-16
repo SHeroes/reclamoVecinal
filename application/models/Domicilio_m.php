@@ -3,6 +3,12 @@
 
 class Domicilio_m extends CI_Model {
 
+	function get_all_localidades(){
+	  $this->db->from('localidades');
+	  $localidades = $this->db->get()->result();
+	  return $localidades;  
+	}
+
 	function get_all_calles(){
 	  $this->db->from('calles');
 	  $calles = $this->db->get()->result();

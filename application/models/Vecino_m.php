@@ -51,20 +51,20 @@ class Vecino_m extends CI_Model {
 
   function create_vecino($userData){
     // create_domicilio //
-    if (!isset($userData['id_domicilio']) or $userData['id_domicilio'] == null ) { 
-      $data2['id_calle'] =    (int) $userData['calle_id'];
-      $data2['altura'] =      (int) $userData['altura'];
-      $data2['entrecalle1_id'] = (int) $userData['entrecalle1_id'];
-      $data2['entrecalle2_id'] = (int) $userData['entrecalle2_id'];
-      $data2['id_barrio'] =   (int) $userData['id_barrio'];
-      $data2['dpto'] = (int) $userData['departamento'];
-      $data2['piso'] =        (int) $userData['piso']; 
-      $this->db->insert('domicilio',$data2);
-      $idDomicilioAgregado = $this->db->insert_id();
-    } else {
-      // nuevo vecino con un domicilio que ya existe //
-      $idDomicilioAgregado = (int) $userData['id_domicilio'];
-    }
+    $data2['id_loc'] = (int) $userData['localidad_id_google'];
+    $data2['lat'] = (float) $userData['lat'];
+    $data2['lng'] = (float) $userData['lng'];
+    $data2['id_loc_vec'] =    (int) $userData['id_loc'];
+    $data2['id_calle'] =    (int) $userData['calle_id'];
+    $data2['altura'] =      (int) $userData['altura'];
+    $data2['entrecalle1_id'] = (int) $userData['entrecalle1_id'];
+    $data2['entrecalle2_id'] = (int) $userData['entrecalle2_id'];
+    $data2['id_barrio'] =   (int) $userData['id_barrio'];
+    $data2['dpto'] = (int) $userData['departamento'];
+    $data2['piso'] =        (int) $userData['piso']; 
+    $this->db->insert('domicilio',$data2);
+    $idDomicilioAgregado = $this->db->insert_id();
+
 
     if($idDomicilioAgregado){
       $data['nombre'] = $userData['nombre'];

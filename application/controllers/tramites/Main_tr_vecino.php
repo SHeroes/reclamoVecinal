@@ -100,7 +100,8 @@ class Main_tr_vecino extends CI_Controller{
       }
     }
 
-    $new_data['all_domicilios'] = $this->domicilio_m->get_all_domicilios();
+    // $new_data['all_domicilios'] = $this->domicilio_m->get_all_domicilios();
+    $new_data['all_localidades'] = $this->domicilio_m->get_all_localidades();
     $new_data['all_barrios'] = $this->domicilio_m->get_all_barrios();
 
     $this->load->view('tramites/tr_vecino_main',$this->data);

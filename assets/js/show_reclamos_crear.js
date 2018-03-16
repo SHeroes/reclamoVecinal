@@ -35,7 +35,7 @@
     });
 
     str_obj = str_obj + '}';
-    console.log(str_obj);
+  //  console.log(str_obj);
     var dataToSearch = $.parseJSON(str_obj);
     $.ajax({
      type: "post",
@@ -106,7 +106,7 @@
     elemento = $(this);
     var resultados = elemento.parents("p").next().children('.result');
     var keyCode = ev.keyCode || ev.which; 
-    console.log(keyCode);
+ //   console.log(keyCode);
     if (keyCode == 40) {
       ev.preventDefault(); 
 //      console.log("Avanzo uno");

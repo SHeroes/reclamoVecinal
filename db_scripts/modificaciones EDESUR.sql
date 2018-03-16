@@ -32,8 +32,6 @@ ADD CONSTRAINT `id_loc_dom`
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
-  
-  
 
 INSERT INTO `dbcav`.`localidades` (`id_localidad`, `localidades`) VALUES ('6', 'Llavallol');
 INSERT INTO `dbcav`.`localidades` (`id_localidad`, `localidades`) VALUES ('7', 'Ezeiza');
@@ -45,5 +43,11 @@ UPDATE `dbcav`.`calles` SET `calle`='Alvear, Gral' WHERE `id_calle`='24';
 UPDATE `dbcav`.`calles` SET `calle`='General Rondeau' WHERE `id_calle`='527';
 
 
+
+
+ALTER TABLE `dbcav`.`domicilio` 
+ADD COLUMN `id_loc_vec` INT(11) NULL DEFAULT NULL AFTER `id_loc`;
+  
+  
 
 
