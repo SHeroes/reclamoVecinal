@@ -4,8 +4,8 @@
 class Vecino_m extends CI_Model {
 
   function get_vecinos_by_DNI($DNI){
-    $DNI_ = "'" . $DNI . "'";
-    $where_str = 'domicilio.id_calle = calles.id_calle and  domiciliosxvecinos.id_domicilio = domicilio.id_domicilio and domiciliosxvecinos.id_vecino = vecino.id_vecino and DNI ='.$DNI_;
+    $DNI_ = "'%" . $DNI . "%'";
+    $where_str = 'domicilio.id_calle = calles.id_calle and  domiciliosxvecinos.id_domicilio = domicilio.id_domicilio and domiciliosxvecinos.id_vecino = vecino.id_vecino and DNI LIKE'.$DNI_;
     $this->db->select('domiciliosxvecinos.id_vecino, Nombre, Apellido, DNI, mail, tel_fijo, tel_movil, domiciliosxvecinos.id_domicilio, calle ,altura')
               ->from('vecino, domicilio, calles, domiciliosxvecinos')
               ->where($where_str);

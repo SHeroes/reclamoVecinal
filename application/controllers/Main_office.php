@@ -33,6 +33,9 @@ class Main_office extends CI_Controller{
             break;
         case 2:
             $this->data['perfil'] = 'Oficina';
+            if($this->session->sector_name == 'Edesur'){
+              redirect('/edesur/main_edesur_office/show_main');  
+            }      
             break;
         case 3: 
             $this->data['perfil'] = 'Operador';
@@ -58,13 +61,15 @@ class Main_office extends CI_Controller{
       $this->load->view('restricted',$this->data);
       return ;
     }
-    //$id_sector = $this->details->id_sector;
     $id_sector = $this->session->id_sector;
+
     $new_data['reclamos_list'] = '';
     $new_data['user_enable'] = 'officer';
     $new_data['list_reclaim_type'] = array();
 
     $this->load->model('reclamo_tipo_m');
+    $this->load->model('reclamo_m');
+
 
     if ($this->session->sectores_multiples){
       $array_sectores = $this->session->array_sectores;
@@ -77,7 +82,7 @@ class Main_office extends CI_Controller{
     }
 
 
-    $this->load->model('reclamo_m');
+
     //si se post algo como filtro lo uso, sino no muestro ninguno
     $info = $this->input->post(null,true);
     if( count($info) ){

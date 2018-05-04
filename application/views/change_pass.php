@@ -14,12 +14,6 @@
   background-position: top;
 }
 
-#vecino-data {
-}
-
-tr.reclamo_row{  
-}
-
 .input-form{
   margin-right: 30px;
   width: 130px;

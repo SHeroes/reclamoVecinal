@@ -3,6 +3,14 @@
 
 class Domicilio_m extends CI_Model {
 
+	function get_id_domicilio_by_id_vecino($id_vecino){
+		$this->db->select("id_domicilio");
+		$this->db->where('id_vecino',$id_vecino);
+		$this->db->from('domiciliosxvecinos');
+		$query = $this->db->get();
+		return $query->result()[0]->id_domicilio;
+	}
+
 	function get_all_localidades(){
 	  $this->db->from('localidades');
 	  $localidades = $this->db->get()->result();

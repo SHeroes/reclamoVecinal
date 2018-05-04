@@ -14,7 +14,10 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width">
 
-  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap.min.css">
+  <?php $pathUrl = base_url(); ?>
+  <?php // $pathUrl = 'http://192.168.1.4/'; ?>
+  
+  <link rel="stylesheet" href="<?php  echo $pathUrl; ?>assets/css/bootstrap.min.css">
   
   <style>
     body {
@@ -23,14 +26,14 @@
     }
   </style>
   <!--<link rel="stylesheet" href="<?php /*echo base_url();*/?>/assets/css/bootstrap-responsive.min.css">-->
-  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/main.css">
-  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/edesur_vecino_mobile.css">
+  <link rel="stylesheet" href="<?php  echo $pathUrl; ?>assets/css/main.css">
+  <link rel="stylesheet" href="<?php  echo $pathUrl; ?>assets/css/edesur_vecino_mobile.css">
   <!-- <script src="<?php // echo base_url();?>assets/js/vendor/jquery-3.1.1.min"></script> -->
 <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script> -->
-<script>window.jQuery || document.write('<script src="<?php echo base_url();?>assets/js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
+<script>window.jQuery || document.write('<script src="<?php echo $pathUrl;?>assets/js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
 
-  <script src="<?php echo base_url();?>assets/js/edesur/edesur_vecino_main.js"></script>
-  <script src="<?php echo base_url();?>assets/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+  <script src="<?php  echo $pathUrl; ?>assets/js/edesur/edesur_vecino_main.js"></script>
+  <script src="<?php  echo $pathUrl; ?>assets/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 
 </head>
 <body>

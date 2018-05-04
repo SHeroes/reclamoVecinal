@@ -26,14 +26,16 @@ class Reclamo_m extends CI_Model {
 
     $data3['id_vecino'] = $userData['id_vecino'];
     $data3['id_tipo_reclamo'] = $userData['id_tipo_reclamo'];
-    $data3['id_operador'] = $userData['id_operador']; 
     $data3['id_dom_reclamo'] = $idDomicilioReclamoAgregado;
     $data3['estado'] = 'Iniciado';    
     $data3['fecha_alta_reclamo'] = date('Y-m-d H:i:s',time());
-    $data3['id_lastchanger'] = $userData['id_operador']; 
     $data3['molestar_dia_hs'] = $userData['molestar_dia_hs']; 
 
-    
+    if (isset($userData['id_operador'])){
+      $data3['id_operador'] = $userData['id_operador']  ;
+      $data3['id_lastchanger'] = $userData['id_operador']; 
+    } 
+
     isset($userData['molestar_al_tel_fijo']) ?  $data3['molestar_al_tel_fijo'] = true :  $data3['molestar_al_tel_fijo'] = false;
     isset($userData['molestar_al_tel_mov']) ?   $data3['molestar_al_tel_mov'] = true :   $data3['molestar_al_tel_mov'] = false;
     isset($userData['molestar_al_dom']) ?       $data3['molestar_al_domicilio'] = true : $data3['molestar_al_domicilio'] = false;

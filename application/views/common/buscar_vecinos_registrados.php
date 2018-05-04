@@ -7,13 +7,15 @@
     } else {
       echo '<h1> Vecinos Filtrados</h1>';
       echo '<table class="table"><thead class="thead-inverse">        <tr id="header-table">
-      <th>DNI</th><th>Apellido</th><th>Nombre</th><th>Domicilio</th><th>mail</th><th>otros</th>       </tr>        </thead><tbody>';
+      <th>DNI</th><th>Apellido</th><th>Nombre</th><th>Domicilio</th>'.//'<th>mail</th><th>otros</th>'.
+      '</tr>        </thead><tbody>';
       foreach( $vecinos_filtrados as $vecino){
         echo  '<tr class="vecinos_filtrados"><th scope="row" id-value="'.$vecino->id_vecino .'">'. $vecino->DNI.'</th>'.
               '<td>'.$vecino->Apellido.'</td>'.
               '<td>'.$vecino->Nombre.'</td>'.
               '<td>'.$vecino->calle .'  '. $vecino->altura.'</td>'.
-              '<td>'.$vecino->mail.'</td><td></td>';
+              //'<td>'.$vecino->mail.'</td><td>'.
+              '</td>';
       }
       echo '  </tbody></table>';
     }

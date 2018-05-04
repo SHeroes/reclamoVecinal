@@ -43,11 +43,40 @@ UPDATE `dbcav`.`calles` SET `calle`='Alvear, Gral' WHERE `id_calle`='24';
 UPDATE `dbcav`.`calles` SET `calle`='General Rondeau' WHERE `id_calle`='527';
 
 
-
-
 ALTER TABLE `dbcav`.`domicilio` 
 ADD COLUMN `id_loc_vec` INT(11) NULL DEFAULT NULL AFTER `id_loc`;
   
   
+/*	
+	HASTA ACA YA ESTA 
+*/
 
+CREATE TABLE `dbcav`.`reclamos_edesur` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `id_reclamo_asociado` INT(11) NOT NULL,
+  `ticket_edesur` VARCHAR(45) NOT NULL,
+  `nro_cliente_edesur` VARCHAR(45) NOT NULL,
+  `estado_servicio` BIT(1) NOT NULL DEFAULT b'0',
+  PRIMARY KEY (`id`),
+  INDEX `relacion_reclamos_idx` (`id_reclamo_asociado` ASC),
+  CONSTRAINT `relacion_reclamos`
+    FOREIGN KEY (`id_reclamo_asociado`)
+    REFERENCES `dbcav`.`reclamos` (`id_reclamo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+ALTER TABLE `dbcav`.`reclamos` 
+DROP FOREIGN KEY `id_op_id_us`;
+ALTER TABLE `dbcav`.`reclamos` 
+CHANGE COLUMN `id_operador` `id_operador` INT(11) NULL DEFAULT NULL ;
+ALTER TABLE `dbcav`.`reclamos` 
+ADD CONSTRAINT `id_op_id_us`
+  FOREIGN KEY (`id_operador`)
+  REFERENCES `dbcav`.`user` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;	
+
+
+  
+  
 

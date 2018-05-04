@@ -4,16 +4,46 @@
    Author's custom styles
    ========================================================================== */
 
+/* Extra small devices (phones, less than 768px) */
 body {
     padding-top: 0px;
     line-height: 16px;
     /*  background-color: #80c191;  */
 }
 
-
-/* pantalla chica */
-
+h1 {
+    font-size: 20px;
+    padding-right: 30px;
+    padding-left: 30px;
+    margin-bottom: 20px;
+}
 
 .title-site {
     font-size: 20px;
 }
+
+#title-cav{
+    padding: 22px 20px 20px 75px;
+}
+
+.vecinos_filtrados{
+    cursor: pointer;
+}
+
+tr.vecinos_filtrados:hover{
+    background-color: darkgrey;
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: @screen-sm-min) { 
+
+
+ }
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: @screen-md-min) { 
+ }
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: @screen-lg-min) { 
+ }
