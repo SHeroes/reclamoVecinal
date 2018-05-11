@@ -36,12 +36,6 @@
             '<td>'.$rec['nro_cliente_edesur'].'</td>';
         }
         echo '  </tbody></table>';
-
-
-		foreach ($reclamos_list as $rec) { // RECORRO POR SEGUNDA VEZ
-			
-
-		}
     }
 
 ?>

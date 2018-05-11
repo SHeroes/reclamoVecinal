@@ -15,7 +15,7 @@ class Main_edesur_vecino extends CI_Controller{
 
   public function index()
   {
-    redirect('/edesur/Main_edesur_vecino/select_Vecino');
+    redirect('/edesur/Main_edesur_vecino/log_vecino_DNI');
   }
 
 
@@ -53,6 +53,32 @@ class Main_edesur_vecino extends CI_Controller{
     }
   }
 
+  function log_vecino_DNI(){ //TODO 
+    $this->load->model('domicilio_m');
+    $this->load->model('vecino_m');
+    
+    $new_data['vecinos_filtrados'] = '';
+
+    $vecino_filter = $this->input->post(null,true);
+    if( count($vecino_filter) ) {
+      if (isset($vecino_filter['DNI_filter'])){
+        $str = filter_var($vecino_filter['DNI_filter'], FILTER_SANITIZE_NUMBER_INT);
+        $new_data['vecinos_filtrados'] = $this->vecino_m->get_vecinos_by_DNI_equal($str);
+      }
+    }
+
+    if (count($vecino_filter)&& $new_data['vecinos_filtrados'] == '' ){
+      redirect('/edesur/Main_edesur_vecino/log_vecino_DNI');
+    } else{
+      // $new_data['all_domicilios'] = $this->domicilio_m->get_all_domicilios();
+      $new_data['all_localidades'] = $this->domicilio_m->get_all_localidades();
+      $new_data['all_barrios'] = $this->domicilio_m->get_all_barrios();
+
+      $this->load->view('edesur/edesur_vecino_main',$this->data);
+      $this->load->view('edesur/edesur_vecinos_DNI',$new_data);
+      $this->load->view('edesur/edesur_footer_base',$this->data);
+    }
+  }
 
   function show_main() {
 
@@ -115,7 +141,7 @@ class Main_edesur_vecino extends CI_Controller{
     }
     if ( isset($saved) && $saved ) {
       echo '<script> alert( "Muchas Gracias por su cooperación. Recuerde reingresar al sistema cuando su suministro vuelva a estar activo.  Su código de Reclamo:  '.$saved.'");
-          window.location.replace("/index.php/edesur/Main_edesur_vecino/select_Vecino");   
+          window.location.replace("/index.php/edesur/Main_edesur_vecino/log_vecino_DNI");   
       </script>';
        //echo "reclamo agregado exitosamente";      
        //redirect('main_operator/show_main');
