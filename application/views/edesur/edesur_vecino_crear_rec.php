@@ -1,15 +1,12 @@
-  <?php 
+<?php
+    //$idTipoReclamo = 743;
+    $idTipoReclamo = $this->config->item('edesur_id_tipo_reclamo');
+    // echo  '<script src="'. $pathUrl .'assets/js/show_reclamos_crear.js"></script>';
+?>
 
-        $pathUrl = base_url();
-      //  $pathUrl = 'http://192.168.1.4/'; 
-        $idTipoReclamo = 743; //TODO CAMBIAR POR EL VALOR REAL DE LA OFICINA DE EDESUR  ?>
 
-<?php // echo  '<script src="'. $pathUrl .'assets/js/show_reclamos_crear.js"></script>'; ?>
 <div class="container">
 <h1>Tomar Reclamo</h1>
-
-
-
   <form class="reclamo-form" action="insert_reclamo_edesur/" method="POST">
     <div class="col-sm-12" id="reclamo-data">
       <p>Vecino que realiza el Reclamo:   <b><?php echo $name_vecino; ?></b></p>
@@ -31,12 +28,8 @@
 
       <p></p>
       <p><textarea class="more-reg form-control" rows="6" cols="50" type="text" name="comentarios" placeholder="comentarios"></textarea></p>
-
-
-
       <p><a><input type="submit" class="btn btn-primary " value="Registrar Reclamo"></a></p>
     </div>
-
   </form>
 
 </div>

@@ -51,6 +51,10 @@ ADD COLUMN `id_loc_vec` INT(11) NULL DEFAULT NULL AFTER `id_loc`;
 	HASTA ACA YA ESTA 
 */
 
+ALTER TABLE `dbcav`.`domicilio` 
+CHANGE COLUMN `lat` `lat` FLOAT NULL DEFAULT NULL AFTER `id_loc_vec`;
+
+
 CREATE TABLE `dbcav`.`reclamos_edesur` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `id_reclamo_asociado` INT(11) NOT NULL,

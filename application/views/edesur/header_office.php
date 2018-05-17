@@ -8,7 +8,6 @@
   <meta name="viewport" content="width=device-width">
 
   <?php $pathUrl = base_url(); ?>
-  <?php // $pathUrl = 'http://192.168.1.4/'; ?>
   <?php
 
   echo '<link rel="stylesheet" href="'.$pathUrl.'assets/css/bootstrap.min.css">';

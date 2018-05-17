@@ -58,7 +58,7 @@
   </div>
 
 
-<script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyA0GuxesQUCN_PpC-x-RnnOZaxBzeTdqN0">
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?key=<?php echo $this->config->item('google_key'); ?>">
   </script>
 <script type="text/javascript">
   var geocoder;

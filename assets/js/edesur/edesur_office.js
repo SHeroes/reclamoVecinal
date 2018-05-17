@@ -55,7 +55,41 @@ function initialize() {
 
 }
 
+$(document).ready(function(){
 
-$( document ).ready(function() {
-  //  console.log( "ready!" );
+  $("td .state").click(function() {
+    var reclamoElement = $(this).parents("tr").children("th");
+    var id_reclamo = reclamoElement.attr("id_reclamo");
+    var cod_reclamo = reclamoElement.html();
+    var rec_edesur = $(this).attr("id-rec-edesur");
+    if($(this).html()=="OK"){
+      console.log($(this).html());
+    }else{
+      alert("Se procede a cambiar el estado del suministro del reclamo con codigo:  "+cod_reclamo);
+      //console.log("id"+id_reclamo);
+      //console.log($(this));
+      //console.log("rec_edesur "+rec_edesur);
+      var sendingData = {
+        rec_asociado: id_reclamo,
+        rec_edesur: rec_edesur
+      };
+      $.ajax({
+       type: "post",
+       url: "/index.php/edesur/Main_edesur_vecino/update_reclamo_edesur",
+       cache: false,    
+       data: sendingData,
+       success: reloadPage,
+       error: function(){      
+        alert('Error cambiando el estado del servicio..');
+       }
+      });
+    }
+  });
+
 });
+
+function reloadPage(response){
+  console.log(response);
+  console.log("reloading...");
+  window.location.replace("/index.php/edesur/main_edesur_office/show_main");  
+}

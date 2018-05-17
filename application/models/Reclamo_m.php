@@ -13,7 +13,7 @@ class Reclamo_m extends CI_Model {
       $data2['id_calle'] =    (int) $userData['calle_id'];
       $data2['altura'] =      (int) $userData['altura_inicio'];
       //$data2['altura_fin'] =      (int) $userData['altura_fin'];
-
+      $data2['id_loc_vec'] =    (int) 9;
       $data2['entrecalle1_id'] = (int) $userData['entrecalle1_id'];
       $data2['entrecalle2_id'] = (int) $userData['entrecalle2_id'];
       $data2['id_barrio'] =   (int) $userData['id_barrio'];
@@ -109,11 +109,12 @@ class Reclamo_m extends CI_Model {
   }
 
   function update_state_reclamo($str_state,$id_reclamo){
+    $fecha_modificacion = date('Y-m-d H:i:s',time());
     if ($str_state == 'Visto'){
-      $fecha_visto = date('Y-m-d H:i:s',time());
+      $fecha_visto = $fecha_modificacion;
       $this->db->set('fecha_visto', $fecha_visto );      
     }
-
+    $this->db->set('fecha_modif_reclamo', $fecha_modificacion );
     $this->db->set('estado', $str_state);
     $this->db->where('id_reclamo', $id_reclamo);
     $this->db->update('reclamos');

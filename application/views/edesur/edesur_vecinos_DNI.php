@@ -8,7 +8,7 @@
       $this->view('./registrar_vecino_nuevo');
     } else {
       $val = $vecinos_filtrados[0];
-      $stringUrl = '/edesur/Main_edesur_vecino/show_main?id_vecino='.$val->id_vecino.'&name_vecino='.$val->Apellido.', '.$val->Nombre;
+      $stringUrl = $this->pathUrl.'/edesur/Main_edesur_vecino/show_main?id_vecino='.$val->id_vecino.'&name_vecino='.$val->Apellido.', '.$val->Nombre;
       redirect($stringUrl);
     }
   } else {

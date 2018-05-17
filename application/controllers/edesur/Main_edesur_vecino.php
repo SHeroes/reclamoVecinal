@@ -8,14 +8,14 @@ class Main_edesur_vecino extends CI_Controller{
     'is_admin' => false,
     'name' => ''
    );
-
+  
 	public function __construct(){
 		parent::__construct();        
 	}
 
   public function index()
   {
-    redirect('/edesur/Main_edesur_vecino/log_vecino_DNI');
+    redirect('edesur/Main_edesur_vecino/log_vecino_DNI');
   }
 
 
@@ -68,7 +68,7 @@ class Main_edesur_vecino extends CI_Controller{
     }
 
     if (count($vecino_filter)&& $new_data['vecinos_filtrados'] == '' ){
-      redirect('/edesur/Main_edesur_vecino/log_vecino_DNI');
+      redirect('edesur/Main_edesur_vecino/log_vecino_DNI');
     } else{
       // $new_data['all_domicilios'] = $this->domicilio_m->get_all_domicilios();
       $new_data['all_localidades'] = $this->domicilio_m->get_all_localidades();
@@ -102,18 +102,39 @@ class Main_edesur_vecino extends CI_Controller{
           }
 
       } else { //NO HAY FILTRADOS TODAVIA, posiblemente un acceso mal por url
-          redirect('edesur/Main_tr_vecino/select_Vecino');
+          redirect('edesur/Main_edesur_vecino/log_vecino_DNI');
       }
     } else { //NO HAY FILTRADOS TODAVIA
-      redirect('edesur/Main_tr_vecino/select_Vecino');
+      redirect('edesur/Main_edesur_vecino/log_vecino_DNI');
     }
 
     $this->load->model('domicilio_m');
     $new_data['id_domicilio'] = $this->domicilio_m->get_id_domicilio_by_id_vecino($new_data['id_vecino']);
     
-    $this->load->view('edesur/edesur_vecino_main',$this->data);
-    $this->load->view('edesur/edesur_vecino_crear_rec',$new_data);
+    $this->load->model('reclamo_edesur_m');
+    $new_data['array_rec_edesur'] = $this->reclamo_edesur_m->get_reclamo_edesur_by_vecino($new_data['id_vecino']);
+
+    $this->load->view('edesur/edesur_vecino_main',$this->data);    
+    if(empty($new_data['array_rec_edesur'])){
+      $this->load->view('edesur/edesur_vecino_crear_rec',$new_data);
+    }else{ //muestro para que los active
+      $this->load->view('edesur/edesur_vecino_activar_suministro',$new_data);
+    }
     $this->load->view('edesur/edesur_footer_base',$this->data);
+
+  }
+
+  function update_reclamo_edesur(){
+    $info = $this->input->post(null,true);
+    if( count($info) ) {
+      $this->load->model('reclamo_edesur_m');    
+      $saved = $this->reclamo_edesur_m->set_solucionado_reclamo_edesur($info['rec_asociado'],$info['rec_edesur']);
+    }
+    if ( isset($saved) && $saved ) {
+      echo '<script> alert( "Se ha registrado que el servicio electrico esta ahora activo. Muchas Gracias por su cooperación, nos ayuda a brindar un mejor servicio a la comunidad.");
+          window.location.replace("/index.php/edesur/Main_edesur_vecino/show_main");  
+      </script>';
+    }
   }
 
   function search_calle(){
@@ -143,11 +164,10 @@ class Main_edesur_vecino extends CI_Controller{
       echo '<script> alert( "Muchas Gracias por su cooperación. Recuerde reingresar al sistema cuando su suministro vuelva a estar activo.  Su código de Reclamo:  '.$saved.'");
           window.location.replace("/index.php/edesur/Main_edesur_vecino/log_vecino_DNI");   
       </script>';
-       //echo "reclamo agregado exitosamente";      
-       //redirect('main_operator/show_main');
     }
 
   }
+
 
 
   function insert_vecino() {
@@ -181,10 +201,6 @@ class Main_edesur_vecino extends CI_Controller{
           $("form#form-id-vecino-creado").submit();
         });
         </script>';
-//alert("'. $name_vecino . 'Se ha registrado correctamente");
-
-       //redirect('main_operator/show_main');
-        //http://cav.gob/index.php/Main_tr_vecino/show_main
     }
   }
 

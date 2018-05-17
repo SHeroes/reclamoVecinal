@@ -149,3 +149,33 @@ tr#header-table{
 .reclamo_row.greySelected{
     background-color: darkgrey;
 }
+
+
+/* agregado recientemente */ 
+.input-search-result{
+  cursor: pointer;
+  display: none;
+}
+.calle.input-search-result{
+  background-color: khaki;
+  margin-bottom: 10px;
+}
+.calle.input-search-result div{
+      border-bottom: 1px solid white;
+}
+.calle.input-search-result div:hover{
+  font-weight: 600;
+}
+
+.calle.input-search-result .hover{
+  font-weight: 600;
+}
+
+#activar-suministro-vecino-box{
+    margin-left: 15px;
+    margin-top: 20px;   
+}
+#activar-suministro-vecino-box p{
+    margin-bottom: 10px;
+    font-weight: bold;
+}

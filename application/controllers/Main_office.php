@@ -33,7 +33,7 @@ class Main_office extends CI_Controller{
             break;
         case 2:
             $this->data['perfil'] = 'Oficina';
-            if($this->session->sector_name == 'Edesur'){
+            if($this->session->sector_name == $this->config->item('edesur_oficina_name')){
               redirect('/edesur/main_edesur_office/show_main');  
             }      
             break;
