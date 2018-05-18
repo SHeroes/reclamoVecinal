@@ -44,6 +44,7 @@ class Main_admin extends CI_Controller{
             break;            
         case 5: 
             $this->data['perfil'] = 'Intendente';  
+            redirect('/main_intendente/show_reclamos'); 
             break;
         case 13:
             $this->data['perfil'] = 'Operador Tramites';
