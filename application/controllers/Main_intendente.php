@@ -105,7 +105,7 @@ class Main_intendente extends CI_Controller{
     $new_data['reclamos_list'] = $this->reclamo_m->get_all_reclamos_for_supervisor('estado',$info['status_filter_selector'], $info['sector_filter_selector_of'],$info['sector_filter_selector_sec'], $info['desde'], $info['hasta'], $info['reclamoType_filter_selector'], $info['responsable_filter_selector'], $info['nro_rec'], $info['apellido'], $info['dni'] );
 
     $this->load->view('main_intendente',$this->data);
-    $this->load->view('reclamos_supervisor',$new_data); // TODO reclamos sup e int y usar el mismo
+    $this->load->view('reclamos_intendente',$new_data);
     $this->load->view('footer_base',$this->data);   
   }
 
