@@ -20,7 +20,7 @@ class Main_edesur_office extends CI_Controller{
 
 
   function show_main() {
-    if($this->session->sector_name != 'Edesur'){
+    if($this->session->sector_name != $this->config->item('edesur_oficina_name')){
       redirect('/login/logout_user');
     }
 
