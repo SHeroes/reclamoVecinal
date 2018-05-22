@@ -67,7 +67,13 @@ class Main_operator extends CI_Controller{
     $new_data['vecinos_filtrados'] = '';
     $new_data['id_vecino'] = '';
     $new_data['name_vecino'] = '';
+    $oficina_Edesur_Id = '';
 
+    foreach ($new_data['oficinas'] as $key => $value) {
+        if ( $value->denominacion == $this->config->item('edesur_oficina_name')){
+          $oficina_Edesur_Id = $value->id_sector;
+        }
+    }
 
     $new_data['all_domicilios_reclamo'] = $this->domicilio_m->get_all_domicilios_reclamo();
     $new_data['all_barrios'] = $this->domicilio_m->get_all_barrios();
@@ -85,6 +91,11 @@ class Main_operator extends CI_Controller{
             //print_r($new_data['oficinas_filtradas']);
           }
           if (isset($post['oficina_filter'])){
+
+            if($post['oficina_filter'] == $oficina_Edesur_Id){
+              redirect('/edesur/Main_edesur_vecino/show_main?id_vecino='.$new_data['id_vecino'].'&name_vecino='.$new_data['name_vecino']);
+            }
+
             $this->load->model('reclamo_tipo_m');
             $new_data['tipo_reclamos_filtrados'] = $this->reclamo_tipo_m->get_all_tipo_reclamos_by_sector($post['oficina_filter']);
             
