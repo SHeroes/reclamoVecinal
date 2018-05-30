@@ -34,14 +34,26 @@ class Main_edesur_office extends CI_Controller{
     $new_data['reclamos_list_type'] ='';
     $arrayListaReclamos = array();
 
-
+    $this->load->model('domicilio_m');
     $this->load->model('reclamo_tipo_m');
     $this->load->model('reclamo_edesur_m');
     $new_data['reclamos_list_type'] =  $this->reclamo_tipo_m->get_all_tipo_reclamos_by_sector($id_sector);
+    $new_data['all_localidades'] = $this->domicilio_m->get_all_localidades();
 
+    //si se post algo como filtro lo uso, sino no muestro ninguno
+    $info = $this->input->post(null,true);
+    if( count($info) ){
+      if( !isset($info['desde']))                       $info['desde'] = '';
+      if( !isset($info['hasta']))                       $info['hasta'] = '';
+      if( !isset($info['id_loc']))                   $info['id_loc'] = '';
+    } else {
+      $info['desde'] = '';
+      $info['hasta'] = '';
+      $info['id_loc'] = '';
+    }
+    $new_data['info'] = $info;
     foreach ($new_data['reclamos_list_type'] as $key => $value) {
-      array_push($arrayListaReclamos, $this->reclamo_edesur_m->get_all_reclamos_edesur($value->id_tipo_reclamo));
-
+      array_push($arrayListaReclamos, $this->reclamo_edesur_m->get_all_reclamos_edesur($value->id_tipo_reclamo, $info['desde'], $info['hasta'],$info['id_loc']));
     }
 
     $new_data['reclamos_list'] = $arrayListaReclamos[0];    //TIPO DE RECLAMO UNICO PARA ESTA OFICINA
