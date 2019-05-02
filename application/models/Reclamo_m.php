@@ -453,14 +453,17 @@ class Reclamo_m extends CI_Model {
   }
 
   function verificacion_reclamo( $id_reclamo, $correctitud){
-    $data['id_reclamo_asociado'] = $id_reclamo;
-    $data['fecha_llamada'] = date('Y-m-d H:i:s',time());
-    $data['correctitud'] = $correctitud;
-    $saved = $this->db->insert('llamadas_verificadoras', $data);
+    $fecha_llamada = date('Y-m-d H:i:s',time());
+    $str_query = "INSERT INTO `llamadas_verificadoras`(`id_reclamo_asociado`,`fecha_llamada`,`correctitud`) 
+                    VALUES ('{$id_reclamo}', '{$fecha_llamada}', {$correctitud}) ;";
+    $saved = $this->db->query($str_query); 
 
-    $this->db->set('contactado_verificado', $correctitud);
-    $this->db->where('id_reclamo', $id_reclamo);
-    $this->db->update('reclamos');   
+
+    $str_query = " UPDATE `reclamos`
+                    SET `contactado_verificado` = {$correctitud}
+                    WHERE `id_reclamo` = '{$id_reclamo}'; ";
+    $saved = $this->db->query($str_query);
+    //print_r($this->db->last_query()); die();
 
     return $saved;
   }
