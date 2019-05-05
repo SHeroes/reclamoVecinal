@@ -64,6 +64,9 @@ $(document).ready(function(){
   	id_rec_asociado = el.parents("tr").children("th").attr("id_reclamo");
 		//console.log(id_rec_asociado);
 		verficacion(true,id_rec_asociado);
+    el.parents('.reclamo_row').fadeOut( "slow", function() {
+      console.log('verficacion - correcta');
+    });
   });
 
 	$(".verficacion.incorrecta").click(function() {
@@ -71,6 +74,10 @@ $(document).ready(function(){
   	id_rec_asociado = el.parents("tr").children("th").attr("id_reclamo");
   	//console.log(id_rec_asociado);
 		verficacion(false,id_rec_asociado);
+    el.parents('.reclamo_row').fadeOut( "slow", function() {
+      console.log('verficacion - incorrecta');
+    });
   });
+
 
 });
